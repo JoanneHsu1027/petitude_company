@@ -1,7 +1,7 @@
 <?php
 require __DIR__ . './config/pdo-connect.php';
-$title = "訂單詳細列表";
-$pageName = 'request-detail';
+$title = "產品圖片列表";
+$pageName = 'product_imgs';
 
 $perPage = 20; # 每一頁最多有幾筆
 
@@ -11,7 +11,7 @@ if ($page < 1) {
     exit; # 結束這支程式
 }
 
-$t_sql = "SELECT COUNT(request_detail_id) FROM `request_detail`";
+$t_sql = "SELECT COUNT(picture_id) FROM `product_imgs`";
 
 # 總筆數
 $totalRows = $pdo->query($t_sql)->fetch(PDO::FETCH_NUM)[0];
@@ -30,7 +30,7 @@ if ($totalRows) {
 
     # 取得分頁資料
     $sql = sprintf(
-        "SELECT * FROM `request_detail` ORDER BY request_detail_id LIMIT %s, %s",
+        "SELECT * FROM `product_imgs` ORDER BY picture_id LIMIT %s, %s",
         ($page - 1) * $perPage,
         $perPage
     );
@@ -43,7 +43,7 @@ if ($totalRows) {
 
 <!-- 標題 start -->
 <div id="content">
-    <h2>訂單詳細頁</h2>
+    <h2>訂單列表</h2>
 </div>
 <!-- 標題 end -->
 
@@ -90,28 +90,22 @@ if ($totalRows) {
             <table class="table table-bordered table-striped">
                 <thead>
                     <tr>
-                        <th scope="col">#</th>
-                        <th scope="col">訂單號</th>
-                        <th scope="col">商品號</th>
-                        <th scope="col">購買數量</th>
-                        <th scope="col">評論星數</th>
-                        <th scope="col">評論內容</th>
-                        <th scope="col">評論圖片</th>
+                        <th scope="col">圖片編號</th>
+                        <th scope="col">對應商品編號</th>
+                        <th scope="col">圖片名稱</th>
+                        <th scope="col">圖片url</th>
                         <th scope="col"><i class="fa-solid fa-trash-can"></i></th>
                     </tr>
                 </thead>
                 <tbody>
                     <?php foreach ($rows as $r) : ?>
                         <tr>
-                            <td><?= $r['request_detail_id'] ?></td>
-                            <td><?= $r['fk_request_id'] ?></td>
+                            <td><?= $r['picture_id'] ?></td>
                             <td><?= $r['fk_product_id'] ?></td>
-                            <td><?= $r['purchase_quantity'] ?></td>
-                            <td><?= $r['comment_score'] ?></td>
-                            <td><?= $r['comment_comments'] ?></td>
-                            <td><a href="<?= $r['comment_image'] ?>"><?= $r['comment_image'] ?></a></td>
+                            <td><?= $r['picture_name'] ?></td>
+                            <td><?= $r['picture_url'] ?></td>
                             <td>
-                                <a href="javascript: deleteOne(<?= $r['request_detail_id'] ?>)">
+                                <a href="javascript: deleteOne(<?= $r['picture_id'] ?>)">
                                     <i class="fa-solid fa-trash-can"></i></i>
                                 </a>
                             </td>
@@ -126,9 +120,9 @@ if ($totalRows) {
 
 <?php include __DIR__ . './parts/scripts.php' ?>
 <script>
-    const deleteOne = (request_detail_id) => {
-        if (confirm(`是否要刪除編號為 ${request_detail_id} 的資料?`)) {
-            location.href = `delete.php?request_detail_id=${request_detail_id}`;
+    const deleteOne = (picture_id) => {
+        if (confirm(`是否要刪除編號為 ${picture_id} 的資料?`)) {
+            location.href = `delete.php?picture_id=${picture_id}`;
         }
     }
 </script>

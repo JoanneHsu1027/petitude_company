@@ -1,7 +1,7 @@
 <?php
 require __DIR__ . './config/pdo-connect.php';
-$title = "訂單列表";
-$pageName = 'request';
+$title = "訂單詳細列表";
+$pageName = 'request_detail';
 
 $perPage = 20; # 每一頁最多有幾筆
 
@@ -11,7 +11,7 @@ if ($page < 1) {
     exit; # 結束這支程式
 }
 
-$t_sql = "SELECT COUNT(request_id) FROM `request`";
+$t_sql = "SELECT COUNT(request_detail_id) FROM `request_detail`";
 
 # 總筆數
 $totalRows = $pdo->query($t_sql)->fetch(PDO::FETCH_NUM)[0];
@@ -30,7 +30,7 @@ if ($totalRows) {
 
     # 取得分頁資料
     $sql = sprintf(
-        "SELECT * FROM `request` ORDER BY request_id LIMIT %s, %s",
+        "SELECT * FROM `request_detail` ORDER BY request_detail_id LIMIT %s, %s",
         ($page - 1) * $perPage,
         $perPage
     );
@@ -43,7 +43,7 @@ if ($totalRows) {
 
 <!-- 標題 start -->
 <div id="content">
-    <h2>訂單列表</h2>
+    <h2>訂單詳細頁</h2>
 </div>
 <!-- 標題 end -->
 
@@ -90,36 +90,28 @@ if ($totalRows) {
             <table class="table table-bordered table-striped">
                 <thead>
                     <tr>
+                        <th scope="col">#</th>
                         <th scope="col">訂單號</th>
-                        <th scope="col">訂單日期</th>
-                        <th scope="col">訂單狀態</th>
-                        <th scope="col">付款狀態</th>
-                        <th scope="col">會員編號</th>
-                        <th scope="col">訂單總價</th>
-                        <th scope="col">寄送地址(縣市)</th>
-                        <th scope="col">寄送地址(鄉鎮市區)</th>
-                        <th scope="col">寄送地址(詳細)</th>
-                        <th scope="col">連絡電話</th>
-                        <th scope="col">電子信箱</th>
+                        <th scope="col">商品號</th>
+                        <th scope="col">購買數量</th>
+                        <th scope="col">評論星數</th>
+                        <th scope="col">評論內容</th>
+                        <th scope="col">評論圖片</th>
                         <th scope="col"><i class="fa-solid fa-trash-can"></i></th>
                     </tr>
                 </thead>
                 <tbody>
                     <?php foreach ($rows as $r) : ?>
                         <tr>
-                            <td><?= $r['request_id'] ?></td>
-                            <td><?= $r['request_date'] ?></td>
-                            <td><?= $r['request_status'] ?></td>
-                            <td><?= $r['payment_status'] ?></td>
-                            <td><?= $r['fk_b2c_id'] ?></td>
-                            <td><?= $r['request_price'] ?></td>
-                            <td><?= $r['fk_county_id'] ?></td>
-                            <td><?= $r['fk_city_id'] ?></td>
-                            <td><?= $r['recipient_address'] ?></td>
-                            <td><?= $r['recipient_mobile'] ?></td>
-                            <td><?= $r['recipient_email'] ?></td>
+                            <td><?= $r['request_detail_id'] ?></td>
+                            <td><?= $r['fk_request_id'] ?></td>
+                            <td><?= $r['fk_product_id'] ?></td>
+                            <td><?= $r['purchase_quantity'] ?></td>
+                            <td><?= $r['comment_score'] ?></td>
+                            <td><?= $r['comment_comments'] ?></td>
+                            <td><a href="<?= $r['comment_image'] ?>"><?= $r['comment_image'] ?></a></td>
                             <td>
-                                <a href="javascript: deleteOne(<?= $r['request_id'] ?>)">
+                                <a href="javascript: deleteOne(<?= $r['request_detail_id'] ?>)">
                                     <i class="fa-solid fa-trash-can"></i></i>
                                 </a>
                             </td>
@@ -136,7 +128,7 @@ if ($totalRows) {
 <script>
     const deleteOne = (request_detail_id) => {
         if (confirm(`是否要刪除編號為 ${request_detail_id} 的資料?`)) {
-            location.href = `delete.php?request_id=${request_id}`;
+            location.href = `delete.php?request_detail_id=${request_detail_id}`;
         }
     }
 </script>
