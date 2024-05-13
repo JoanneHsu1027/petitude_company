@@ -97,7 +97,7 @@ if ($totalRows) {
                         <th scope="col">評論星數</th>
                         <th scope="col">評論內容</th>
                         <th scope="col">評論圖片</th>
-                        <th scope="col"><i class="fa-solid fa-trash-can"></i></th>
+                        <th scope="col">刪除資料</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -112,7 +112,7 @@ if ($totalRows) {
                             <td><a href="<?= $r['comment_image'] ?>"><?= $r['comment_image'] ?></a></td>
                             <td>
                                 <a href="javascript: deleteOne(<?= $r['request_detail_id'] ?>)">
-                                    <i class="fa-solid fa-trash-can"></i></i>
+                                    <button type="button" class="btn btn-danger fa-solid fa-trash-can"></button>
                                 </a>
                             </td>
                         </tr>
@@ -128,7 +128,7 @@ if ($totalRows) {
 <script>
     const deleteOne = (request_detail_id) => {
         if (confirm(`是否要刪除編號為 ${request_detail_id} 的資料?`)) {
-            location.href = `delete.php?request_detail_id=${request_detail_id}`;
+            location.href = `request_detail_delete.php?request_detail_id=${request_detail_id}`;
         }
     }
 </script>

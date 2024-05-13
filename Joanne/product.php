@@ -43,14 +43,17 @@ if ($totalRows) {
 
 <!-- 標題 start -->
 <div id="content">
-    <h2>訂單列表</h2>
+    <h2>產品列表</h2>
 </div>
 <!-- 標題 end -->
 
 
-<div class="container">
+<div class="container" style="max-width: 1600px">
     <div class="row">
-        <div class="col">
+        <div class="col-1">
+            <button type="button" class="btn btn-primary"><a class=" <?= $pageName == 'product_add' ? 'active' : '' ?>" href="product_add.php" style="Text-decoration:none; color:white">新增商品</a></button>
+        </div>
+        <div class="col-2">
             <nav aria-label="Page navigation example">
                 <ul class="pagination">
                     <li class="page-item ">
@@ -86,7 +89,7 @@ if ($totalRows) {
     </div>
 
     <div class="row">
-        <div class="col">
+        <div class="col-9">
             <table class="table table-bordered table-striped">
                 <thead>
                     <tr>
@@ -98,7 +101,8 @@ if ($totalRows) {
                         <th scope="col">商品分類</th>
                         <th scope="col">進貨日期</th>
                         <th scope="col">最後修改日期</th>
-                        <th scope="col"><i class="fa-solid fa-trash-can"></i></th>
+                        <th scope="col">修改商品</th>
+                        <th scope="col">刪除商品</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -113,8 +117,13 @@ if ($totalRows) {
                             <td><?= $r['product_date'] ?></td>
                             <td><?= $r['product_last_modified'] ?></td>
                             <td>
+                                <a href="edit.php?product_id=<?= $r['product_id'] ?>">
+                                    <button type="button" class="btn btn-warning fa-solid fa-pen-to-square"></button>
+                                </a>
+                            </td>
+                            <td>
                                 <a href="javascript: deleteOne(<?= $r['product_id'] ?>)">
-                                    <i class="fa-solid fa-trash-can"></i></i>
+                                    <button type="button" class="btn btn-danger fa-solid fa-trash-can"></button>
                                 </a>
                             </td>
                         </tr>
@@ -130,7 +139,7 @@ if ($totalRows) {
 <script>
     const deleteOne = (product_id) => {
         if (confirm(`是否要刪除編號為 ${product_id} 的資料?`)) {
-            location.href = `delete.php?product_id=${product_id}`;
+            location.href = `product_delete.php?product_id=${product_id}`;
         }
     }
 </script>

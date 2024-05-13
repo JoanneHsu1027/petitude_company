@@ -48,11 +48,14 @@ if ($totalRows) {
 <!-- 標題 end -->
 
 
-<div class="container">
+<div class="container" style="max-width: 1600px">
     <div class="row">
-        <div class="col">
+        <div class="col-1">
+            <button type="button" class="btn btn-primary"><a class=" <?= $pageName == 'request_add' ? 'active' : '' ?>" href="request_add.php" style="Text-decoration:none; color:white">新增訂單</a></button>
+        </div>
+        <div class="col-2 me-0">
             <nav aria-label="Page navigation example">
-                <ul class="pagination">
+                <ul class="pagination mx-0">
                     <li class="page-item ">
                         <a class="page-link" href="#">
                             <i class="fa-solid fa-angles-left"></i>
@@ -101,7 +104,8 @@ if ($totalRows) {
                         <th scope="col">寄送地址(詳細)</th>
                         <th scope="col">連絡電話</th>
                         <th scope="col">電子信箱</th>
-                        <th scope="col"><i class="fa-solid fa-trash-can"></i></th>
+                        <th scope="col">修改訂單</th>
+                        <th scope="col">刪除訂單</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -119,24 +123,29 @@ if ($totalRows) {
                             <td><?= $r['recipient_mobile'] ?></td>
                             <td><?= $r['recipient_email'] ?></td>
                             <td>
+
+                                <a href="./request_edit.php?request_id=<?= $r['request_id'] ?>" class="btn btn-warning fa-solid fa-pen-to-square"></a>
+
+
+                            </td>
+                            <td>
                                 <a href="javascript: deleteOne(<?= $r['request_id'] ?>)">
-                                    <i class="fa-solid fa-trash-can"></i></i>
+                                    <button type="button" class="btn btn-danger fa-solid fa-trash-can"></button>
                                 </a>
                             </td>
                         </tr>
                     <?php endforeach; ?>
                 </tbody>
             </table>
-
         </div>
     </div>
 </div>
 
 <?php include __DIR__ . './parts/scripts.php' ?>
 <script>
-    const deleteOne = (request_detail_id) => {
-        if (confirm(`是否要刪除編號為 ${request_detail_id} 的資料?`)) {
-            location.href = `delete.php?request_id=${request_id}`;
+    const deleteOne = (request_id) => {
+        if (confirm(`是否要刪除編號為 ${request_id} 的資料?`)) {
+            location.href = `request_delete.php?request_id=${request_id}`;
         }
     }
 </script>

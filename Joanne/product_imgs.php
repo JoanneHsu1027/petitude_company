@@ -48,9 +48,12 @@ if ($totalRows) {
 <!-- 標題 end -->
 
 
-<div class="container">
+<div class="container" style="max-width: 1600px">
     <div class="row">
-        <div class="col">
+        <div class="col-1">
+            <button type="button" class="btn btn-primary"><a class=" <?= $pageName == 'product_imgs_add' ? 'active' : '' ?>" href="product_imgs_add.php" style="Text-decoration:none; color:white">新增圖片</a></button>
+        </div>
+        <div class="col-2">
             <nav aria-label="Page navigation example">
                 <ul class="pagination">
                     <li class="page-item ">
@@ -86,7 +89,7 @@ if ($totalRows) {
     </div>
 
     <div class="row">
-        <div class="col">
+        <div class="col-6">
             <table class="table table-bordered table-striped">
                 <thead>
                     <tr>
@@ -94,7 +97,8 @@ if ($totalRows) {
                         <th scope="col">對應商品編號</th>
                         <th scope="col">圖片名稱</th>
                         <th scope="col">圖片url</th>
-                        <th scope="col"><i class="fa-solid fa-trash-can"></i></th>
+                        <th scope="col">修改內容</th>
+                        <th scope="col">刪除圖片</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -105,8 +109,13 @@ if ($totalRows) {
                             <td><?= $r['picture_name'] ?></td>
                             <td><?= $r['picture_url'] ?></td>
                             <td>
+                                <a href="edit.php?picture_id=<?= $r['picture_id'] ?>">
+                                    <button type="button" class="btn btn-warning fa-solid fa-pen-to-square"></button>
+                                </a>
+                            </td>
+                            <td>
                                 <a href="javascript: deleteOne(<?= $r['picture_id'] ?>)">
-                                    <i class="fa-solid fa-trash-can"></i></i>
+                                    <button type="button" class="btn btn-danger fa-solid fa-trash-can"></button>
                                 </a>
                             </td>
                         </tr>
@@ -122,7 +131,7 @@ if ($totalRows) {
 <script>
     const deleteOne = (picture_id) => {
         if (confirm(`是否要刪除編號為 ${picture_id} 的資料?`)) {
-            location.href = `delete.php?picture_id=${picture_id}`;
+            location.href = `product_imgs_delete.php?picture_id=${picture_id}`;
         }
     }
 </script>
