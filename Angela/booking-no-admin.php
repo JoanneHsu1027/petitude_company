@@ -3,7 +3,7 @@
 require __DIR__ . '/config/pdo_connect.php';
 $title = '生前契約訂單-無權限';
 $pageName = 'booking-no-admin';
-
+$perPage = 25; # 每頁有幾筆
 $page = isset($_GET['page']) ? intval($_GET['page']) : 1;
 
 if ($page < 1) {
@@ -11,19 +11,22 @@ header('Location: ?page=1');
 exit;
 }
 
-$perPage = 25; # 每頁有幾筆
-# 算總筆數 $totalRows
 $t_sql = "SELECT COUNT(1) FROM booking";
-$totalRows = $pdo->query($t_sql)->fetch(PDO::FETCH_NUM)[0];
-$totalPages = ceil($totalRows / $perPage); # 總頁數
 
-$rows = []; # 預設值
-# 如果有資料的話
+# 算總筆數 
+$totalRows = $pdo->query($t_sql)->fetch(PDO::FETCH_NUM)[0];
+
+# 預設值
+$totalPages = 0; 
+$rows = []; 
+
 if ($totalRows) {
+#總頁數
 if ($page > $totalPages) {
-    header('Location: ?page=' . $totalPages);
-    exit;
+    header('Location: ?page={$totalPages}');
+    exit; # 結束這支程式
 }
+//做到這邊
 
 $sql = sprintf("SELECT * FROM `booking` ORDER BY booking_id ASC LIMIT %s, %s", ($page - 1) * $perPage, $perPage);
 $rows = $pdo->query($sql)->fetchAll();

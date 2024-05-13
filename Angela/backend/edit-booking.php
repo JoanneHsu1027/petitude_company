@@ -1,22 +1,26 @@
     <?php
-    // require __DIR__ . '/../parts/admin-required.php';
-    require __DIR__ . '/../config/pdo_connect.php';
-    $title = '編輯訂單頁面';
-    $booking_id = isset($_GET['booking_id']) ? intval($_GET['booking_id']) : 0;
-if ($booking_id < 1) {
-    header('Location: edit-booking.php');
+    require __DIR__. '/admin-required.php';
+    require __DIR__ . '/../config/pdo-connect.php';
+    $title = "修改通訊錄資料";
+
+
+    $sid = isset($_GET['sid']) ? intval($_GET['sid']) : 0;
+    if ($sid < 1) {
+    header('Location: list.php');
     exit;
     }
 
-    $sql = "SELECT * FROM booking WHERE booking_id={$booking_id}";
+    $sql = "SELECT * FROM address_book WHERE sid={$sid}";
 
     $row = $pdo->query($sql)->fetch();
     if (empty($row)) {
-    header('Location: booking.php');
+    header('Location: list.php');
     exit;
     }
 
     // echo json_encode($row);
+
+
     ?>
     <?php include __DIR__ . '/parts/html-head.php' ?>
     <?php include __DIR__ . '/parts/navbar.php' ?>
@@ -34,10 +38,10 @@ if ($booking_id < 1) {
             <div class="card-body">
             <h5 class="card-title">編輯資料</h5>
             <form name="form1" onsubmit="sendData(event)">
-                <input type="hidden" name="booking_id" value="<?= $row['booking_id'] ?>">
+                <input type="hidden" name="sid" value="<?= $row['sid'] ?>">
                 <div class="mb-3">
-                <label for="booking_id" class="form-label">編號</label>
-                <input type="text" class="form-control" disabled value="<?= $row['booking_id'] ?>">
+                <label for="sid" class="form-label">編號</label>
+                <input type="text" class="form-control" disabled value="<?= $row['sid'] ?>">
                 </div>
                 <div class="mb-3">
                 <label for="name" class="form-label">姓名</label>
@@ -161,7 +165,7 @@ if ($booking_id < 1) {
         if (isPass) {
         const fd = new FormData(document.form1); // 沒有外觀的表單物件
 
-        fetch('edit-booking-api.php', {
+        fetch('edit-api.php', {
             method: 'POST',
             body: fd, // Content-Type: multipart/form-data
         }).then(r => r.json())
@@ -181,5 +185,4 @@ if ($booking_id < 1) {
     const myModal2 = new bootstrap.Modal('#staticBackdrop2')
 
     </script>
-
     <?php include __DIR__ . '/parts/html-foot.php' ?>

@@ -1,4 +1,3 @@
-
     <?php
     if (!isset($_SESSION)) {
     session_start();
@@ -11,10 +10,8 @@
     $pageName = 'login';
 
     ?>
-
-    <?php include __DIR__ . '/../parts/html_head.php' ?>
-    <?php include __DIR__ . '/../parts/navbar.php' ?>
-
+    <?php include __DIR__ . './../parts/html_head.php' ?>
+    <?php include __DIR__ . './../parts/navbar.php' ?>
     <style>
     form .mb-3 .form-text {
         color: red;
@@ -26,20 +23,21 @@
         <div class="col-6">
         <div class="card">
 
-        <div class="card-body">
+            <div class="card-body">
             <h5 class="card-title">登入</h5>
             <form name="form1" onsubmit="sendData(event)">
                 <div class="mb-3">
-                    <label for="username" class="form-label">帳號</label>
-                    <input type="text" class="form-control" id="username" name="username" autocomplete="off">
+                <label for="b2b_account" class="form-label">員工帳號</label>
+                <input type="text" class="form-control" id="b2b_account" name="b2b_account">
                 </div>
                 <div class="mb-3">
-                    <label for="password" class="form-label">密碼</label>
-                    <input type="password" class="form-control" id="password" name="password" autocomplete="off">
+                <label for="b2b_password" class="form-label">密碼</label>
+                <input type="password" class="form-control" id="b2b_password" name="b2b_password">
+
                 </div>
                 <button type="submit" class="btn btn-primary">登入</button>
             </form>
-        </div>
+            </div>
         </div>
         </div>
     </div>
@@ -65,37 +63,39 @@
     </div>
     </div>
 
-
-
-    <?php include __DIR__ . '/../parts/script.php' ?>
-
+    <?php include __DIR__ . './../parts/script.php' ?>
     <script>
 
-    const usernameField = document.form1.username; // 修改获取用户名字段
+    const emailField = document.form1.email;
 
-const sendData = e => {
-    e.preventDefault();
+    // function validateEmail(email) {
+    //   const re =
+    //     /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    //   return re.test(email);
+    // }
 
-    const fd = new FormData(document.form1);
-    // 将email字段改为username字段
-    fetch('login-api.php', {
+    const sendData = e => {
+        e.preventDefault(); // 不要讓 form1 以傳統的方式送出
+
+        const fd = new FormData(document.form1); // 沒有外觀的表單物件
+
+        fetch('login-api.php', {
         method: 'POST',
-        body: fd,
-    }).then(r => r.json())
-    .then(data => {
-        console.log(data);
-        if (data.success) {
+        body: fd, // Content-Type: multipart/form-data
+        }).then(r => r.json())
+        .then(data => {
+            console.log(data);
+            if (data.success) {
             location.href = 'index_.php';
-        } else {
+            } else {
             myModal.show();
-        }
-    })
-    .catch(ex => console.log(ex))
-}
+            }
+        })
+        .catch(ex => console.log(ex))
+    }
 
 
     const myModal = new bootstrap.Modal('#staticBackdrop')
 
     </script>
-    
-    <?php include __DIR__ . '/../parts/html_foot.php' ?>
+    <?php include __DIR__ . './../parts/html_foot.php' ?>

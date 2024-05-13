@@ -1,40 +1,55 @@
-    <?php
-    require __DIR__ . '/config/pdo_connect.php';
-    header('Content-Type: application/json');
-    $output = [
-    'success' => false, # 有沒有登入成功
-    'postData' => $_POST,
-    'code' => 0, # 追踨程式執行的編號
-    ];
+<?php
+require __DIR__ . './../config/pdo_connect.php';
 
-    if (empty($_POST['email']) or empty($_POST['password'])) {
-    # 欄位資料不足
-    $output['code'] = 400;
-    } else {
-    $email = trim($_POST['email']);
-    $password = trim($_POST['password']);
+header('Content-Type: application/json');
 
-    $sql = "SELECT * FROM b2c_members WHERE email=?";
-    $stmt = $pdo->prepare($sql);
-    $stmt->execute([$email]);
-    $row = $stmt->fetch();
-    if (empty($row)) {
-        # 帳號是錯的
-        $output['code'] = 410;
-    } else {
-        $output['success'] = password_verify($password, $row["password"]);
-
-        $output['code'] = $output['success'] ? 200 : 420;
-
-        if ($output['success']) {
-        $_SESSION['admin'] = [
-            'b2c_id' => $row['id'],
-            'b2c_email' => $email,
-            'b2c_name' => $row['b2c_name'],
-        ];
-        }
-    }
-    }
+$output = [
+  'success' => false, # 有沒有登入成功
+  'bodyData' => $_POST,
+  'code' => 0, # 除錯追踨用的
+];
 
 
-    echo json_encode($output, JSON_UNESCAPED_UNICODE);
+if (empty($_POST['b2b_account']) or empty($_POST['b2b_password'])) {
+  $output['code'] = 400;
+  echo json_encode($output);
+  exit; # 結束 php 程式
+}
+
+# preg_match(): regexp 比對用 
+
+# mb_strlen(): 算字串的長度
+
+# filter_var('bob@example.com', FILTER_VALIDATE_EMAIL): 檢查 email 格式
+
+
+# 1. 判斷帳號是否正確
+$sql = "SELECT * FROM b2b_members WHERE b2b_account=?";
+$stmt = $pdo->prepare($sql);
+
+$stmt->execute([$_POST['b2b_account']]);
+
+$row = $stmt->fetch();
+if (empty($row)) {
+  # 帳號是錯的
+  $output['code'] = 420;
+  echo json_encode($output);
+  exit; # 結束 php 程式
+}
+
+if (password_verify($_POST['b2b_password'], $row['b2b_password'])) {
+  $output['success'] = true;
+  # 把登入完成的狀態記錄在 session
+  $_SESSION['admin'] = [
+    'b2b_id' => $row['b2b_id'],
+    'b2b_name' => $row['b2b_name'],
+    'b2b_account' => $row['b2b_account'],
+    'b2b_password' => $row['b2b_password'],
+  ];
+} else {
+  # 密碼是錯的
+  $output['code'] = 440;
+}
+
+
+echo json_encode($output);

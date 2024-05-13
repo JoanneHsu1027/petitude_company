@@ -102,22 +102,19 @@
             <tbody>
             <?php foreach ($rows as $r) : ?>
                 <tr>
-                <td><input type="checkbox" name="reservation[]" value="<?= $r['reservation_id'] ?>"></td>
                 <td><?= $r['reservation_id'] ?></td>
                 <td><?= $r['fk_b2c_id'] ?></td>
                 <td><?= $r['fk_pet_id'] ?></td>
                 <td><?= $r['reservation_date'] ?></td>
                 <td><?= $r['note'] ?></td>
-                <!--
-                <td><?= htmlentities($r['edit-reservation']) ?></td>
-                -->
                 <td>
-                    <a href="/parts/edit-reservation.php?reservation_id=<?= $r['reservation_id'] ?>">
-                    <i class="fa-solid fa-pen-to-square btn btn-warning"></i>
-                    </a>
+                    <button class="fa-solid fa-pen-to-square btn btn-warning">
+                        <a href="/parts/edit-reservation.php?reservation_id=<?= $r['reservation_id'] ?>">
+                        </a>
+                    </button>
                 </td>
                 <td>
-                    <a href="javascript: delete_one(<?= $r['reservation_id'] ?>)">
+                    <a href="javascript: deleteOne(<?= $r['reservation_id'] ?>)">
                     <i class="fa-solid fa-trash-can btn btn-danger"></i>
                     </a>
                 </td>
@@ -131,26 +128,19 @@
     </div>
     <?php include __DIR__ . '/parts/script.php' ?>
     <script>
-    function delete_one(reservation_id){
+    const deleteOne = (reservation_id) =>{
         if(confirm(`是否要刪除編號為 ${reservation_id} 的資料?`)){
-        location.href = `Angela\backend\delete-reservation.php?reservation_id=${reservation_id}`;
+        location.href = `backend/delete-reservation.php?reservation_id=${reservation_id}`;
         }
     }
 
     function sendMultiDel(event) {
     event.preventDefault();
     const fd = new FormData(document.getElementById('form1'));
-    fetch('/../multi-delete-reservation.php', {
+    fetch('/backend/edit-reservation.php', {
         method: 'POST',
         body: fd
     }).then(r => r.json()).then(result => {}).catch(ex => console.log(ex));
 }
-
-    function toggleAllCheckboxes() {
-        const checkboxes = document.querySelectorAll('input[name="reservation[]"]');
-        checkboxes.forEach(checkbox => {
-            checkbox.checked = !checkbox.checked;
-        });
-    }
     </script>
     <?php include __DIR__ . '/parts/html_foot.php' ?>
