@@ -1,9 +1,9 @@
 <?php
-// require __DIR__ . './admin-required.php';
-// if (!isset($_SESSION)) {
-//   session_start();
-// }
-$title = "新增資料";
+require __DIR__ . './admin-required.php';
+if (!isset($_SESSION)) {
+  session_start();
+}
+$title = "新增商品資料";
 $pageName = 'product_add';
 
 ?>
