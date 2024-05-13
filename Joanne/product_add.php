@@ -21,7 +21,7 @@ $pageName = 'product_add';
       <div class="card">
 
         <div class="card-body" style="color:#0c5a67">
-          <h5 class="card-title">新增資料</h5>
+          <h5 class="card-title">新增商品資料</h5>
           <form name="form1" onsubmit="sendData(event)">
             <div class="mb-3">
               <label for="product_name" class="form-label">商品名稱</label>
@@ -93,10 +93,10 @@ $pageName = 'product_add';
   const sendData = e => {
     e.preventDefault(); // 不要讓 form1 以傳統的方式送出
 
-    nameField.style.border = '1px solid #CCCCCC';
-    nameField.nextElementSibling.innerText = '';
-    emailField.style.border = '1px solid #CCCCCC';
-    emailField.nextElementSibling.innerText = '';
+    // nameField.style.border = '1px solid #CCCCCC';
+    // nameField.nextElementSibling.innerText = '';
+    // emailField.style.border = '1px solid #CCCCCC';
+    // emailField.nextElementSibling.innerText = '';
     // TODO: 欄位資料檢查
 
     let isPass = true; // 表單有沒有通過檢查

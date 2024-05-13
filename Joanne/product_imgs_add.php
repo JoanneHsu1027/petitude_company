@@ -75,10 +75,10 @@ $pageName = 'product_imgs_add';
   const sendData = e => {
     e.preventDefault(); // 不要讓 form1 以傳統的方式送出
 
-    nameField.style.border = '1px solid #CCCCCC';
-    nameField.nextElementSibling.innerText = '';
-    emailField.style.border = '1px solid #CCCCCC';
-    emailField.nextElementSibling.innerText = '';
+    // nameField.style.border = '1px solid #CCCCCC';
+    // nameField.nextElementSibling.innerText = '';
+    // emailField.style.border = '1px solid #CCCCCC';
+    // emailField.nextElementSibling.innerText = '';
     // TODO: 欄位資料檢查
 
     let isPass = true; // 表單有沒有通過檢查

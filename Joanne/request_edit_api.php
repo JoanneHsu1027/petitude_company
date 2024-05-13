@@ -10,7 +10,7 @@ $output = [
 ];
 
 // TODO: 欄位資料檢查
-if (!isset($_POST['name'])) {
+if (!isset($_POST['request_date'])) {
   echo json_encode($output);
   exit; # 結束 php 程式
 }
@@ -35,21 +35,21 @@ if (!isset($_POST['name'])) {
 
 $sql = "UPDATE `request` SET 
     `request_date`=?,
-    `request_statu`=?,
+    `request_status`=?,
     `payment_status`=?,
     `fk_b2c_id`=?,
-    `request_price`=?
-    `fk_county_id`=?
-    `fk_city_id`=?
-    `recipient_address`=?
-    `recipient_mobile`=?
-    `recipient_emai`=?
+    `request_price`=?,
+    `fk_county_id`=?,
+    `fk_city_id`=?,
+    `recipient_address`=?,
+    `recipient_mobile`=?,
+    `recipient_email`=?
 WHERE request_id=?";
 
 $stmt = $pdo->prepare($sql);
 $stmt->execute([
   $_POST['request_date'],
-  $_POST['request_statu'],
+  $_POST['request_status'],
   $_POST['payment_status'],
   $_POST['fk_b2c_id'],
   $_POST['request_price'],
@@ -57,7 +57,7 @@ $stmt->execute([
   $_POST['fk_city_id'],
   $_POST['recipient_address'],
   $_POST['recipient_mobile'],
-  $_POST['recipient_emai'],
+  $_POST['recipient_email'],
   $_POST['request_id'],
 ]);
 
