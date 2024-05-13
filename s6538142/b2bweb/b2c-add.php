@@ -163,11 +163,9 @@ $pageName = 'b2c-add';
   };
 
   const myModal = new bootstrap.Modal('#staticBackdrop')
-
 </script>
 
 <script>
-  
   function updatecitys() {
     var countySelect = document.getElementById("fk_county_id");
     var citySelect = document.getElementById("fk_city_id");

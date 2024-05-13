@@ -1,20 +1,20 @@
     <?php
-    require __DIR__. '/admin-required.php';
+    // require __DIR__. '/admin-required.php';
     require __DIR__ . '/../config/pdo-connect.php';
-    $title = "修改通訊錄資料";
+    $title = "修改訂單資料";
 
 
-    $sid = isset($_GET['sid']) ? intval($_GET['sid']) : 0;
-    if ($sid < 1) {
-    header('Location: list.php');
+    $booking_id = isset($_GET['booking_id']) ? intval($_GET['booking_id']) : 0;
+    if ($booking_id < 1) {
+    header('Location: booking.php');
     exit;
     }
 
-    $sql = "SELECT * FROM address_book WHERE sid={$sid}";
+    $sql = "SELECT * FROM booking WHERE booking_id={$booking_id}";
 
     $row = $pdo->query($sql)->fetch();
     if (empty($row)) {
-    header('Location: list.php');
+    header('Location: booking.php');
     exit;
     }
 
