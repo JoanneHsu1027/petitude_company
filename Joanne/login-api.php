@@ -1,5 +1,5 @@
 <?php
-require __DIR__ . './config/pdo-connect.php';
+require __DIR__ . '/../config/pdo-connect.php';
 
 header('Content-Type: application/json');
 
@@ -42,6 +42,7 @@ if (password_verify($_POST['b2b_password'], $row['b2b_password'])) {
   # 把登入完成的狀態記錄在 session
   $_SESSION['admin'] = [
     'b2b_id' => $row['b2b_id'],
+    'b2b_name' => $row['b2b_name'],
     'b2b_account' => $row['b2b_account'],
     'b2b_password' => $row['b2b_password'],
   ];
