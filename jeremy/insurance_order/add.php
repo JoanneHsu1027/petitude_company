@@ -2,6 +2,9 @@
 // require __DIR__ . '/admin-required.php';
 // 權限確認用先註掉
 
+// 地址的縣市鄉鎮選擇使用
+require __DIR__ . '/Alladdress.php';
+
 $title = "新增保險訂單";
 $pageName = 'add';
 
@@ -84,23 +87,24 @@ $city_row = $pdo->query($city_sql)->fetchAll();
               <input type="date" class="form-control mb-3" id="insurance_start_date" name="insurance_start_date">
               <div class="form-text"></div>
 
-              <label for="county_name" class="form-label">地址(縣市)</label>
-              <select class="form-select mb-3 " id="county_name" name="county_name">
-                <option value="" selected disabled>請選擇縣市</option>
-                <?php foreach ($county_row as $c) : ?>
-                  <option value="<?= $c['county_id'] ?>"><?= $c['county_name'] ?></option>
-                <?php endforeach; ?>
-                <div class="form-text"></div>
+              <label for="fk_county_id" class="form-label">居住縣市</label>
+              <select class="form-select mb-3 " id="fk_county_id" name="fk_county_id" onchange="updatecitys()">
+                <?php
+                for ($i = 0; $i <= 23; $i++) {
+                ?>
+                  <option value="<?php echo $i; ?>"><?php echo $counties[$i]; ?></option>
+                <?php
+                }
+                ?>
               </select>
+              <div class="form-text"></div>
 
-              <label for="city_name" class="form-label">地址(鄉鎮區)</label>
-              <select class="form-select mb-3 " id="city_name" name="city_name">
-                <option value="" selected disabled>請選擇鄉鎮區</option>
-                <?php foreach ($city_row as $ci) : ?>
-                  <option value="<?= $ci['city_id'] ?>"><?= $ci['city_name'] ?></option>
-                <?php endforeach; ?>
-                <div class="form-text"></div>
+
+              <label for="fk_city_id" class="form-label">居住地區</label>
+              <select class="form-select mb-3 " id="fk_city_id" name="fk_city_id">
+
               </select>
+              <div class="form-text"></div>
 
 
               <label for="policyholder_address" class="form-label">地址</label>
@@ -160,6 +164,171 @@ $city_row = $pdo->query($city_sql)->fetchAll();
 <?php include __DIR__ . '/../page/html-scripts.php'; ?>
 <!-- 新的js需要寫在原本掛的js下方 -->
 <script>
+  // 地址選擇 start
+  function updatecitys() {
+    var countySelect = document.getElementById("fk_county_id");
+    var citySelect = document.getElementById("fk_city_id");
+    var county = countySelect.value;
+    citySelect.innerHTML = ""; // 清除鄉鎮區選項
+
+    // 根據選擇的縣市，添加相應的鄉鎮區選項
+    switch (county) {
+      case "1":
+        addOption(citySelect, "請選擇鄉鎮地區", 0);
+        for (var j = 1; j <= 12; j++) {
+          addOption(citySelect, cities[j], j);
+        }
+        break;
+      case "2":
+        addOption(citySelect, "請選擇鄉鎮地區", 0);
+        for (var j = 13; j <= 19; j++) {
+          addOption(citySelect, cities[j], j);
+        }
+        break;
+      case "3":
+        addOption(citySelect, "請選擇鄉鎮地區", 0);
+        for (var j = 20; j <= 48; j++) {
+          addOption(citySelect, cities[j], j);
+        }
+        break;
+      case "4":
+        addOption(citySelect, "請選擇鄉鎮地區", 0);
+        for (var j = 49; j <= 61; j++) {
+          addOption(citySelect, cities[j], j);
+        }
+        break;
+      case "5":
+        addOption(citySelect, "請選擇鄉鎮地區", 0);
+        for (var j = 62; j <= 64; j++) {
+          addOption(citySelect, cities[j], j);
+        }
+        break;
+      case "6":
+        addOption(citySelect, "請選擇鄉鎮地區", 0);
+        for (var j = 65; j <= 77; j++) {
+          addOption(citySelect, cities[j], j);
+        }
+        break;
+      case "7":
+        addOption(citySelect, "請選擇鄉鎮地區", 0);
+        for (var j = 78; j <= 90; j++) {
+          addOption(citySelect, cities[j], j);
+        }
+        break;
+      case "8":
+        addOption(citySelect, "請選擇鄉鎮地區", 0);
+        for (var j = 91; j <= 108; j++) {
+          addOption(citySelect, cities[j], j);
+        }
+        break;
+      case "9":
+        addOption(citySelect, "請選擇鄉鎮地區", 0);
+        for (var j = 109; j <= 137; j++) {
+          addOption(citySelect, cities[j], j);
+        }
+        break;
+      case "10":
+        addOption(citySelect, "請選擇鄉鎮地區", 0);
+        for (var j = 138; j <= 163; j++) {
+          addOption(citySelect, cities[j], j);
+        }
+        break;
+      case "11":
+        addOption(citySelect, "請選擇鄉鎮地區", 0);
+        for (var j = 164; j <= 176; j++) {
+          addOption(citySelect, cities[j], j);
+        }
+        break;
+      case "12":
+        addOption(citySelect, "請選擇鄉鎮地區", 0);
+        for (var j = 177; j <= 178; j++) {
+          addOption(citySelect, cities[j], j);
+        }
+        break;
+      case "13":
+        addOption(citySelect, "請選擇鄉鎮地區", 0);
+        for (var j = 179; j <= 196; j++) {
+          addOption(citySelect, cities[j], j);
+        }
+        break;
+      case "14":
+        addOption(citySelect, "請選擇鄉鎮地區", 0);
+        for (var j = 197; j <= 216; j++) {
+          addOption(citySelect, cities[j], j);
+        }
+        break;
+      case "15":
+        addOption(citySelect, "請選擇鄉鎮地區", 0);
+        for (var j = 217; j <= 253; j++) {
+          addOption(citySelect, cities[j], j);
+        }
+        break;
+      case "16":
+        addOption(citySelect, "請選擇鄉鎮地區", 0);
+        for (var j = 254; j <= 291; j++) {
+          addOption(citySelect, cities[j], j);
+        }
+        break;
+      case "17":
+        addOption(citySelect, "請選擇鄉鎮地區", 0);
+        for (var j = 292; j <= 293; j++) {
+          addOption(citySelect, cities[j], j);
+        }
+        break;
+      case "18":
+        addOption(citySelect, "請選擇鄉鎮地區", 0);
+        for (var j = 294; j <= 299; j++) {
+          addOption(citySelect, cities[j], j);
+        }
+        break;
+      case "19":
+        addOption(citySelect, "請選擇鄉鎮地區", 0);
+        for (var j = 300; j <= 332; j++) {
+          addOption(citySelect, cities[j], j);
+        }
+        break;
+      case "20":
+        addOption(citySelect, "請選擇鄉鎮地區", 0);
+        for (var j = 333; j <= 348; j++) {
+          addOption(citySelect, cities[j], j);
+        }
+        break;
+      case "21":
+        addOption(citySelect, "請選擇鄉鎮地區", 0);
+        for (var j = 349; j <= 361; j++) {
+          addOption(citySelect, cities[j], j);
+        }
+        break;
+      case "22":
+        addOption(citySelect, "請選擇鄉鎮地區", 0);
+        for (var j = 362; j <= 367; j++) {
+          addOption(citySelect, cities[j], j);
+        }
+        break;
+      case "23":
+        addOption(citySelect, "請選擇鄉鎮地區", 0);
+        for (var j = 368; j <= 371; j++) {
+          addOption(citySelect, cities[j], j);
+        }
+        break;
+      case "0":
+        addOption(citySelect, "請先選擇縣市", 0);
+        break;
+    }
+  }
+
+  function addOption(selectElement, optionText, optionValue) {
+    var option = document.createElement("option");
+    option.text = optionText;
+    option.value = optionValue;
+    selectElement.add(option);
+  }
+  // 地址選擇 end
+
+
+
+
+  // 驗證表單 start
   const nameField = document.form1.fk_b2c_id;
 
 
@@ -200,6 +369,7 @@ $city_row = $pdo->query($city_sql)->fetchAll();
 
   };
   const myModal = new bootstrap.Modal('#staticBackdrop')
+  // 驗證表單 end
 </script>
 
 <?php include __DIR__ . '/../page/html-footer.php'; ?>

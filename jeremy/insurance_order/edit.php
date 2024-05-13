@@ -3,6 +3,9 @@
 // 驗證的先註解掉
 require __DIR__ . '/../config/pdo-connect.php';
 
+// 地址的縣市鄉鎮選擇使用
+require __DIR__ . '/Alladdress.php';
+
 $sid = isset($_GET['insurance_order_id']) ? intval($_GET['insurance_order_id']) : 0;
 if ($sid < 1) {
   header('Location: order-list-admin.php');
@@ -21,11 +24,15 @@ if ($sid < 1) {
 // 從表單抓資料原始
 
 // 從表單抓資料測試
-$sql = "SELECT *, insurance_product.insurance_fee 
+$sql = "SELECT *, insurance_product.insurance_fee, city.city_name, county.county_name 
 FROM insurance_order
-JOIN insurance_product
+JOIN insurance_product 
 ON insurance_order.fk_insurance_product_id = insurance_product.insurance_product_id
- WHERE insurance_order_id=$sid";
+JOIN county 
+ON fk_county_id = county_id
+JOIN city 
+ON fk_city_id = city_id
+WHERE insurance_order_id=$sid";
 $row = $pdo->query($sql)->fetchAll();
 if (empty($row)) {
   header('Location: order-list-admin.php');
@@ -102,17 +109,16 @@ $title = "訂單編輯";
               <input type="date" class="form-control mb-3" id="insurance_start_date" name="insurance_start_date">
               <div class="form-text"></div>
 
-              <label for="county_name" class="form-label">地址(縣市)</label>
-              <select class="form-select mb-3 " id="county_name" name="county_name">
-                <option value="" selected disabled>請選擇縣市</option>
-                <?php foreach ($county_row as $c) : ?>
-                  <option value="<?= $c['county_id'] ?>"><?= $c['county_name'] ?></option>
-                <?php endforeach; ?>
-                <div class="form-text"></div>
-              </select>
+              <label for="fk_county_id" class="form-label">地址(縣市)</label>
+              <?php foreach ($row as $r) : ?>
+                <input type="text" class="form-control mb-3" id="fk_county_id" name="fk_county_id" value="<?= $r['fk_county_id'] ?>" placeholder="<?= $r['county_name'] ?>" disabled>
+              <?php endforeach; ?>
+              <div class="form-text"></div>
 
-              <label for="city_name" class="form-label">地址(鄉鎮區)</label>
-              <select class="form-select mb-3 " id="city_name" name="city_name">
+
+
+              <label for="fk_city_id" class="form-label">地址(鄉鎮區)</label>
+              <select class="form-select mb-3 " id="fk_city_id" name="fk_city_id">
                 <option value="" selected disabled>請選擇鄉鎮區</option>
                 <?php foreach ($city_row as $ci) : ?>
                   <option value="<?= $ci['city_id'] ?>"><?= $ci['city_name'] ?></option>
