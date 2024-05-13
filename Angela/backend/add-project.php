@@ -1,7 +1,7 @@
     <?php
-    require __DIR__ . '/../parts/admin-required.php';
+    // require __DIR__ . '/../parts/admin-required.php';
     require __DIR__ . '/../config/pdo_connect.php';
-    $title = '新增通訊錄';
+    $title = '新增訂單';
     $pageName = 'add';
     ?>
     <?php include __DIR__ . '/../parts/html_head.php' ?>
@@ -17,32 +17,33 @@
         <div class="card">
 
             <div class="card-body">
-            <h5 class="card-title">新增通訊錄</h5>
+            <h5 class="card-title">新增 - 生前契約列表</h5>
 
             <form name="form1" onsubmit="sendData(event)">
                 <div class="mb-3">
-                <label for="name" class="form-label"> 姓名</label>
-                <input type="text" class="form-control" id="name" name="name">
+                <label for="project_id" class="form-label"> project_id</label>
+                <input type="text" class="form-control" id="project_id" name="project_id">
                 <div class="form-text"></div>
                 </div>
                 <div class="mb-3">
-                <label for="email" class="form-label">電子郵箱</label>
-                <input type="text" class="form-control" id="email" name="email">
+                <label for="fk_b2c_id" class="form-label">project_level</label>
+                <input type="text" class="form-control" id="project_level" name="project_level">
                 <div class="form-text"></div>
                 </div>
                 <div class="mb-3">
-                <label for="mobile" class="form-label">手機</label>
-                <input type="text" class="form-control" id="mobile" name="mobile">
+                <label for="project_name" class="form-label">project_name</label>
+                <input type="text" class="form-control" id="project_name" name="project_name">
                 <div class="form-text"></div>
                 </div>
                 <div class="mb-3">
-                <label for="birthday" class="form-label">生日</label>
-                <input type="date" class="form-control" id="birthday" name="birthday">
+                <label for="project_content" class="form-label">project_content</label>
+                <input type="text" class="form-control" id="project_content" name="project_content">
                 <div class="form-text"></div>
                 </div>
                 <div class="mb-3">
-                <label for="address" class="form-label">地址</label>
-                <textarea class="form-control" name="address" id="address" cols="30" rows="3"></textarea>
+                <label for="project_fee" class="form-label">project_fee</label>
+                <input type="text" class="form-control" id="project_fee" name="project_fee">
+                <div class="form-text"></div>
                 </div>
 
                 <button type="submit" class="btn btn-primary">新增</button>

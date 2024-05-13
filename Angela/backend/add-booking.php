@@ -1,23 +1,8 @@
     <?php
-    require __DIR__ . '/../parts/admin-required.php';
+    // require __DIR__ . '/../parts/admin-required.php';
     require __DIR__ . '/../config/pdo_connect.php';
-
-    $title = '修改通訊錄';
-    $pageName = 'edit';
-
-    $sid = isset($_GET['sid']) ? intval($_GET['sid']) : 0;
-    if (empty($sid)) {
-    header('Location: list.php');
-    exit;
-    }
-    // 原先是 select * from address_book ?是哪個
-    $sql = "SELECT * FROM petcompany WHERE sid=$sid";
-    $r = $pdo->query($sql)->fetch();
-    if (empty($r)) {
-    header('Location: list.php');
-    exit;
-    }
-
+    $title = '新增訂單';
+    $pageName = 'add';
     ?>
     <?php include __DIR__ . '/../parts/html_head.php' ?>
     <?php include __DIR__ . '/../parts/navbar.php' ?>
@@ -32,37 +17,45 @@
         <div class="card">
 
             <div class="card-body">
-            <h5 class="card-title">編輯通訊錄</h5>
+            <h5 class="card-title">新增 - 生前契約訂單</h5>
 
             <form name="form1" onsubmit="sendData(event)">
-                <!-- 隱藏欄位 用來傳送 primary key -->
-                <input type="hidden" name="sid" value="<?= $r['sid'] ?>">
                 <div class="mb-3">
-                <label for="name" class="form-label">** 姓名</label>
-                <input type="text" class="form-control" id="name" name="name" value="<?= htmlentities($r['name']) ?>">
+                <label for="booking_id" class="form-label"> booking_id</label>
+                <input type="text" class="form-control" id="booking_id" name="booking_id">
                 <div class="form-text"></div>
                 </div>
                 <div class="mb-3">
-                <label for="email" class="form-label">電子郵箱</label>
-                <input type="text" class="form-control" id="email" name="email" value="<?= $r['email'] ?>">
+                <label for="fk_b2c_id" class="form-label">fk_b2c_id</label>
+                <input type="text" class="form-control" id="fk_b2c_id" name="fk_b2c_id">
                 <div class="form-text"></div>
                 </div>
                 <div class="mb-3">
-                <label for="mobile" class="form-label">手機</label>
-                <input type="text" class="form-control" id="mobile" name="mobile" value="<?= $r['mobile'] ?>">
+                <label for="fk_pet_id" class="form-label">fk_pet_id</label>
+                <input type="text" class="form-control" id="fk_pet_id" name="fk_pet_id">
                 <div class="form-text"></div>
                 </div>
                 <div class="mb-3">
-                <label for="birthday" class="form-label">生日</label>
-                <input type="date" class="form-control" id="birthday" name="birthday" value="<?= $r['birthday'] ?>">
+                <label for="fk_project_id" class="form-label">fk_project_id</label>
+                <input type="text" class="form-control" id="fk_project_id" name="fk_project_id">
                 <div class="form-text"></div>
                 </div>
                 <div class="mb-3">
-                <label for="address" class="form-label">地址</label>
-                <textarea class="form-control" name="address" id="address" cols="30" rows="3"><?= $r['address'] ?></textarea>
+                <label for="fk_reservation_id" class="form-label">fk_reservation_id</label>
+                <input type="text" class="form-control" id="fk_reservation_id" name="fk_reservation_id">
+                <div class="form-text"></div>
+                </div>
+                <div class="mb-3">
+                <label for="booking_date" class="form-label">booking_date</label>
+                <input type="date" class="form-control" id="booking_date" name="booking_date">
+                <div class="form-text"></div>
+                </div>
+                <div class="mb-3">
+                <label for="booking_note" class="form-label">booking_note</label>
+                <textarea class="form-control" name="booking_note" id="booking_note" cols="30" rows="3"></textarea>
                 </div>
 
-                <button type="submit" class="btn btn-primary">修改</button>
+                <button type="submit" class="btn btn-primary">新增</button>
             </form>
 
             </div>
@@ -76,17 +69,17 @@
     <div class="modal-dialog">
         <div class="modal-content">
         <div class="modal-header">
-            <h1 class="modal-title fs-5">修改結果</h1>
+            <h1 class="modal-title fs-5">新增結果</h1>
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
             <div class="alert alert-success" role="alert">
-            資料修改成功
+            資料新增成功
             </div>
         </div>
         <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">關閉</button>
-            <button class="btn btn-primary" onclick="backToList()">回到列表頁</button>
+            <a href="list.php" class="btn btn-primary">跳到列表頁</a>
         </div>
         </div>
     </div>
@@ -96,17 +89,17 @@
     <div class="modal-dialog">
         <div class="modal-content">
         <div class="modal-header">
-            <h1 class="modal-title fs-5">資料沒有修改</h1>
+            <h1 class="modal-title fs-5">新增失敗</h1>
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
             <div class="alert alert-danger" role="alert" id="failureInfo">
-            資料沒有修改
+            資料新增失敗
             </div>
         </div>
         <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">關閉</button>
-            <button class="btn btn-primary" onclick="backToList()">回到列表頁</button>
+            <a href="list.php" class="btn btn-primary">跳到列表頁</a>
         </div>
         </div>
     </div>
@@ -114,14 +107,6 @@
 
     <?php include __DIR__ . '/../parts/script.php' ?>
     <script>
-    function backToList() {
-        if (document.referrer) {
-        location.href = document.referrer;
-        } else {
-        location.href = 'list.php';
-        }
-    }
-
     const {
         name: nameEl,
         email: emailEl,
@@ -173,11 +158,19 @@
         if (isPass) {
         const fd = new FormData(document.form1); // 沒有外觀的表單物件
 
-        fetch(`edit-api.php`, {
+        fetch(`add-api.php`, {
             method: 'POST',
             body: fd,
         }).then(r => r.json()).then(data => {
             console.log(data);
+            /*
+            if (data.success) {
+            alert('資料新增成功');
+            location.href = 'list.php';
+            } else {
+            alert('資料新增沒有成功\n' + data.error);
+            }
+            */
             if (data.success) {
             successModal.show();
             } else {
@@ -195,4 +188,4 @@
     const successModal = new bootstrap.Modal('#successModal')
     const failureModal = new bootstrap.Modal('#failureModal')
     </script>
-    <?php include __DIR__ . '/../parts/html_foot.php' ?>
+    <?php include __DIR__ .  '/../parts/html_foot.php' ?>
