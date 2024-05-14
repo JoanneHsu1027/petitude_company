@@ -1,15 +1,15 @@
 <?php
 // require __DIR__. '/admin-required.php';
-require __DIR__ . '/Alladdress.php';
 if (!isset($_SESSION)) {
   session_start();
 }
-$title = "新增一般會員資料";
-$pageName = 'b2c-add';
+$title = "新增通訊錄";
+$pageName = 'add';
 
 ?>
 <?php include __DIR__ . '/parts/html-head.php' ?>
 <?php include __DIR__ . '/parts/html-bar.php' ?>
+<?php include __DIR__ . '/Alladdress.php' ?>
 <style>
   form .mb-3 .form-text {
     color: red;
@@ -22,7 +22,7 @@ $pageName = 'b2c-add';
       <div class="card">
 
         <div class="card-body">
-          <h5 class="card-title">編輯資料</h5>
+          <h5 class="card-title">新增資料</h5>
           <form name="form1" onsubmit="sendData(event)">
 
             <div class="mb-3">
@@ -50,6 +50,7 @@ $pageName = 'b2c-add';
             </div>
 
             <div class="mb-3">
+<<<<<<< HEAD
               <label for="fk_county_id" class="form-label">居住縣市</label>
               <select id="fk_county_id" name="fk_county_id" class="form-select mb-2" onchange="updatecitys()">
                 <?php
@@ -60,17 +61,34 @@ $pageName = 'b2c-add';
                 }
                 ?>
               </select>
+=======
+                <label for="fk_county_id" class="form-label">居住縣市</label>
+                <select id="fk_county_id" name="fk_county_id" class="form-select mb-2" onchange="updatecitys()">
+                    <?php 
+                        for ($i = 0; $i <= 23; $i++) {
+                    ?>
+                        <option value="<?php echo $i; ?>"><?php echo $counties[$i]; ?></option>
+                    <?php
+                        }
+                    ?>
+                </select>
+>>>>>>> origin/s6538142
             </div>
 
             <div class="mb-3">
               <label for="fk_city_id" class="form-label">居住地區</label>
               <select id="fk_city_id" name="fk_city_id" class="form-select mb-2">
+<<<<<<< HEAD
 
+=======
+                    <option value="0">--請先選擇縣市--</option>
+>>>>>>> origin/s6538142
               </select>
             </div>
 
             <div class="mb-3">
-              <label for="b2c_address" class="form-label">詳細地址</label>
+              <label for="b2c_address" class="form-label">地址</label>
+
               <textarea class="form-control" id="b2c_address" name="b2c_address" cols="30" rows="3"></textarea>
               <div class="form-text"></div>
             </div>
@@ -78,9 +96,7 @@ $pageName = 'b2c-add';
 
             <button type="submit" class="btn btn-primary">新增</button>
           </form>
-
         </div>
-
       </div>
     </div>
   </div>
@@ -99,8 +115,13 @@ $pageName = 'b2c-add';
         </div>
       </div>
       <div class="modal-footer">
+<<<<<<< HEAD
 
         <button type="button" class="btn btn-primary" onclick="location.href='list.php'">到列表頁</button>
+=======
+        
+        <button type="button" class="btn btn-primary" onclick="location.href='b2c_list.php'">到列表頁</button>
+>>>>>>> origin/s6538142
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">繼續新增</button>
       </div>
     </div>
@@ -112,10 +133,10 @@ $pageName = 'b2c-add';
   const nameField = document.form1.b2c_name;
   const emailField = document.form1.b2c_email;
 
-  function validateEmail(b2c_email) {
-    const re_email =
+  function validateEmail(email) {
+    const re =
       /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-    return re_email.test(b2c_email);
+    return re.test(email);
   }
 
   const sendData = e => {
@@ -129,15 +150,13 @@ $pageName = 'b2c-add';
 
     let isPass = true; // 表單有沒有通過檢查
     if (nameField.value.length < 2) {
-      console.log('請填寫正確的名稱')
-      isPass = false;
+      // isPass = false;
       nameField.style.border = '1px solid red';
       nameField.nextElementSibling.innerText = '請填寫正確的姓名';
+
     }
-    // }
     if (!validateEmail(emailField.value)) {
-      isPass = false;
-      console.log('請填寫正確的email')
+      // isPass = false;
       emailField.style.border = '1px solid red';
       emailField.nextElementSibling.innerText = '請填寫正確的 Email';
     }
@@ -147,14 +166,22 @@ $pageName = 'b2c-add';
     if (isPass) {
       const fd = new FormData(document.form1); // 沒有外觀的表單物件
 
+<<<<<<< HEAD
       fetch('b2c-edit-api.php', {
           method: 'POST',
           body: fd, // Content-Type: multipart/form-data
         }).then(r => r.json())
+=======
+      fetch('b2c-add-api.php', {
+        method: 'POST',
+        body: fd, // Content-Type: multipart/form-data
+      }).then(r => r.json())
+>>>>>>> origin/s6538142
         .then(data => {
           console.log(data);
           if (data.success) {
             myModal.show();
+          } else {
           }
         })
         .catch(ex => console.log(ex))
@@ -163,6 +190,7 @@ $pageName = 'b2c-add';
 
   const myModal = new bootstrap.Modal('#staticBackdrop')
 </script>
+<<<<<<< HEAD
 
 <script>
   function updatecitys() {
@@ -326,4 +354,7 @@ $pageName = 'b2c-add';
 </script>
 
 
+=======
+<script src="./js/city.js"></script>
+>>>>>>> origin/s6538142
 <?php include __DIR__ . '/parts/html-foot.php' ?>
