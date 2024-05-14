@@ -12,22 +12,16 @@ $output = [
 ];
 
 // TODO: 欄位資料檢查
-if (!isset($_POST['insurance_name'])) {
-  echo json_encode($output);
-  exit; # 結束 php 程式
-}
+// if (!isset($_POST['insurance_name'])) {
+//   echo json_encode($output);
+//   exit; # 結束 php 程式
+// }
 
 
 $sql =
-  "INSERT INTO `insurance_product`(
-  `insurance_name`, `insurance_fee`, `outpatient_clinic_time`, `outpatient_clinic_fee`, `hospitalized_time`, `hospitalized_fee`, `surgery_time`, `surgery_fee`, `max_compensation_of_medical_expense`, `personal_injury_liability`, `bodily_injury`, `property_damage`, `max_compensation_of_pet_tort`, `pet_search_advertising_expenses`, `pet_boarding_fee`, `pet_funeral_expenses`, `pet_reacquisition_cost`, `travel_cancellation_fee`) VALUES (
-    ?,
-    ?,
-    ?,
-    ?,
-    ?,
-    ?,
-    ?,
+  "INSERT INTO `insurance_order`(
+  `fk_b2c_id`, `fk_pet_id`, `fk_insurance_product_id`, `payment_status`, `insurance_start_date`, `fk_county_id`, `fk_city_id`, `policyholder_address`, `policyholder_mobile`, `policyholder_email`, `policyholder_IDcard` ) 
+  VALUES (
     ?,
     ?,
     ?,
@@ -43,24 +37,17 @@ $sql =
 
 $stmt = $pdo->prepare($sql);
 $stmt->execute([
-  $_POST['insurance_name'],
-  $_POST['insurance_fee'],
-  $_POST['outpatient_clinic_time'],
-  $_POST['outpatient_clinic_fee'],
-  $_POST['hospitalized_time'],
-  $_POST['hospitalized_fee'],
-  $_POST['surgery_time'],
-  $_POST['surgery_fee'],
-  $_POST['max_compensation_of_medical_expense'],
-  $_POST['personal_injury_liability'],
-  $_POST['bodily_injury'],
-  $_POST['property_damage'],
-  $_POST['max_compensation_of_pet_tort'],
-  $_POST['pet_search_advertising_expenses'],
-  $_POST['pet_boarding_fee'],
-  $_POST['pet_funeral_expenses'],
-  $_POST['pet_reacquisition_cost'],
-  $_POST['travel_cancellation_fee']
+  $_POST['fk_b2c_id'],
+  $_POST['fk_pet_id'],
+  $_POST['fk_insurance_product_id'],
+  $_POST['payment_status'],
+  $_POST['insurance_start_date'],
+  $_POST['fk_county_id'],
+  $_POST['fk_city_id'],
+  $_POST['policyholder_address'],
+  $_POST['policyholder_mobile'],
+  $_POST['policyholder_email'],
+  $_POST['policyholder_IDcard'],
 ]);
 
 $output['success'] = !!$stmt->rowCount(); # 新增了幾筆, !! (not not表正) 轉為布林值

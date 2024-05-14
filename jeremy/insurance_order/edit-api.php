@@ -1,14 +1,17 @@
 <?php
-// require __DIR__ . '/admin-required.php';
 require __DIR__ . '/../config/pdo-connect.php';
 
 header('Content-Type: application/json');
 
 $output = [
-  'success' => false, # 有沒有新增成功
-  'bodyData' => $_POST,
-  'newId' => 0,
+  'success' => false, // 有沒有修改成功
 ];
+
+if (empty($_POST['insurance_order_id'])) {
+  $output['error'] = 'Missing insurance_order_id';
+  echo json_encode($output);
+  exit;
+}
 
 // TODO: 欄位資料檢查
 // if (!isset($_POST['insurance_product_id'])) {
@@ -32,37 +35,36 @@ $sql =
   `fk_b2c_id`=?,
   `fk_pet_id`=?,
   `fk_insurance_product_id`=?,
-  `insurance_fee`=?,
-  `payment_status`=? 
-  `insurance_start_date`=? 
-  `county_name`=? 
-  `city_name`=? 
-  `policyholder_address`=? 
-  `policyholder_mobile`=? 
-  `policyholder_email`=? 
-  `policyholder_IDcard`=? 
-    WHERE insurance_order_id=?";
-
+  `payment_status`=?, 
+  `insurance_start_date`=?, 
+  `fk_county_id`=?, 
+  `fk_city_id`=?, 
+  `policyholder_address`=?, 
+  `policyholder_mobile`=?, 
+  `policyholder_email`=?, 
+  `policyholder_IDcard`=?
+  WHERE insurance_order_id=?";
 
 $stmt = $pdo->prepare($sql);
-$stmt->execute([
+$result = $stmt->execute([
   $_POST['fk_b2c_id'],
   $_POST['fk_pet_id'],
   $_POST['fk_insurance_product_id'],
-  $_POST['insurance_fee'],
   $_POST['payment_status'],
   $_POST['insurance_start_date'],
-  $_POST['county_name'],
-  $_POST['city_name'],
+  $_POST['fk_county_id'],
+  $_POST['fk_city_id'],
   $_POST['policyholder_address'],
   $_POST['policyholder_mobile'],
   $_POST['policyholder_email'],
   $_POST['policyholder_IDcard'],
-
   $_POST['insurance_order_id']
 ]);
 
-$output['success'] = !!$stmt->rowCount(); # 修改了幾筆
-
+if ($result) {
+  $output['success'] = true;
+} else {
+  $output['error'] = 'Failed to update';
+}
 
 echo json_encode($output);

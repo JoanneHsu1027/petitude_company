@@ -2,6 +2,8 @@
 // require __DIR__ . '/admin-required.php';
 // 權限確認用先註掉
 
+require __DIR__ . '/../config/pdo-connect.php';
+
 // 地址的縣市鄉鎮選擇使用
 require __DIR__ . '/Alladdress.php';
 
@@ -9,9 +11,21 @@ $title = "新增保險訂單";
 $pageName = 'add';
 
 
-if (!isset($_SESSION)) {
-  session_start();
-};
+// if (!isset($_SESSION)) {
+//   session_start();
+// };
+
+$sql = "SELECT *, insurance_product.insurance_fee
+FROM insurance_order
+JOIN insurance_product 
+ON insurance_order.fk_insurance_product_id = insurance_product.insurance_product_id
+";
+$row = $pdo->query($sql)->fetchAll();
+if (empty($row)) {
+  header('Location: order-list-admin.php');
+  // 等權限設定後再來改
+  exit;
+}
 
 // 保險商品代號選擇使用 start
 require __DIR__ . '/../config/pdo-connect.php';
@@ -19,17 +33,17 @@ $product_sql = "SELECT * FROM insurance_product";
 $product_row = $pdo->query($product_sql)->fetchAll();
 // 保險商品代號選擇使用 end
 
-// 地址(縣市)代號選擇使用 start
-require __DIR__ . '/../config/pdo-connect.php';
-$county_sql = "SELECT * FROM county";
-$county_row = $pdo->query($county_sql)->fetchAll();
-// 地址(縣市)代號選擇使用 end
+// // 地址(縣市)代號選擇使用 start
+// require __DIR__ . '/../config/pdo-connect.php';
+// $county_sql = "SELECT * FROM county";
+// $county_row = $pdo->query($county_sql)->fetchAll();
+// // 地址(縣市)代號選擇使用 end
 
-// 地址(鄉鎮區)代號選擇使用 start
-require __DIR__ . '/../config/pdo-connect.php';
-$city_sql = "SELECT * FROM city";
-$city_row = $pdo->query($city_sql)->fetchAll();
-// 地址(鄉鎮區)代號選擇使用 end
+// // 地址(鄉鎮區)代號選擇使用 start
+// require __DIR__ . '/../config/pdo-connect.php';
+// $city_sql = "SELECT * FROM city";
+// $city_row = $pdo->query($city_sql)->fetchAll();
+// // 地址(鄉鎮區)代號選擇使用 end
 
 ?>
 <?php include __DIR__ . '/../page/html-header.php'; ?>
@@ -49,7 +63,7 @@ $city_row = $pdo->query($city_sql)->fetchAll();
 
         <div class="card-body">
           <h5 class="card-title">新增保單</h5>
-          <form name="form1" onsubmit="sendData(event)">
+          <form name="form1" onsubmit="sendData1(event)">
             <!-- 設定name和設定onsubmit -->
             <div class="mb-3">
               <label for="fk_b2c_id" class="form-label">會員帳號</label>
@@ -64,14 +78,23 @@ $city_row = $pdo->query($city_sql)->fetchAll();
               <select class="form-select mb-3" id="fk_insurance_product_id" name="fk_insurance_product_id">
                 <option value="" selected disabled>請選擇商品代號</option>
                 <?php foreach ($product_row as $r) : ?>
-                  <option value="<?= $r['insurance_product_id'] ?>"><?= $r['insurance_product_id'] ?> <?= $r['insurance_name'] ?></option>
+                  <option value="<?= $r['insurance_product_id'] ?>">
+                    <?= $r['insurance_product_id'] ?> <?= $r['insurance_name'] ?>
+                  </option>
                 <?php endforeach; ?>
                 <div class="form-text"></div>
               </select>
 
-              <label for="insurance_fee" class="form-label">保險費用</label>
-              <input type="text" class="form-control mb-3" id="insurance_fee" name="insurance_fee">
-              <div class="form-text"></div>
+              <!-- <label for="insurance_fee" class="form-label">保險費用</label>
+              <input type="text" class="form-control mb-3" value="">
+              <div class="form-text"></div> -->
+
+
+              <!-- <?php foreach ($row as $r) : ?>
+                <input type="text" class="form-control mb-3" id="insurance_fee" name="insurance_fee" value="<?= $r['insurance_fee'] ?>" disabled>
+              <?php endforeach; ?>
+              <div class="form-text"></div> -->
+              <!-- 費用希望他能依據商品代號自動帶出, 未完成 -->
 
 
               <label for="payment_status" class="form-label">付款狀態</label>
@@ -86,6 +109,7 @@ $city_row = $pdo->query($city_sql)->fetchAll();
               <label for="insurance_start_date" class="form-label">保險起始日期(YYYY-MM-DD)</label>
               <input type="date" class="form-control mb-3" id="insurance_start_date" name="insurance_start_date">
               <div class="form-text"></div>
+              <!-- 虛設限制, 不能早於今天 -->
 
               <label for="fk_county_id" class="form-label">居住縣市</label>
               <select class="form-select mb-3 " id="fk_county_id" name="fk_county_id" onchange="updatecitys()">
@@ -152,16 +176,48 @@ $city_row = $pdo->query($city_sql)->fetchAll();
 
         <!-- <button type="button" class="btn btn-primary" onclick="location.href='list.php'">到列表頁</button> -->
         <!-- 這邊用onclick設定位址, 也可用a -->
-        <a href="product-list-admin.php" type="button" class="btn btn-primary">到列表頁</a>
+        <a href="order-list-admin.php" type="button" class="btn btn-primary">到列表頁</a>
         <!-- 確認權限設定後來改 -->
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">繼續新增</button>
       </div>
     </div>
   </div>
 </div>
-<!-- Modal -->
+
 
 <?php include __DIR__ . '/../page/html-scripts.php'; ?>
+<script>
+  const sendData1 = e => {
+    e.preventDefault(); // 不要讓 form1 以傳統的方式送出
+
+    nameField.style.border = '1px solid #CCCCCC';
+    nameField.nextElementSibling.innerText = '';
+
+
+    // TODO: 欄位資料檢查
+
+    const fd = new FormData(document.form1); // 沒有外觀的表單物件
+
+
+
+
+    fetch('add-api.php', {
+        method: 'POST',
+        body: fd, // Content-Type: multipart/form-data
+      }).then(r => r.json())
+      .then(data => {
+        console.log(data);
+        if (data.success) {
+          myModal.show();
+        } else {}
+      })
+      .catch(ex => console.log(ex))
+  }
+
+  ;
+  const myModal1 = new bootstrap.Modal('#staticBackdrop')
+</script>
+
 <!-- 新的js需要寫在原本掛的js下方 -->
 <script>
   // 地址選擇 start

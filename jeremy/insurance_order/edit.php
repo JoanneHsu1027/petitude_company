@@ -3,8 +3,6 @@
 // 驗證的先註解掉
 require __DIR__ . '/../config/pdo-connect.php';
 
-// 地址的縣市鄉鎮選擇使用
-require __DIR__ . '/Alladdress.php';
 
 $sid = isset($_GET['insurance_order_id']) ? intval($_GET['insurance_order_id']) : 0;
 if ($sid < 1) {
@@ -49,6 +47,7 @@ if (empty($row)) {
 $title = "訂單編輯";
 
 ?>
+<?php include __DIR__ . '/name-transfer.php'; ?>
 <?php include __DIR__ . '/../page/html-header.php'; ?>
 <?php include __DIR__ . '/../page/html-navbar.php'; ?>
 
@@ -65,83 +64,112 @@ $title = "訂單編輯";
       <div class="card" style="width: 18rem;">
 
         <div class="card-body">
-          <h5 class="card-title">修改資料</h5>
-          <form name="form1" onsubmit="sendData(event)">
+          <h5 class="card-title">修改保單資料</h5>
+          <form name="form1" onsubmit="sendData1(event)">
             <!-- 設定name和設定onsubmit -->
+            <div class="mb-3">
+              <label for="insurance_order_id" class="form-label">訂單編號</label>
+              <?php foreach ($row as $r) : ?>
+                <input type="text" class="form-control mb-3" id="insurance_order_id" name="insurance_order_id" value="<?= $r['insurance_order_id'] ?>" disabled>
+              <?php endforeach; ?>
+            </div>
+            <div class="form-text"></div>
+
             <div class="mb-3">
               <label for="fk_b2c_id" class="form-label">會員帳號</label>
               <?php foreach ($row as $r) : ?>
-                <input type="text" class="form-control mb-3" id="fk_b2c_id" name="fk_b2c_id" value="<?= $r['fk_b2c_id'] ?>" placeholder="<?= $r['fk_b2c_id'] ?>" disabled>
+                <input type="text" class="form-control mb-3" id="fk_b2c_id" name="fk_b2c_id" value="<?= $r['fk_b2c_id'] ?>" disabled>
               <?php endforeach; ?>
-              <div class="form-text"></div>
+            </div>
+            <div class="form-text"></div>
 
-              <label for="fk_pet_id" class="form-label">寵物帳號</label>
+            <label for="fk_pet_id" class="form-label">寵物帳號</label>
+            <?php foreach ($row as $r) : ?>
+              <input type="text" class="form-control mb-3" id="fk_pet_id" name="fk_pet_id" value="<?= $r['fk_pet_id'] ?>" placeholder="<?= $r['fk_pet_id'] ?>" disabled>
+            <?php endforeach; ?>
+            <div class="form-text"></div>
+
+            <label for="fk_insurance_product_id" class="form-label">保險商品代號</label>
+            <select class="form-select mb-3" id="fk_insurance_product_id" name="fk_insurance_product_id" disabled>
               <?php foreach ($row as $r) : ?>
-                <input type="text" class="form-control mb-3" id="fk_pet_id" name="fk_pet_id" value="<?= $r['fk_pet_id'] ?>" placeholder="<?= $r['fk_pet_id'] ?>" disabled>
+                <option value="<?= $r['fk_insurance_product_id'] ?>">
+                  <?= $r['fk_insurance_product_id'] ?> <?= $r['insurance_name'] ?>
+                </option>
               <?php endforeach; ?>
-              <div class="form-text"></div>
+            </select>
+            <div class="form-text"></div>
 
-              <label for="fk_insurance_product_id" class="form-label">保險商品代號</label>
-              <?php foreach ($row as $r) : ?>
-                <input type="text" class="form-control mb-3" id="fk_insurance_product_id" name="fk_insurance_product_id" disabled value="<?= $r['fk_insurance_product_id'] ?>" placeholder="<?= $r['fk_insurance_product_id'] ?>">
-                <!-- placeholder 中還想放'fk_insurance_product_name', 一直出錯, 先跳過 -->
-              <?php endforeach; ?>
-              <div class="form-text"></div>
-
-
+            <!-- 
               <label for="insurance_fee" class="form-label">保險費用</label>
               <?php foreach ($row as $r) : ?>
-                <input type="text" class="form-control mb-3" id="insurance_fee" name="insurance_fee" value="<?= $r['insurance_fee'] ?>" placeholder="<?= $r['insurance_fee'] ?>" disabled>
+                <input type="text" class="form-control mb-3" id="insurance_fee" name="insurance_fee" value="<?= $r['insurance_fee'] ?>" disabled>
               <?php endforeach; ?>
-              <div class="form-text"></div>
+              <div class="form-text"></div> -->
 
 
-              <label for="payment_status" class="form-label">付款狀態</label>
-              <div class="dropdown mb-3">
-                <select class="form-select" id="payment_status" name="payment_status">
-                  <option value="0" selected>未付款</option>
-                  <option value="1">已付款</option>
-                </select>
-              </div>
+            <label for="payment_status" class="form-label">付款狀態</label>
+            <div class="dropdown mb-3">
+              <select class="form-select mb-3" id="payment_status" name="payment_status">
+                <?php foreach ($row as $r) : ?>
+                  <option value="<?= $r['payment_status'] ?>"><?= $transfer[$r['payment_status']] ?></option>
+                  <!-- db是布林值, 另外寫一個name-transfer.php來改. 上面要再require檔案 -->
+                  <option value="<?= $r['payment_status'] ? 0 : 1 ?>"><?= $transfer[!$r['payment_status']] ?></option>
+                  <!-- 用三元運算子來根據 $r['payment_status'] 的值來直接設置相反的value -->
+                <?php endforeach; ?>
+              </select>
               <div class="form-text"></div>
 
               <label for="insurance_start_date" class="form-label">保險起始日期(YYYY-MM-DD)</label>
-              <input type="date" class="form-control mb-3" id="insurance_start_date" name="insurance_start_date">
-              <div class="form-text"></div>
-
-              <label for="fk_county_id" class="form-label">地址(縣市)</label>
               <?php foreach ($row as $r) : ?>
-                <input type="text" class="form-control mb-3" id="fk_county_id" name="fk_county_id" value="<?= $r['fk_county_id'] ?>" placeholder="<?= $r['county_name'] ?>" disabled>
+                <input type="date" class="form-control mb-3" id="insurance_start_date" name="insurance_start_date" value="<?= $r['insurance_start_date'] ?>" disabled>
               <?php endforeach; ?>
               <div class="form-text"></div>
 
+              <label for="fk_county_id" class="form-label">地址(縣市)</label>
+              <select class="form-select mb-3" id="fk_county_id" name="fk_county_id" disabled>
+                <?php foreach ($row as $r) : ?>
+                  <option value="<?= $r['fk_county_id'] ?>">
+                    <?= $r['county_name'] ?>
+                  </option>
+                <?php endforeach; ?>
+              </select>
+              <div class="form-text"></div>
 
 
               <label for="fk_city_id" class="form-label">地址(鄉鎮區)</label>
-              <select class="form-select mb-3 " id="fk_city_id" name="fk_city_id">
-                <option value="" selected disabled>請選擇鄉鎮區</option>
-                <?php foreach ($city_row as $ci) : ?>
-                  <option value="<?= $ci['city_id'] ?>"><?= $ci['city_name'] ?></option>
+              <select class="form-select mb-3" id="fk_city_id" name="fk_city_id" disabled>
+                <?php foreach ($row as $r) : ?>
+                  <option value="<?= $r['fk_city_id'] ?>">
+                    <?= $r['city_name'] ?>
+                  </option>
                 <?php endforeach; ?>
-                <div class="form-text"></div>
               </select>
-
+              <div class="form-text"></div>
 
               <label for="policyholder_address" class="form-label">地址</label>
-              <textarea class="form-control mb-3" name="policyholder_address" id="policyholder_address" cols="30" rows="5"></textarea>
+              <?php foreach ($row as $r) : ?>
+                <textarea type="text" class="form-control mb-3" id="policyholder_address" name="policyholder_address" disabled cols="30" rows="5"><?= $r['policyholder_address'] ?></textarea>
+              <?php endforeach; ?>
               <div class="form-text"></div>
 
               <label for="policyholder_mobile" class="form-label">手機號碼</label>
-              <input type="text" class="form-control mb-3" id="policyholder_mobile" name="policyholder_mobile">
+              <?php foreach ($row as $r) : ?>
+                <input type="text" class="form-control mb-3" id="policyholder_mobile" name="policyholder_mobile" value="<?= $r['policyholder_mobile'] ?>" disabled>
+              <?php endforeach; ?>
               <div class="form-text"></div>
 
               <label for="policyholder_email" class="form-label">聯絡信箱</label>
-              <input type="text" class="form-control mb-3" id="policyholder_email" name="policyholder_email">
+              <?php foreach ($row as $r) : ?>
+                <input type="text" class="form-control mb-3" id="policyholder_email" name="policyholder_email" value="<?= $r['policyholder_email'] ?>" disabled>
+              <?php endforeach; ?>
               <div class="form-text"></div>
 
               <label for="policyholder_IDcard" class="form-label">身分證字號</label>
-              <input type="text" class="form-control mb-3" id="policyholder_IDcard" name="policyholder_IDcard">
+              <?php foreach ($row as $r) : ?>
+                <input type="text" class="form-control mb-3" id="policyholder_IDcard" name="policyholder_IDcard" value="<?= $r['policyholder_IDcard'] ?>" disabled>
+              <?php endforeach; ?>
               <div class="form-text"></div>
+
 
               <button type="submit" class="btn btn-primary">修改</button>
             </div>
@@ -206,44 +234,44 @@ $title = "訂單編輯";
 <?php include __DIR__ . '/../page/html-scripts.php'; ?>
 <!-- 新的js需要寫在原本掛的js下方 -->
 <script>
-  const nameField = document.form1.insurance_name;
+  // const nameField = document.form1.insurance_name;
 
 
-  const sendData = e => {
+  const sendData1 = e => {
     e.preventDefault(); // 不要讓 form1 以傳統的方式送出
 
-    nameField.style.border = '1px solid #CCCCCC';
-    nameField.nextElementSibling.innerText = '';
+    // nameField.style.border = '1px solid #CCCCCC';
+    // nameField.nextElementSibling.innerText = '';
 
     // TODO: 欄位資料檢查
 
     const fd = new FormData(document.form1); // 沒有外觀的表單物件
-    let isPass = true; // 表單有沒有通過檢查
+    // let isPass = true; // 表單有沒有通過檢查
     // 檢驗姓名欄位
-    if (nameField.value.length < 2) {
-      isPass = false;
-      nameField.style.border = '1px solid red';
-      nameField.nextElementSibling.innerHTML = '請填寫正確的商品名稱';
-    }
+    // if (nameField.value.length < 2) {
+    //   isPass = false;
+    //   nameField.style.border = '1px solid red';
+    //   nameField.nextElementSibling.innerHTML = '請填寫正確的商品名稱';
+    // }
     // 因為只有一個欄位所以用innerHTML或innerText都可以
 
     // 有通過檢查, 才要送表單
-    if (isPass) {
-      const fd = new FormData(document.form1); // 沒有外觀的表單物件
-      fetch('edit-api.php', {
-          method: 'POST',
-          body: fd, // Content-Type: multipart/form-data
-        }).then(r => r.json())
-        .then(data => {
-          console.log(data);
-          if (data.success) {
-            myModal.show();
-          } else {
-            myModal2.show();
-          }
-        })
-        .catch(ex => console.log(ex))
-    }
+    fetch('edit-api.php', {
+        method: 'POST',
+        body: fd, // Content-Type: multipart/form-data
+      }).then(r => r.json())
+      .then(data => {
+        console.log(data);
+        if (data.success) {
+          myModal.show();
+        } else {
+          myModal2.show();
+        }
+      })
+      .catch(ex => console.log(ex))
+    // if (isPass) {
+
+    // }
 
   };
   const myModal = new bootstrap.Modal('#staticBackdrop')
