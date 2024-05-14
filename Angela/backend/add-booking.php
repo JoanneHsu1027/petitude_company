@@ -15,20 +15,16 @@
         font-weight: 800;
     }
     </style>
+        <div id="content">
+        <h1>生前契約訂單-新增訂單</h1>
+        </div>
     <div class="container">
     <div class="row">
         <div class="col-6">
         <div class="card">
-
             <div class="card-body">
-            <h5 class="card-title">新增 - 生前契約訂單</h5>
-
             <form name="form1" onsubmit="sendData(event)">
-                <div class="mb-3">
-                <label for="booking_id" class="form-label">booking_id</label>
-                <input type="text" class="form-control" id="booking_id" name="booking_id">
-                <div class="form-text"></div>
-                </div>
+
                 <div class="mb-3">
                 <label for="fk_b2c_id" class="form-label">fk_b2c_id</label>
                 <input type="text" class="form-control" id="fk_b2c_id" name="fk_b2c_id">
@@ -82,7 +78,7 @@
         </div>
         <div class="modal-footer">
             
-            <button type="button" class="btn btn-primary" onclick="location.href='booking.php'">到列表頁</button>
+            <button type="button" class="btn btn-primary" onclick="location.href='./booking.php'">到列表頁</button>
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">繼續新增</button>
         </div>
         </div>
@@ -111,26 +107,32 @@
 
     <?php include __DIR__ . '/../parts/script.php' ?>
     <script>
-    const fd = new FormData(); // 假設這裡定義了 fd 變數，並且包含了要發送的資料
 
-    fetch('add-booking-api.php', {
-    method: 'POST',
-    body: fd,
-})
-.then(r => r.json())
-.then(data => {
-    console.log(data);
-    if (data.success) {
-        // 如果 success 為 true，表示 API 呼叫成功
-        myModal.show();
-    } else {
-        // 如果 success 為 false，表示 API 呼叫失敗
-        // 在這裡可以執行相應的錯誤處理邏輯，例如顯示錯誤訊息給用戶
-        console.error('API 呼叫失敗');
-    }
-})
-.catch(ex => console.error(ex));
+    const fd = new FormData(document.form1); 
 
-const myModal = new bootstrap.Modal(document.getElementById('staticBackdrop'));
-</script>
+    const sendData = e => {
+        e.preventDefault(); // 不要讓 form1 以傳統的方式送出
+
+        // 有通過檢查, 才要送表單
+        
+        const fd = new FormData(document.form1); // 沒有外觀的表單物件
+
+        fetch('add-booking-api.php', {
+            method: 'POST',
+            body: fd, // Content-Type: multipart/form-data
+        }).then(r => r.json())
+            .then(data => {
+            console.log(data);
+            if (data.success) {
+                myModal.show();
+            } else {
+                console.log('api error?')
+            }
+            })
+            .catch(ex => console.log(ex))
+        
+    };
+
+    const myModal = new bootstrap.Modal(document.getElementById('staticBackdrop'));
+    </script>
     <?php include __DIR__ .  '/../parts/html_foot.php' ?>

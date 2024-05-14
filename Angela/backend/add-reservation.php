@@ -11,14 +11,15 @@
         color: red;
     }
     </style>
+    <div id="content">
+        <h1>預約參觀-新增預約紀錄</h1>
+        </div>
     <div class="container">
     <div class="row">
         <div class="col-6">
         <div class="card">
 
             <div class="card-body">
-            <h5 class="card-title">新增 - 線上預約參觀</h5>
-
             <form name="form1" onsubmit="sendData(event)">
                 <div class="mb-3">
                 <label for="reservation_id" class="form-label"> reservation_id</label>

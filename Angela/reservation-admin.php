@@ -89,7 +89,6 @@
         <table class="table table-bordered table-striped">
             <thead>
             <tr>
-                <th><input type="checkbox" name="select-all" id="select-all" onclick="toggleAllCheckboxes()"></th>
                 <th>reservation_id</th>
                 <th>fk_b2c_id</th>
                 <th>fk_pet_id</th>

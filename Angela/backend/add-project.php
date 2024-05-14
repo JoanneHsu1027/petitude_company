@@ -15,15 +15,16 @@
         color: red;
     }
     </style>
+    <div id="content">
+        <h1>生前契約列表-新增列表</h1>
+        </div>
     <div class="container">
     <div class="row">
         <div class="col-6">
         <div class="card">
 
-            <div class="card-body">
-            <h5 class="card-title">新增 - 生前契約列表</h5>
-
-            <form name="form1" onsubmit="sendData(event)">
+            <div class="card-body">            
+                <form name="form1" onsubmit="sendData(event)">
                 <div class="mb-3">
                 <label for="project_id" class="form-label"> project_id</label>
                 <input type="text" class="form-control" id="project_id" name="project_id">

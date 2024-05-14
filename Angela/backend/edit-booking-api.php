@@ -21,17 +21,12 @@ if (!isset($_POST['booking_id'])) {
 
 # filter_var('bob@example.com', FILTER_VALIDATE_EMAIL): 檢查 email 格式
 
-
-
-
 $bookingDate = strtotime($_POST['booking_date']);
 if ($bookingDate === false) {
     $bookingDate = null;
 } else {
     $bookingDate = date('Y-m-d', $bookingDate);
 }
-
-
 
 $sql = "UPDATE `booking` SET 
     `fk_b2c_id`=?,
@@ -53,10 +48,8 @@ $stmt->execute([
     $_POST['booking_id'],
 ]);
 
-
 $output['success'] = !!$stmt->rowCount(); 
 # 修改了幾筆
-
 
 echo json_encode($output);
 
