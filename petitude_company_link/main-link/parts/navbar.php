@@ -104,7 +104,7 @@
                 </h2>
                 <div id="collapse6" class="accordion-collapse collapse" aria-labelledby="heading6" data-bs-parent="#accordionExample">
                     <div class="m-2">
-                        <a href="#" class="align-middle" style="text-decoration:none; color:#0c5a67">主題列表</a>
+                        <a href="../address-book/class.php" class="align-middle" style="text-decoration:none; color:#0c5a67">主題列表</a>
                     </div>
                 </div>
             </div>
