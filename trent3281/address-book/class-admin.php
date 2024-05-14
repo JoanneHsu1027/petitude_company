@@ -184,7 +184,7 @@ echo json_encode([
           <?php endforeach; ?>
         </tbody>
       </table>
-
+      <a href="article.php">所有文章<i class="fa-solid fa-angles-right"></i></a>
     </div>
   </div>
 </div>
