@@ -1,4 +1,4 @@
-    <?php
+<?php
     // require __DIR__. '/admin-required.php';
     require __DIR__ . '/../config/pdo_connect.php';
     $title = "修改訂單資料";
@@ -11,6 +11,15 @@
     }
 
     $sql = "SELECT * FROM booking WHERE booking_id={$booking_id}";
+
+    // $sql = "SELECT *, fk_b2c_id, fk_pet_id, fk_project_id, fk_reservation_id 
+    //     FROM booking AS book
+    //     JOIN fk_b2c_id ON book.fk_b2c_id = b2c.fk_b2c_id
+    //     JOIN fk_pet_id ON book.fk_pet_id = pet.fk_pet_id
+    //     JOIN fk_project_id ON book.fk_project_id = project.fk_project_id
+    //     JOIN fk_reservation_id ON book.fk_reservation_id = reservation.fk_reservation_id
+    //     WHERE booking_id={$booking_id}";
+        
 
     $row = $pdo->query($sql)->fetch();
     if (empty($row)) {
@@ -34,11 +43,43 @@
 
             <div class="card-body">
             <h5 class="card-title">編輯訂單資料</h5>
-            <form name="form1" onsubmit="sendData(event)"><input type="hidden" name="booking_id" value="<?= $row['booking_id'] ?>">
+            <form name="form1" onsubmit="sendData(event)">
+            <input type="hidden" name="booking_id" value="<?= $row['booking_id'] ?>">
+            <input type="hidden" name="fk_b2c_id" value="<?= $row['fk_b2c_id'] ?>">
+            <input type="hidden" name="fk_pet_id" value="<?= $row['fk_pet_id'] ?>">
+            <input type="hidden" name="fk_project_id" value="<?= $row['fk_project_id'] ?>">
+            <input type="hidden" name="fk_reservation_id" value="<?= $row['fk_reservation_id'] ?>">
+            
+
                 <div class="mb-3">
                 <label for="booking_id" class="form-label">booking_id</label>
-                <input type="text" class="form-control" disabled value="<?= $row['booking_id'] ?>">
+                <input type="text" id="booking_id" class="form-control" disabled value="<?= $row['booking_id'] ?>">
                 </div>
+
+                <input type="hidden" name="fk_b2c_id" value="<?= $row['fk_b2c_id'] ?>">
+                <div class="mb-3">
+                <label for="fk_b2c_id" class="form-label">fk_b2c_id</label>
+                <input type="text" id="fk_b2c_id" class="form-control" disabled value="<?= $row['fk_b2c_id'] ?>">
+                </div>
+
+                <input type="hidden" name="fk_pet_id" value="<?= $row['fk_pet_id'] ?>">
+                <div class="mb-3">
+                <label for="fk_pet_id" class="form-label">fk_pet_id</label>
+                <input type="text" id="fk_pet_id" class="form-control" disabled value="<?= $row['fk_pet_id'] ?>">
+                </div>
+
+                <input type="hidden" name="fk_project_id" value="<?= $row['fk_project_id'] ?>">
+                <div class="mb-3">
+                <label for="fk_project_id" class="form-label">fk_project_id</label>
+                <input type="text" id="fk_project_id" class="form-control" disabled value="<?= $row['fk_project_id'] ?>">
+                </div>
+
+                <input type="hidden" name="fk_reservation_id" value="<?= $row['fk_reservation_id'] ?>">
+                <div class="mb-3">
+                <label for="fk_reservation_id" class="form-label">fk_reservation_id</label>
+                <input type="text" id="fk_reservation_id" class="form-control" disabled value="<?= $row['fk_reservation_id'] ?>">
+                </div>
+
                 <div class="mb-3">
                 <label for="booking_date" class="form-label">booking_date</label>
                 <input type="date" class="form-control" id="booking_date" name="booking_date">
@@ -104,29 +145,35 @@
     <script>
 
     const sendData = e => {
-        e.preventDefault();
-    
-        let isPass = true;  // 表單有沒有通過檢查
-        
-        // 有通過檢查, 才要送表單
-        if (isPass) {
-            const fd = new FormData(document.form1); // 沒有外觀的表單物件
+    e.preventDefault(); // 不要讓 form1 以傳統的方式送出
 
-            fetch('edit-booking-api.php', {
-                method: 'POST',
-                body: fd, // Content-Type: multipart/form-data
-                }).then(r => r.json())
-                .then(data => {
-                console.log(data);
-                if (data.success) {
-                    myModal.show();
+    let isPass = true;  // 表單有沒有通過檢查
+
+    // 有通過檢查, 才要送表單
+    if (isPass) {
+        const fd = new FormData(document.form1); // 沒有外觀的表單物件
+
+        fetch('edit-booking-api.php', {
+            method: 'POST',
+            body: fd, 
+        }).then(r => r.json())
+        .then(data => {
+            console.log(data);
+            if (data.success) {
+                myModal.show();
+            } else {
+                // 如果 API 返回了錯誤訊息，顯示給用戶
+                if (data.error) {
+                    showError(data.error);
                 } else {
                     myModal2.show();
                 }
-                })
-                .catch(ex => console.log(ex))
             }
-        };
+        })
+        .catch(ex => {console.log(ex);
+        });
+    }
+};
 
         const myModal = new bootstrap.Modal('#staticBackdrop')
         const myModal2 = new bootstrap.Modal('#staticBackdrop2')

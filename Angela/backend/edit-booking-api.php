@@ -2,41 +2,38 @@
 // require __DIR__. '/admin-required.php';
 require __DIR__ . '../../config/pdo_connect.php';
 
+// 設定響應標頭為 JSON
 header('Content-Type: application/json');
 
+// 初始化回傳數據
 $output = [
-    'success' => false, # 有沒有新增成功
-    'bodyData' => $_POST,
+    'success' => false,
 ];
 
-// TODO: 欄位資料檢查
+// 檢查必要的 POST 資料是否存在
 if (!isset($_POST['booking_id'])) {
-    echo json_encode($output);
-    exit; # 結束 php 程式
-}
-
-    $bookingDate = DateTime::createFromFormat('Y-m-d', $_POST['booking_date']);
-if (!$bookingDate) {
-    // 日期格式不正确，返回错误消息或采取其他适当的错误处理措施
-    $output['error'] = "Invalid date format";
     echo json_encode($output);
     exit;
 }
-    $booking_date_formatted = $bookingDate->format('Y-m-d');
 
-$sql = "UPDATE `booking` SET 
-    `booking_date`=?,
-    `booking_note`=?
-WHERE booking_id=?";
+// 準備 SQL 語句
+$sql = "UPDATE booking SET booking_date = :booking_date, booking_note = :booking_note WHERE booking_id = :booking_id";
 
+// 準備 SQL 數據
+$data = [
+    'booking_date' => $_POST['booking_date'],
+    'booking_note' => $_POST['booking_note'],
+    'booking_id' => $_POST['booking_id'],
+];
+
+// 準備 PDO 語句
 $stmt = $pdo->prepare($sql);
-$stmt->execute([
-    $booking_date_formatted,
-    $_POST['booking_note'],
-]);
 
-$output['success'] = !!$stmt->rowCount(); 
-# 修改了幾筆
+// 執行 PDO 語句
+$stmt->execute($data);
 
-echo json_encode($output, JSON_UNESCAPED_UNICODE);
+// 更新成功時將成功標誌設置為 true
+$output['success'] = $stmt->rowCount() > 0;
 
+// 返回 JSON 數據
+echo json_encode($output);
