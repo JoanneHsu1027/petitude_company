@@ -117,9 +117,7 @@ if ($totalRows) {
                             <td><?= $r['product_date'] ?></td>
                             <td><?= $r['product_last_modified'] ?></td>
                             <td>
-                                <a href="edit.php?product_id=<?= $r['product_id'] ?>">
-                                    <button type="button" class="btn btn-warning fa-solid fa-pen-to-square"></button>
-                                </a>
+                                <a href="./product_edit.php?product_id=<?= $r['product_id'] ?>" class="btn btn-warning fa-solid fa-pen-to-square"></a>
                             </td>
                             <td>
                                 <a href="javascript: deleteOne(<?= $r['product_id'] ?>)">

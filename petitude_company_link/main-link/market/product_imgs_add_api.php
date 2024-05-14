@@ -1,6 +1,6 @@
 <?php
-require __DIR__ . './admin-required.php';
-require __DIR__ . './config/pdo-connect.php';
+require __DIR__ . '/../b2bweb/admin-required.php';
+require __DIR__ . '/../config/pdo-connect.php';
 
 header('Content-Type: application/json');
 
@@ -13,7 +13,7 @@ $output = [
 ];
 
 // TODO: 欄位資料檢查
-if (!isset($_POST['name'])) {
+if (!isset($_POST['picture_name'])) {
   echo json_encode($output);
   exit; # 結束 php 程式
 }
@@ -47,7 +47,7 @@ $stmt = $pdo->query($sql);
 
 
 
-$sql = "INSERT INTO `request`(
+$sql = "INSERT INTO `product_imgs`(
 `fk_product_id`,  `picture_name`, `picture_url`) VALUES (
     ?,
     ?,
