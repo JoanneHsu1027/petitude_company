@@ -95,8 +95,7 @@ echo json_encode([
             <th scope="col">類別ID</th>
             <th scope="col">類別名稱</th>
             <th scope="col">員工ID</th>
-            <th scope="col"><i class="fa-solid fa-trash-can"></i></th>
-            <th scope="col"><i class="fa-solid fa-pen-to-square"></i></th>
+            <th colspan="2"></th>
           </tr>
         </thead>
         <tbody>
