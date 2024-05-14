@@ -115,7 +115,7 @@
 
         // 有通過檢查, 才要送表單
         
-        const fd = new FormData(document.form1); // 沒有外觀的表單物件
+        const fd = new FormData(document.form1); 
 
         fetch('add-booking-api.php', {
             method: 'POST',

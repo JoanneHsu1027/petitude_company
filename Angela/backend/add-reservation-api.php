@@ -1,9 +1,9 @@
     <?php
-    require __DIR__ . '/../parts/admin-required.php';
+    // require __DIR__ . '/../parts/admin-required.php';
     require __DIR__ . '/../config/pdo_connect.php';
-    // 將回傳的資料類型設置為 JSON 格式
+
     header('Content-Type: application/json');
-    // 初始化$output 陣列，用於儲存後續的回傳資料，包括是否成功、提交的資料、錯誤訊息和程式碼
+
     $output = [
     'success' => false, # 有沒有新增成功
     'bodyData' => $_POST,
@@ -11,27 +11,33 @@
     ];
 
 // TODO: 欄位資料檢查
-    if (!isset($_POST['reservation_id'])) {
+    if (!isset($_POST['reservation_date'])) {
         echo json_encode($output);
         exit;
     }
 
-    // 將提交的資料準備好，準備插入到資料庫中。這包括將生日轉換為日期格式
-    $sql = "INSERT INTO `reservation` (
-        `reservation_id`, `fk_b2c_id`, `fk_pet_id`, `reservation_date`, `reservation_note`) VALUES(
-        ?, 
-        ?, 
-        ?, 
-        ?, 
-        ?,)";
+    $reservationDate = DateTime::createFromFormat('Y-m-d', $_POST['reservation_date']);
+    if (!$reservationDate) {
+    // 日期格式不正确，返回错误消息或采取其他适当的错误处理措施
+    $output['error'] = "Invalid date format";
+    echo json_encode($output);
+    exit;
+    }
 
-    // 使用 $pdo->prepare() 準備來查詢SQL，並使用 $stmt->execute() 來執行查詢。傳遞了一個包含要插入到資料庫的值的陣列給 execute()
+    $reservation_date_formatted = $reservationDate->format('Y-m-d');
+
+    $sql = "INSERT INTO `reservation` (
+        `fk_b2c_id`, `fk_pet_id`, `reservation_date`, `reservation_note`) VALUES(
+        ?, 
+        ?, 
+        ?,  
+        ?)";
+
     $stmt = $pdo->prepare($sql);
     $stmt->execute([
-        $_POST['reservation_id'],
         $_POST['fk_b2c_id'],
         $_POST['fk_pet_id'],
-        $_POST['reservation_date'],
+        $reservation_date_formatted,
         $_POST['reservation_note']
     ]);
 
