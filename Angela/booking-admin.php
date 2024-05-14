@@ -111,7 +111,7 @@
                 <td><?= $r['booking_date'] ?></td>
                 <td><?= $r['booking_note'] ?></td>
                 <td>
-                <a href="/backend/edit-booking.php?booking_id=<?= $r['booking_id'] ?>">
+                <a href="./backend/edit-booking.php?booking_id=<?=$r['booking_id'] ?>">
                     <i class="fa-solid fa-pen-to-square"></i>
                 </a>
                 </td>

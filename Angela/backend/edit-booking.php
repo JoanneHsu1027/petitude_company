@@ -6,7 +6,7 @@
 
     $booking_id = isset($_GET['booking_id']) ? intval($_GET['booking_id']) : 0;
     if ($booking_id < 1) {
-    header('Location: booking.php');
+    header('Location: ./../booking-admin.php');
     exit;
     }
 
@@ -14,13 +14,13 @@
 
     $row = $pdo->query($sql)->fetch();
     if (empty($row)) {
-    header('Location: booking.php');
+    header('Location: ./../booking-admin.php');
     exit;
     }
 
     ?>
-    <?php include __DIR__ . '/parts/html-head.php' ?>
-    <?php include __DIR__ . '/parts/navbar.php' ?>
+    <?php include __DIR__ . '/../parts/html_head.php' ?>
+    <?php include __DIR__ . '/../parts/navbar.php' ?>
     <style>
     form .mb-3 .form-text {
         color: red;
@@ -100,37 +100,36 @@
     </div>
 
 
-    <?php include __DIR__ . '/parts/scripts.php' ?>
+    <?php include __DIR__ . '/../parts/script.php' ?>
     <script>
 
     const sendData = e => {
         e.preventDefault();
-    }
+    
         let isPass = true;  // 表單有沒有通過檢查
         
         // 有通過檢查, 才要送表單
         if (isPass) {
+            const fd = new FormData(document.form1); // 沒有外觀的表單物件
 
-        fetch('edit-booking-api.php', {
-            method: 'POST',
-            body: fd,
-        })
-        .then(r => r.json())
-        .then(data => {
-            console.log(data);
-            if (data.success) {
-                myModal.show();
-            } else {
-                console.log('api error?');
+            fetch('edit-booking-api.php', {
+                method: 'POST',
+                body: fd, // Content-Type: multipart/form-data
+                }).then(r => r.json())
+                .then(data => {
+                console.log(data);
+                if (data.success) {
+                    myModal.show();
+                } else {
+                    myModal2.show();
+                }
+                })
+                .catch(ex => console.log(ex))
             }
-        })
-        .catch(ex => {
-            console.error('An error occurred while processing the request:', ex);
-            // 在这里可以向用户显示错误消息
-        });
-    }
+        };
 
-const myModal = new bootstrap.Modal(document.getElementById('staticBackdrop'));
+        const myModal = new bootstrap.Modal('#staticBackdrop')
+        const myModal2 = new bootstrap.Modal('#staticBackdrop2')
 
     </script>
-    <?php include __DIR__ . '/parts/html-foot.php' ?>
+    <?php include __DIR__ . '/../parts/html_foot.php' ?>
