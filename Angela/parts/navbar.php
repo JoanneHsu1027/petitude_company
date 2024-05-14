@@ -1,37 +1,39 @@
-    <?php
-    if (!isset($pageName)) {
+<?php
+if (!isset($pageName))
     $pageName = '';
-    }
-    ?>
-    
+?>
 
-    <div class="container">
     <div id="sidebar" class="show">
-        <h1><a href="./backend/index_.php">Petitude</a></h1>
-        
+        <h1>Petitude</h1>
         <div class="menu-item">
-            <a href="http://localhost:8080/petitude_company/Angela/project.php" class="<?= $pageName == 'project' ? 'active' : '' ?>">生前契約方案</a>
+            <a href="#">首頁</a>
         </div>
         <div class="menu-item">
-            <a href="http://localhost:8080/petitude_company/Angela/reservation.php" class="<?= $pageName == 'reservation' ? 'active' : '' ?>">預約參觀</a>
+            <a href="#">使用者管理</a>
         </div>
-        <div class="menu-item">
-            <a href="http://localhost:8080/petitude_company/Angela/booking.php" class="<?= $pageName == 'booking' ? 'active' : '' ?>">生前契約 - 線上下單</a>
-        </div>
+        <!-- <div class="menu-item">
+            <a href="#">設置</a>
+        </div> -->
 
+        <?php if (isset($_SESSION['admin'])): ?>
         <div class="menu-item">
-            <?php if (isset($_SESSION['admin'])) : ?>
-                <a href="#" class=""><?= $_SESSION['admin']['nickname'] ?></a>
-            <?php else : ?>
-                <a href="http://localhost:8080/petitude_company/Angela/backend/login.php" class="<?= $pageName == 'login' ? 'active' : '' ?>">登入</a>
-            <?php endif; ?>
+            <a class="nav-link"><?= $_SESSION['admin']['b2b_name'] ?></a>
         </div>
         <div class="menu-item">
-            <?php if (isset($_SESSION['admin'])) : ?>
-                <a href="http://localhost:8080/petitude_company/Angela/backend/index_.php">登出</a>
-            <?php else : ?>
-                <a href="http://localhost:8080/petitude_company/Angela/backend/register.php" class="<?= $pageName == 'register' ? 'active' : '' ?>">註冊</a>
-            <?php endif; ?>
+            <a class="nav-link" href="b2b_list.php">員工列表</a>
         </div>
+        <div class="menu-item">
+            <a class="nav-link" href="b2c_list.php">會員列表</a>
+        </div>
+        <div class="menu-item">
+            <a class="nav-link" href="logout.php">登出</a>
+        </div>
+        <?php else: ?>
+        <div class="menu-item">
+            <a class="nav-link <?= $pageName == 'login' ? 'active' : '' ?>" href="login.php">登入</a>
+        </div>
+        <div class="menu-item">
+            <a class="nav-link <?= $pageName == 'register' ? 'active' : '' ?>" href="register.php">註冊</a>
+        </div>
+        <?php endif ?>
     </div>
-</div>

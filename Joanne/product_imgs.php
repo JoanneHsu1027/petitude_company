@@ -109,9 +109,7 @@ if ($totalRows) {
                             <td><?= $r['picture_name'] ?></td>
                             <td><?= $r['picture_url'] ?></td>
                             <td>
-                                <a href="edit.php?picture_id=<?= $r['picture_id'] ?>">
-                                    <button type="button" class="btn btn-warning fa-solid fa-pen-to-square"></button>
-                                </a>
+                                <a href="./product_imgs_edit.php?picture_id=<?= $r['picture_id'] ?>" class="btn btn-warning fa-solid fa-pen-to-square"></a>
                             </td>
                             <td>
                                 <a href="javascript: deleteOne(<?= $r['picture_id'] ?>)">

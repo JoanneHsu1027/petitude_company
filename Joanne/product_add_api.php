@@ -13,7 +13,7 @@ $output = [
 ];
 
 // TODO: 欄位資料檢查
-if (!isset($_POST['name'])) {
+if (!isset($_POST['product_name'])) {
   echo json_encode($output);
   exit; # 結束 php 程式
 }
@@ -47,7 +47,7 @@ $stmt = $pdo->query($sql);
 
 
 
-$sql = "INSERT INTO `request`(
+$sql = "INSERT INTO `product`(
 `product_name`,  `product_description`, `product_price`, `product_quantity`, `product_category`, `product_date`, `product_last_modified`) VALUES (
     ?,
     ?,

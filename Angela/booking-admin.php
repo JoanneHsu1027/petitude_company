@@ -119,7 +119,7 @@
                     
                 </td>
                 <td>
-                    <a href="javascript: delete_one(<?= $r['booking_id'] ?>)">
+                    <a href="javascript: deleteOne(<?= $r['booking_id'] ?>)">
                     <i class="fa-solid fa-trash-can btn btn-danger"></i>
                     </a>
                 </td>
@@ -133,9 +133,9 @@
     </div>
     <?php include __DIR__ . '/parts/script.php' ?>
     <script>
-    function delete_one(booking_id){
+    const deleteOne = (booking_id) =>{
         if(confirm(`是否要刪除編號為 ${booking_id} 的資料?`)){
-        location.href = `Angela\backend\delete-booking.php?booking_id=${booking_id}`;
+        location.href = `backend/delete-booking.php?booking_id=${booking_id}`;
         }
     }
 
@@ -148,6 +148,5 @@
     }).then(r => r.json()).then(result => {}).catch(ex => console.log(ex));
 }
 
-   
     </script>
     <?php include __DIR__ . '/parts/html_foot.php' ?>
