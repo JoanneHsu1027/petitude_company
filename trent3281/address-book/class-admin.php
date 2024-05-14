@@ -124,32 +124,36 @@ echo json_encode([
                 <div class="collapse" id="collapseExample<?= $r['class_id'] ?>">
                   <div class="table-responsive">
                     <table class="table table-bordered">
-                      <thead>
-                        <tr>
-                          <th>文章ID</th>
-                          <th>日期</th>
-                          <th>標題</th>
-                          <th>內容</th>
-                          <th>圖片</th>
-                          <th>類別ID</th>
-                          <th>B2C會員ID</th>
-                        </tr>
-                      </thead>
+                      <?php
+                      $class_id = $r['class_id']; // 從迴圈中獲取類別ID
+                    
+                      // 查詢與特定 class_id 相關聯的文章資訊
+                      $stmt = $pdo->prepare("SELECT article_id, article_date, article_name, article_content, article_img, fk_class_id, fk_b2c_id
+                            FROM article
+                            WHERE fk_class_id = ?");
+                      $stmt->execute([$class_id]);
+                      $articles = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+                      // 檢查是否有文章
+                      $hasArticles = !empty($articles);
+                      ?>
+                      <?php if ($hasArticles): ?>
+                        <thead>
+                          <tr>
+                            <th>文章ID</th>
+                            <th>日期</th>
+                            <th>標題</th>
+                            <th>內容</th>
+                            <th>圖片</th>
+                            <th>類別ID</th>
+                            <th>B2C會員ID</th>
+                          </tr>
+                        </thead>
+                      <?php endif; ?>
                       <tbody>
                         <?php
-                        $class_id = $r['class_id']; // 從迴圈中獲取類別ID
-                      
-                        // 查詢與特定 class_id 相關聯的文章資訊
-                        $stmt = $pdo->prepare("SELECT article_id, article_date, article_name, article_content, article_img, fk_class_id, fk_b2c_id
-                                FROM article
-                                WHERE fk_class_id = ?");
-                        $stmt->execute([$class_id]);
-                        $articles = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
-                        // 如果文章資訊為空，顯示說明
-                        if (empty($articles)) {
-                          echo "<tr><td colspan='7'>類別中無新增文章</td></tr>";
-                        } else {
+                        // 如果有文章，顯示文章相關資訊，否則顯示提示訊息
+                        if ($hasArticles) {
                           foreach ($articles as $article) {
                             echo "<tr>";
                             echo "<td>{$article['article_id']}</td>";
@@ -161,6 +165,8 @@ echo json_encode([
                             echo "<td>{$article['fk_b2c_id']}</td>";
                             echo "</tr>";
                           }
+                        } else {
+                          echo "<tr><td colspan='7'>類別中無新增文章</td></tr>";
                         }
                         ?>
                       </tbody>
@@ -168,6 +174,7 @@ echo json_encode([
                   </div>
                 </div>
               </td>
+
 
 
             </tr>
