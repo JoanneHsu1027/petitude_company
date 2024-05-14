@@ -55,12 +55,12 @@ echo json_encode([
       <nav aria-label="Page navigation example">
         <ul class="pagination">
           <li class="page-item ">
-            <a class="page-link" href="#">
+            <a class="page-link" href="?page=1">
               <i class="fa-solid fa-angles-left"></i>
             </a>
           </li>
           <li class="page-item ">
-            <a class="page-link" href="#">
+            <a class="page-link" href="?page=<?= $page - 1 ?>">
               <i class="fa-solid fa-angle-left"></i>
             </a>
           </li>
@@ -71,12 +71,12 @@ echo json_encode([
               </li>
             <?php endif; endfor; ?>
           <li class="page-item ">
-            <a class="page-link" href="#">
+            <a class="page-link" href="?page=<?= $page + 1 ?>">
               <i class="fa-solid fa-angle-right"></i>
             </a>
           </li>
           <li class="page-item ">
-            <a class="page-link" href="#">
+            <a class="page-link" href="?page=<?= $totalPages ?>">
               <i class="fa-solid fa-angles-right"></i>
             </a>
           </li>

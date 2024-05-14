@@ -27,12 +27,12 @@ $pageName = 'login';
           <h5 class="card-title">登入</h5>
           <form name="form1" onsubmit="sendData(event)">
             <div class="mb-3">
-              <label for="email" class="form-label">Email</label>
-              <input type="text" class="form-control" id="email" name="email">
+              <label for="b2b_email" class="form-label">Email</label>
+              <input type="text" class="form-control" id="b2b_email" name="b2b_email">
             </div>
             <div class="mb-3">
-              <label for="password" class="form-label">密碼</label>
-              <input type="password" class="form-control" id="password" name="password">
+              <label for="b2b_password" class="form-label">密碼</label>
+              <input type="password" class="form-control" id="b2b_password" name="b2b_password">
 
             </div>
             <button type="submit" class="btn btn-primary">登入</button>
@@ -66,12 +66,12 @@ $pageName = 'login';
 <?php include __DIR__ . '/parts/scripts.php' ?>
 <script>
 
-  const emailField = document.form1.email;
+  const emailField = document.form1.b2b_email;
 
-  function validateEmail(email) {
+  function validateEmail(b2b_email) {
     const re =
       /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-    return re.test(email);
+    return re.test(b2b_email);
   }
 
   const sendData = e => {

@@ -62,7 +62,6 @@
         <a href="#">論壇 <i class="fa-solid fa-angle-down"></i></a>
         <div class="dropdown">
           <a href="class.php" class="align-middle">主題管理</a>
-          <a href="article.php" class="align-middle">文章管理</a>
         </div>
       </div>
 
