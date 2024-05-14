@@ -4,8 +4,8 @@
     if (!isset($_SESSION)) {
         session_start();
     }
-    $title = '新增訂單';
-    $pageName = 'add-booking';
+    $title = '新增預約紀錄';
+    $pageName = 'add-reservation';
     ?>
     <?php include __DIR__ . '/../parts/html_head.php' ?>
     <?php include __DIR__ . '/../parts/navbar.php' ?>
@@ -15,8 +15,8 @@
         font-weight: 800;
     }
     </style>
-        <div id="content">
-        <h1>生前契約訂單-新增訂單</h1>
+    <div id="content">
+        <h1>預約參觀-新增預約紀錄</h1>
         </div>
     <div class="container">
     <div class="row">
@@ -36,23 +36,13 @@
                 <div class="form-text"></div>
                 </div>
                 <div class="mb-3">
-                <label for="fk_project_id" class="form-label">fk_project_id</label>
-                <input type="text" class="form-control" id="fk_project_id" name="fk_project_id">
+                <label for="reservation_date" class="form-label">reservation_date</label>
+                <input type="date" class="form-control" id="reservation_date" name="reservation_date">
                 <div class="form-text"></div>
                 </div>
                 <div class="mb-3">
-                <label for="fk_reservation_id" class="form-label">fk_reservation_id</label>
-                <input type="text" class="form-control" id="fk_reservation_id" name="fk_reservation_id">
-                <div class="form-text"></div>
-                </div>
-                <div class="mb-3">
-                <label for="booking_date" class="form-label">booking_date</label>
-                <input type="date" class="form-control" id="booking_date" name="booking_date">
-                <div class="form-text"></div>
-                </div>
-                <div class="mb-3">
-                <label for="booking_note" class="form-label">booking_note</label>
-                <textarea class="form-control" name="booking_note" id="booking_note" cols="30" rows="3"></textarea>
+                <label for="note" class="form-label">note</label>
+                <textarea class="form-control" name="note" id="note" cols="30" rows="3"></textarea>
                 </div>
 
                 <button type="submit" class="btn btn-primary">新增</button>
@@ -105,6 +95,7 @@
     </div>
     </div>
 
+
     <?php include __DIR__ . '/../parts/script.php' ?>
     <script>
 
@@ -115,11 +106,11 @@
 
         // 有通過檢查, 才要送表單
         
-        const fd = new FormData(document.form1); 
+        const fd = new FormData(document.form1);
 
-        fetch('add-booking-api.php', {
+        fetch('add-reservation-api.php', {
             method: 'POST',
-            body: fd, // Content-Type: multipart/form-data
+            body: fd, 
         }).then(r => r.json())
             .then(data => {
             console.log(data);

@@ -4,8 +4,8 @@
     if (!isset($_SESSION)) {
         session_start();
     }
-    $title = '新增訂單';
-    $pageName = 'add-booking';
+    $title = '新增列表';
+    $pageName = 'add-project';
     ?>
     <?php include __DIR__ . '/../parts/html_head.php' ?>
     <?php include __DIR__ . '/../parts/navbar.php' ?>
@@ -15,8 +15,8 @@
         font-weight: 800;
     }
     </style>
-        <div id="content">
-        <h1>生前契約訂單-新增訂單</h1>
+    <div id="content">
+        <h1>生前契約列表-新增列表</h1>
         </div>
     <div class="container">
     <div class="row">
@@ -26,33 +26,29 @@
             <form name="form1" onsubmit="sendData(event)">
 
                 <div class="mb-3">
-                <label for="fk_b2c_id" class="form-label">fk_b2c_id</label>
-                <input type="text" class="form-control" id="fk_b2c_id" name="fk_b2c_id">
+                <label for="project_id" class="form-label">project_id</label>
+                <input type="text" class="form-control" id="project_id" name="project_id">
                 <div class="form-text"></div>
                 </div>
                 <div class="mb-3">
-                <label for="fk_pet_id" class="form-label">fk_pet_id</label>
-                <input type="text" class="form-control" id="fk_pet_id" name="fk_pet_id">
+                <label for="project_level" class="form-label">project_level</label>
+                <input type="text" class="form-control" id="project_level" name="project_level">
                 <div class="form-text"></div>
                 </div>
                 <div class="mb-3">
-                <label for="fk_project_id" class="form-label">fk_project_id</label>
-                <input type="text" class="form-control" id="fk_project_id" name="fk_project_id">
+                <label for="project_name" class="form-label">project_name</label>
+                <input type="text" class="form-control" id="project_name" name="project_name">
                 <div class="form-text"></div>
                 </div>
                 <div class="mb-3">
-                <label for="fk_reservation_id" class="form-label">fk_reservation_id</label>
-                <input type="text" class="form-control" id="fk_reservation_id" name="fk_reservation_id">
+                <label for="project_content" class="form-label">project_content</label>
+                <input type="text" class="form-control" id="project_content" name="project_content">
                 <div class="form-text"></div>
                 </div>
                 <div class="mb-3">
-                <label for="booking_date" class="form-label">booking_date</label>
-                <input type="date" class="form-control" id="booking_date" name="booking_date">
+                <label for="project_fee" class="form-label">project_fee</label>
+                <input type="text" class="form-control" id="project_fee" name="project_fee">
                 <div class="form-text"></div>
-                </div>
-                <div class="mb-3">
-                <label for="booking_note" class="form-label">booking_note</label>
-                <textarea class="form-control" name="booking_note" id="booking_note" cols="30" rows="3"></textarea>
                 </div>
 
                 <button type="submit" class="btn btn-primary">新增</button>
@@ -63,6 +59,7 @@
     </div>
     </div>
 
+    <!-- Modal -->
     <!-- Modal -->
     <div class="modal fade" id="staticBackdrop" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
@@ -78,7 +75,7 @@
         </div>
         <div class="modal-footer">
             
-            <button type="button" class="btn btn-primary" onclick="location.href='./booking.php'">到列表頁</button>
+            <button type="button" class="btn btn-primary" onclick="location.href='./project.php'">到列表頁</button>
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">繼續新增</button>
         </div>
         </div>
@@ -107,7 +104,6 @@
 
     <?php include __DIR__ . '/../parts/script.php' ?>
     <script>
-
     const fd = new FormData(document.form1); 
 
     const sendData = e => {
@@ -115,11 +111,11 @@
 
         // 有通過檢查, 才要送表單
         
-        const fd = new FormData(document.form1); 
+        const fd = new FormData(document.form1); // 沒有外觀的表單物件
 
-        fetch('add-booking-api.php', {
+        fetch('add-project-api.php', {
             method: 'POST',
-            body: fd, // Content-Type: multipart/form-data
+            body: fd, 
         }).then(r => r.json())
             .then(data => {
             console.log(data);

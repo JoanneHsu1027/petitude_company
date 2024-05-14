@@ -5,7 +5,7 @@ $pageName = 'login';
 
 // 检查用户是否已登录为管理员
 if (isset($_SESSION['admin']) && $_SESSION['admin'] === true) {
-    include __DIR__ . '/booking-admin.php';
+    include __DIR__ . 'booking-admin.php';
     exit;
 }
 
@@ -86,7 +86,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         if (isPass) {
         const fd = new FormData(document.form1); // 沒有外觀的表單物件
 
-        fetch(`Angela\backend\login-api.php`, {
+        fetch(`Angela/backend/login-api.php`, {
             method: 'POST',
             body: fd,
         }).then(r => r.json()).then(data => {

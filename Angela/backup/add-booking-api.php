@@ -16,7 +16,6 @@
     }
 
     $bookingDate = DateTime::createFromFormat('Y-m-d', $_POST['booking_date']);
-    
 if (!$bookingDate) {
     // 日期格式不正确，返回错误消息或采取其他适当的错误处理措施
     $output['error'] = "Invalid date format";

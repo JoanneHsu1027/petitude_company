@@ -111,12 +111,9 @@
                 <td><?= $r['booking_date'] ?></td>
                 <td><?= $r['booking_note'] ?></td>
                 <td>
-                    
-                    <button class="fa-solid fa-pen-to-square btn btn-warning">
-                        <a href="/parts/edit-booking.php?booking_id=<?= $r['booking_id'] ?>">
-                        </a>
-                    </button>
-                    
+                <a href="./backend/edit-booking.php?booking_id=<?=$r['booking_id'] ?>">
+                    <i class="fa-solid fa-pen-to-square"></i>
+                </a>
                 </td>
                 <td>
                     <a href="javascript: deleteOne(<?= $r['booking_id'] ?>)">
@@ -138,15 +135,6 @@
         location.href = `backend/delete-booking.php?booking_id=${booking_id}`;
         }
     }
-
-    function sendMultiDel(event) {
-    event.preventDefault();
-    const fd = new FormData(document.getElementById('form1'));
-    fetch('/backend/edit-booking.php', {
-        method: 'POST',
-        body: fd
-    }).then(r => r.json()).then(result => {}).catch(ex => console.log(ex));
-}
 
     </script>
     <?php include __DIR__ . '/parts/html_foot.php' ?>
