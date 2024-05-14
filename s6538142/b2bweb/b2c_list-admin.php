@@ -142,7 +142,7 @@ if ($endPage > $totalPages) {
         </div>
     </div>
     <!-- 分頁功能End -->
-
+    
     <!-- 搜尋功能Start -->
     <div class="row">
       <form method="get" action="">
@@ -173,6 +173,7 @@ if ($endPage > $totalPages) {
     <div class="row">
         <div class="col">
             <table class="table table-bordered table-striped">
+
                 <thead>
                     <tr>
                         <th scope="col"><i class="fa-solid fa-trash"></i></th>
@@ -200,6 +201,7 @@ if ($endPage > $totalPages) {
                         <th scope="col"><i class="fa-solid fa-pen-to-square"></i></th>
                     </tr>
                 </thead>
+
                 <tbody>
                     <?php foreach ($rows as $r): ?>
                         <tr>
