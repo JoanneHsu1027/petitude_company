@@ -28,17 +28,14 @@
                     </div>
                 </div>
             </div>
-        </div>
 
-
-        <div class="accordion" id="accordionExample">
             <div class="accordion-item">
                 <h2 class="accordion-header" id="heading2">
                     <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse2" aria-expanded="true" aria-controls="collapse2">
-                        商品管理
+                        商城商品管理
                     </button>
                 </h2>
-                <div id="collapse2" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+                <div id="collapse2" class="accordion-collapse collapse" aria-labelledby="heading2" data-bs-parent="#accordionExample">
                     <div class="m-2">
                         <a href="../market/product.php" class="align-middle" style="text-decoration:none; color:#0c5a67">商品列表</a>
                     </div>
@@ -47,17 +44,14 @@
                     </div>
                 </div>
             </div>
-        </div>
 
-
-        <div class="accordion" id="accordionExample">
             <div class="accordion-item">
                 <h2 class="accordion-header" id="heading3">
                     <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse3" aria-expanded="true" aria-controls="collapse3">
-                        訂單管理
+                        商城訂單管理
                     </button>
                 </h2>
-                <div id="collapse3" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+                <div id="collapse3" class="accordion-collapse collapse" aria-labelledby="heading3" data-bs-parent="#accordionExample">
                     <div class="m-2">
                         <a href="../market/request.php" class="align-middle" style="text-decoration:none; color:#0c5a67">訂單列表</a>
                     </div>
@@ -66,13 +60,58 @@
                     </div>
                 </div>
             </div>
+
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="heading4">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse4" aria-expanded="true" aria-controls="collapse4">
+                        保險管理
+                    </button>
+                </h2>
+                <div id="collapse4" class="accordion-collapse collapse" aria-labelledby="heading4" data-bs-parent="#accordionExample">
+                    <div class="m-2">
+                        <a href="#" class="align-middle" style="text-decoration:none; color:#0c5a67">保險產品列表</a>
+                    </div>
+                    <div class="m-2">
+                        <a href="#" class="align-middle" style="text-decoration:none; color:#0c5a67">保險訂單列表</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="heading5">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse5" aria-expanded="true" aria-controls="collapse5">
+                        生命禮儀管理
+                    </button>
+                </h2>
+                <div id="collapse5" class="accordion-collapse collapse" aria-labelledby="heading5" data-bs-parent="#accordionExample">
+                    <div class="m-2">
+                        <a href="#" class="align-middle" style="text-decoration:none; color:#0c5a67">線上預約參觀列表</a>
+                    </div>
+                    <div class="m-2">
+                        <a href="#" class="align-middle" style="text-decoration:none; color:#0c5a67">生前契約列表</a>
+                    </div>
+                    <div class="m-2">
+                        <a href="#" class="align-middle" style="text-decoration:none; color:#0c5a67">生前契約預訂列表</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="heading6">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse6" aria-expanded="true" aria-controls="collapse6">
+                        論壇管理
+                    </button>
+                </h2>
+                <div id="collapse6" class="accordion-collapse collapse" aria-labelledby="heading6" data-bs-parent="#accordionExample">
+                    <div class="m-2">
+                        <a href="#" class="align-middle" style="text-decoration:none; color:#0c5a67">主題列表</a>
+                    </div>
+                </div>
+            </div>
         </div>
 
-
-
-
         <div class="menu-item">
-            <a class="nav-link" href="logout.php">登出</a>
+            <a class="nav-link" href="../b2bweb/logout.php">登出</a>
         </div>
     <?php else : ?>
         <div class="menu-item">

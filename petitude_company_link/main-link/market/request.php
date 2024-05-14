@@ -126,7 +126,7 @@ if ($endPage > $totalPages) {
         <div class="col">
             <table class="table table-bordered table-striped">
                 <thead>
-                    <tr>
+                    <tr style="text-align: center">
                         <th scope="col">訂單號</th>
                         <th scope="col">訂單日期</th>
                         <th scope="col">訂單狀態</th>
@@ -143,22 +143,19 @@ if ($endPage > $totalPages) {
                 <tbody>
                     <?php foreach ($rows as $r) : ?>
                         <tr>
-                            <td><?= $r['request_id'] ?></td>
-                            <td><?= $r['request_date'] ?></td>
-                            <td><?= $r['request_status'] ?></td>
-                            <td><?= $r['payment_status'] ?></td>
-                            <td><?= $r['fk_b2c_id'] ?></td>
-                            <td><?= $r['request_price'] ?></td>
+                            <td style="text-align: center"><?= $r['request_id'] ?></td>
+                            <td style=""><?= $r['request_date'] ?></td>
+                            <td style="text-align: center"><?= $r['request_status'] ?></td>
+                            <td style="text-align: center"><?= $r['payment_status'] ?></td>
+                            <td style="text-align: center"><?= $r['fk_b2c_id'] ?></td>
+                            <td style="text-align: center"><?= $r['request_price'] ?></td>
                             <td><?= htmlentities($r['county_name'] . $r['city_name'] . $r['recipient_address']) ?></td>
-                            <td><?= $r['recipient_mobile'] ?></td>
+                            <td style=""><?= $r['recipient_mobile'] ?></td>
                             <td><?= $r['recipient_email'] ?></td>
-                            <td>
-
+                            <td style="text-align: center">
                                 <a href="./request_edit.php?request_id=<?= $r['request_id'] ?>" class="btn btn-warning fa-solid fa-pen-to-square"></a>
-
-
                             </td>
-                            <td>
+                            <td style="text-align: center">
                                 <a href="javascript: deleteOne(<?= $r['request_id'] ?>)">
                                     <button type="button" class="btn btn-danger fa-solid fa-trash-can"></button>
                                 </a>
