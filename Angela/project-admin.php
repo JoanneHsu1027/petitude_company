@@ -1,4 +1,3 @@
-    <!-- 有權限 -->
     <?php
     require __DIR__ . '/config/pdo_connect.php';
     $title = '生前契約列表-有權限';
@@ -33,6 +32,7 @@
     <?php include __DIR__ . '/parts/html_head.php' ?>
     <?php include __DIR__ . '/parts/navbar.php' ?>
 
+    <!-- page頁籤 -->
     <div id="content">
         <h1>生前契約列表-有權限</h1>
     </div>
@@ -81,13 +81,12 @@
                 <a href=""><button class="btn btn-success mt-2" style="height: 50px;" type="submit">查詢</button></a>
             </form>
             <!-- 新增/搜尋 -->
-    <div class="row">
+<div class="row">
         <div class="col">
         <form id="form1" name="form1" onsubmit="sendMultiDel(event)">
         <table class="table table-bordered table-striped">
             <thead>
             <tr>
-                <th><input type="checkbox" name="select-all" id="select-all" onclick="toggleAllCheckboxes()"></th>
                 <th>project_id</th>
                 <th>project_level</th>
                 <th>project_name</th>
@@ -97,25 +96,26 @@
                 <th>刪除</th>
             </tr>
             </thead>
+            <!-- table欄位 -->
+            <!-- 欄位值 -->
             <tbody>
             <?php foreach ($rows as $r) : ?>
                 <tr>
-                <td><input type="checkbox" name="project[]" value="<?= $r['project_id'] ?>"></td>
                 <td><?= $r['project_id'] ?></td>
                 <td><?= $r['project_level'] ?></td>
                 <td><?= $r['project_name'] ?></td>
                 <td><?= $r['project_content'] ?></td>
                 <td><?= $r['project_fee'] ?></td>
-                <!--
-                <td><?= htmlentities($r['edit-project']) ?></td>
-                -->
                 <td>
-                    <a href="/parts/edit-project.php?project_id=<?= $r['project_id'] ?>">
-                    <i class="fa-solid fa-pen-to-square btn btn-warning"></i>
-                    </a>
+                    
+                    <button class="fa-solid fa-pen-to-square btn btn-warning">
+                        <a href="/parts/edit-project.php?project_id=<?= $r['project_id'] ?>">
+                        </a>
+                    </button>
+                    
                 </td>
                 <td>
-                    <a href="javascript: delete_one(<?= $r['project_id'] ?>)">
+                    <a href="javascript: deleteOne(<?= $r['project_id'] ?>)">
                     <i class="fa-solid fa-trash-can btn btn-danger"></i>
                     </a>
                 </td>
@@ -129,26 +129,20 @@
     </div>
     <?php include __DIR__ . '/parts/script.php' ?>
     <script>
-    function delete_one(project_id){
+    const deleteOne = (project_id) =>{
         if(confirm(`是否要刪除編號為 ${project_id} 的資料?`)){
-        location.href = `Angela\backend\delete-project.php?project_id=${project_id}`;
+        location.href = `backend/delete-project.php?project_id=${project_id}`;
         }
     }
 
     function sendMultiDel(event) {
     event.preventDefault();
     const fd = new FormData(document.getElementById('form1'));
-    fetch('/../multi-delete-project.php', {
+    fetch('/backend/edit-project.php', {
         method: 'POST',
         body: fd
     }).then(r => r.json()).then(result => {}).catch(ex => console.log(ex));
 }
 
-    function toggleAllCheckboxes() {
-        const checkboxes = document.querySelectorAll('input[name="project[]"]');
-        checkboxes.forEach(checkbox => {
-            checkbox.checked = !checkbox.checked;
-        });
-    }
     </script>
     <?php include __DIR__ . '/parts/html_foot.php' ?>
