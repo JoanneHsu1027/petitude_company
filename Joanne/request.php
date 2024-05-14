@@ -45,32 +45,32 @@ if ($totalRows) {
 ?>
 
 <?php
-    
-    $currentPage = isset($_GET['page']) ? intval($_GET['page']) : 1;
-    
-    $currentPage = max($currentPage, 1); #  currentPage 不小於 1
 
-    $range = 5; // 前後按鈕長度
-    
-    $startPage = $currentPage - $range;
-    $endPage = $currentPage + $range;
-    
-    
+$currentPage = isset($_GET['page']) ? intval($_GET['page']) : 1;
+
+$currentPage = max($currentPage, 1); #  currentPage 不小於 1
+
+$range = 5; // 前後按鈕長度
+
+$startPage = $currentPage - $range;
+$endPage = $currentPage + $range;
+
+
+if ($startPage < 1) {
+    $endPage += 1 - $startPage; #由於這時候$startPage是負數，$endPage會加上 1-$startPage 補足缺少的長度 
+    $startPage = 1;
+}
+
+if ($endPage > $totalPages) {
+    $startPage -= $endPage - $totalPages; #由於這時候$endPage超過了原本的總頁數，$startPage- ($endPage - $totalPages) 減去多餘的長度 
+    $endPage = $totalPages;
+
+    # 確保 `startPage` 不小於 1
     if ($startPage < 1) {
-        $endPage += 1 - $startPage; #由於這時候$startPage是負數，$endPage會加上 1-$startPage 補足缺少的長度 
         $startPage = 1;
     }
-    
-    if ($endPage > $totalPages) {
-        $startPage -= $endPage - $totalPages; #由於這時候$endPage超過了原本的總頁數，$startPage- ($endPage - $totalPages) 減去多餘的長度 
-        $endPage = $totalPages;
-    
-        # 確保 `startPage` 不小於 1
-        if ($startPage < 1) {
-            $startPage = 1;
-        }
-    }
-    ?>
+}
+?>
 
 <?php include __DIR__ . './parts/head.php' ?>
 <?php include __DIR__ . './parts/navbar.php' ?>
@@ -149,7 +149,7 @@ if ($totalRows) {
                             <td><?= $r['payment_status'] ?></td>
                             <td><?= $r['fk_b2c_id'] ?></td>
                             <td><?= $r['request_price'] ?></td>
-                            <td><?= htmlentities($r['county_name'].$r['city_name'].$r['recipient_address']) ?></td>
+                            <td><?= htmlentities($r['county_name'] . $r['city_name'] . $r['recipient_address']) ?></td>
                             <td><?= $r['recipient_mobile'] ?></td>
                             <td><?= $r['recipient_email'] ?></td>
                             <td>

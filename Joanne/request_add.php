@@ -1,6 +1,6 @@
 <?php
 require __DIR__ . './admin-required.php';
-require __DIR__ . '/Alladdress.php';
+require __DIR__ . './Alladdress.php';
 if (!isset($_SESSION)) {
   session_start();
 }
@@ -8,8 +8,8 @@ $title = "新增資料";
 $pageName = 'request_add';
 
 ?>
-<?php include __DIR__ . './parts/head.php' ?>
-<?php include __DIR__ . './parts/navbar.php' ?>
+<?php include __DIR__ . '../parts/head.php' ?>
+<?php include __DIR__ . '../parts/navbar.php' ?>
 <style>
   form .mb-3 .form-text {
     color: red;
