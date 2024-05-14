@@ -175,67 +175,7 @@ echo json_encode([
                 </div>
               </td>
 
-
-
             </tr>
-
-
-            <!-- <tr>
-              <td colspan="5">
-                <button class="btn btn-primary" type="button" data-bs-toggle="collapse"
-                  data-bs-target="#collapseExample<?= $r['class_id'] ?>" aria-expanded="false"
-                  aria-controls="collapseExample<?= $r['class_id'] ?>">
-                  <i class="fa-solid fa-chevron-down"></i>
-                </button>
-                <div class="collapse" id="collapseExample<?= $r['class_id'] ?>">
-                  <div class="table-responsive">
-                    <table class="table table-bordered">
-                      <thead>
-                        <tr>
-                          <th>文章ID</th>
-                          <th>日期</th>
-                          <th>標題</th>
-                          <th>內容</th>
-                          <th>圖片</th>
-                          <th>類別ID</th>
-                          <th>B2C會員ID</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <?php
-                        $class_id = $r['class_id']; // 從迴圈中獲取類別ID
-                      
-                        // 查詢與特定 class_id 相關聯的文章資訊
-                        $stmt = $pdo->prepare("SELECT article_id, article_date, article_name, article_content, article_img, fk_class_id, fk_b2c_id
-                                FROM article
-                                WHERE fk_class_id = ?");
-                        $stmt->execute([$class_id]);
-                        $articles = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
-                        // 如果文章資訊為空，顯示說明
-                        if (empty($articles)) {
-                          echo "<tr><td colspan='7'>類別中無新增文章</td></tr>";
-                        } else {
-                          foreach ($articles as $article) {
-                            echo "<tr>";
-                            echo "<td>{$article['article_id']}</td>";
-                            echo "<td>{$article['article_date']}</td>";
-                            echo "<td>{$article['article_name']}</td>";
-                            echo "<td>{$article['article_content']}</td>";
-                            echo "<td>{$article['article_img']}</td>";
-                            echo "<td>{$article['fk_class_id']}</td>";
-                            echo "<td>{$article['fk_b2c_id']}</td>";
-                            echo "</tr>";
-                          }
-                        }
-                        ?>
-                      </tbody>
-                    </table>
-                  </div>
-                </div>
-              </td>
-            </tr> -->
-
 
           <?php endforeach; ?>
         </tbody>
