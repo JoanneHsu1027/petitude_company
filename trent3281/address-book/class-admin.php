@@ -55,12 +55,12 @@ echo json_encode([
       <nav aria-label="Page navigation example">
         <ul class="pagination">
           <li class="page-item ">
-            <a class="page-link" href="#">
+            <a class="page-link" href="?page=1">
               <i class="fa-solid fa-angles-left"></i>
             </a>
           </li>
           <li class="page-item ">
-            <a class="page-link" href="#">
+            <a class="page-link" href="?page=<?= $page - 1 ?>">
               <i class="fa-solid fa-angle-left"></i>
             </a>
           </li>
@@ -71,12 +71,12 @@ echo json_encode([
               </li>
             <?php endif; endfor; ?>
           <li class="page-item ">
-            <a class="page-link" href="#">
+            <a class="page-link" href="?page=<?= $page + 1 ?>">
               <i class="fa-solid fa-angle-right"></i>
             </a>
           </li>
           <li class="page-item ">
-            <a class="page-link" href="#">
+            <a class="page-link" href="?page=<?= $totalPages ?>">
               <i class="fa-solid fa-angles-right"></i>
             </a>
           </li>
@@ -91,31 +91,37 @@ echo json_encode([
         <a class="btn btn-primary" href="class-add.php" role="button">新增類別 <i class="fa-solid fa-circle-plus"></i></a>
         <thead>
           <tr>
-            <th scope="col"><i class="fa-solid fa-trash-can"></i></th>
-            <th scope="col"><i class="fa-solid fa-pen-to-square"></i></th>
+            <th></th>
             <th scope="col">類別ID</th>
             <th scope="col">類別名稱</th>
             <th scope="col">員工ID</th>
-            <th></th>
+            <th scope="col"><i class="fa-solid fa-trash-can"></i></th>
+            <th scope="col"><i class="fa-solid fa-pen-to-square"></i></th>
           </tr>
         </thead>
         <tbody>
           <?php foreach ($rows as $r): ?>
 
             <tr>
+              <td></td>
+              <td><?= $r['class_id'] ?></td>
+              <td><?= $r['class_name'] ?></td>
+              <td><?= $r['fk_b2b_id'] ?></td>
               <td><a href="javascript: deleteOne(<?= $r['class_id'] ?>)">
                   <i class="fa-solid fa-trash-can"></i>
-                </a></td>
+                </a>
+              </td>
               <td>
                 <a href="class-edit.php?class_id=<?= $r['class_id'] ?>">
                   <i class="fa-solid fa-pen-to-square"></i>
                 </a>
               </td>
-              <td><?= $r['class_id'] ?></td>
-              <td><?= $r['class_name'] ?></td>
-              <td><?= $r['fk_b2b_id'] ?></td>
 
-              <td>
+            </tr>
+
+            <tr>
+
+              <td colspan="6">
                 <button class="btn btn-primary" type="button" data-bs-toggle="collapse"
                   data-bs-target="#collapseExample<?= $r['class_id'] ?>" aria-expanded="false"
                   aria-controls="collapseExample<?= $r['class_id'] ?>">
@@ -174,7 +180,6 @@ echo json_encode([
                   </div>
                 </div>
               </td>
-
             </tr>
 
           <?php endforeach; ?>
