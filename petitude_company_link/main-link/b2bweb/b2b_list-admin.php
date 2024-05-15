@@ -11,13 +11,37 @@ if ($page < 1) {
   exit; # 結束這支程式
 }
 
-$t_sql = "SELECT COUNT(b2b_id) FROM b2b_members";
+$sort = isset($_GET['sort']) ? $_GET['sort'] : 'b2b_account';
+$order = isset($_GET['order']) ? $_GET['order'] : 'asc';
+$order = $order === 'desc' ? 'DESC' : 'ASC';
 
-# 總筆數
-$totalRows = $pdo->query($t_sql)->fetch(PDO::FETCH_NUM)[0];
+$searchConditions = [];
+$params = [];
 
-# 預設值
-$totalPages = 0;
+if (!empty($_GET['b2b_account'])) {
+    $searchConditions[] = 'b2b_account = :b2b_account';
+    $params[':b2b_account'] = $_GET['b2b_account'];
+}
+
+if (!empty($_GET['b2b_job_name'])) {
+  $searchConditions[] = 'b2b_job_name LIKE :b2b_job_name';
+  $params[':b2b_job_name'] = '%' . $_GET['b2b_job_name'] . '%';
+}
+
+$searchSql = '';
+if (!empty($searchConditions)) {
+    $searchSql = 'WHERE ' . implode(' AND ', $searchConditions);
+}
+
+
+// 計算總筆數
+$t_sql = "SELECT COUNT(b2b_id) FROM b2b_members $searchSql";
+$stmt = $pdo->prepare($t_sql);
+$stmt->execute($params);
+$totalRows = $stmt->fetch(PDO::FETCH_NUM)[0];
+
+// 計算總頁數
+$totalPages = $totalRows ? ceil($totalRows / $perPage) : 0;
 $rows = [];
 
 if ($totalRows) {
@@ -33,51 +57,39 @@ if ($totalRows) {
     "SELECT b2b.*,b2b_job_name
     FROM b2b_members as b2b
     JOIN b2b_job ON fk_b2b_job_id = b2b_job_id
-    ORDER BY b2b_id ASC
+    $searchSql
+    ORDER BY $sort $order
     LIMIT %s, %s",
     ($page - 1) * $perPage,
     $perPage
   );
-  $rows = $pdo->query($sql)->fetchAll();
+  $stmt = $pdo->prepare($sql);
+  $stmt->execute($params);
+  $rows = $stmt->fetchAll();
 }
 
-/*
-echo json_encode([
-  'totalRows' => $totalRows,
-  'totalPages' => $totalPages,
-  'page' => $page,
-  'rows' => $rows,
-]);
-*/
-?>
-
-<?php
-
-$currentPage = isset($_GET['page']) ? intval($_GET['page']) : 1;
-
-$currentPage = max($currentPage, 1); #  currentPage 不小於 1
-
-$range = 5; // 前後按鈕長度
-
+// 分頁邏輯保持不變
+$currentPage = max($page, 1);
+$range = 5;
 $startPage = $currentPage - $range;
 $endPage = $currentPage + $range;
 
-
 if ($startPage < 1) {
-  $endPage += 1 - $startPage; #由於這時候$startPage是負數，$endPage會加上 1-$startPage 補足缺少的長度 
-  $startPage = 1;
+    $endPage += 1 - $startPage;
+    $startPage = 1;
 }
 
 if ($endPage > $totalPages) {
-  $startPage -= $endPage - $totalPages; #由於這時候$endPage超過了原本的總頁數，$startPage- ($endPage - $totalPages) 減去多餘的長度 
-  $endPage = $totalPages;
+    $startPage -= $endPage - $totalPages;
+    $endPage = $totalPages;
 
-  # 確保 `startPage` 不小於 1
-  if ($startPage < 1) {
-    $startPage = 1;
-  }
+    if ($startPage < 1) {
+        $startPage = 1;
+    }
 }
 ?>
+
+
 
 <?php include __DIR__ . '/../parts/head.php' ?>
 <?php include __DIR__ . '/../parts/navbar.php' ?>
@@ -132,20 +144,8 @@ if ($endPage > $totalPages) {
       <form method="get" action="">
             <div class="form text-dark">
                 <div class=" col-md-3">
-                    <label for="b2b_id">員工編號</label>
-                    <input type="text" class="form-control" id="b2b_id" name="b2b_id" value="<?= htmlentities($_GET['b2b_id'] ?? '') ?>">
-                </div>
-                <div class=" col-md-3">
-                    <label for="b2b_name">員工姓名</label>
-                    <input type="text" class="form-control" id="b2b_name" name="b2b_name" value="<?= htmlentities($_GET['b2b_name'] ?? '') ?>">
-                </div>
-                <div class=" col-md-3">
-                    <label for="b2b_email">員工Email</label>
-                    <input type="text" class="form-control" id="b2b_email" name="b2b_email" value="<?= htmlentities($_GET['b2b_email'] ?? '') ?>">
-                </div>
-                <div class="col-md-3">
-                    <label for="b2b_mobile">員工手機</label>
-                    <input type="text" class="form-control" id="b2b_mobile" name="b2b_mobile" value="<?= htmlentities($_GET['b2b_mobile'] ?? '') ?>">
+                    <label for="b2b_account">員工編號</label>
+                    <input type="text" class="form-control" id="b2b_account" name="b2b_account" value="<?= htmlentities($_GET['b2b_account'] ?? '') ?>">
                 </div>
             </div>
             <button type="submit" class="btn btn-primary" >搜尋</button>
@@ -157,11 +157,19 @@ if ($endPage > $totalPages) {
       <table class="table table-bordered table-striped">
         <thead>
           <tr>
-            <th scope="col">員工編號</th>
+            <th scope="col">員工編號
+              <a href="?sort=b2b_id&order=desc&page=<?= $currentPage ?>"><i class="fa-solid fa-sort-down"></i></a>
+              <a href="?sort=b2b_id&order=asc&page=<?= $currentPage ?>"><i class="fa-solid fa-sort-up"></i></a>
+            </th>
+
             <th scope="col">員工姓名</th>
             <th scope="col">員工手機</th>
             <th scope="col">員工信箱</th>
-            <th scope="col">職位</th>
+            <th scope="col">職位
+              <a href="?sort=fk_b2b_job_id&order=desc&page=<?= $currentPage ?>"><i class="fa-solid fa-sort-down"></i></a>
+              <a href="?sort=fk_b2b_job_id&order=asc&page=<?= $currentPage ?>"><i class="fa-solid fa-sort-up"></i></a>
+            </th>
+
             <th scope="col">修改資料</th>
             <th scope="col">刪除資料</th>
           </tr>

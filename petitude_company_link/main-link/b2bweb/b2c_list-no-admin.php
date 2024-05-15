@@ -173,16 +173,34 @@ if ($endPage > $totalPages) {
   <div class="row">
     <div class="col">
       <table class="table table-bordered table-striped">
-        <thead>
-          <tr>
-            <th scope="col">會員編號</th>
-            <th scope="col">姓名</th>
-            <th scope="col">Email</th>
-            <th scope="col">手機</th>
-            <th scope="col">生日</th>
-            <th scope="col">地址</th>
-          </tr>
-        </thead>
+            <thead>
+                <tr>
+                    <th scope="col">
+                        會員編號
+                        <a href="?sort=b2c_id&order=desc&page=<?= $currentPage ?>"><i class="fa-solid fa-sort-down"></i></a>
+                        <a href="?sort=b2c_id&order=asc&page=<?= $currentPage ?>"><i class="fa-solid fa-sort-up"></i></a>
+                    </th>
+                    <th scope="col">
+                        姓名
+                    </th>
+                    <th scope="col">
+                        Email
+                        <a href="?sort=b2c_email&order=desc&page=<?= $currentPage ?>"><i class="fa-solid fa-sort-down"></i></a>
+                        <a href="?sort=b2c_email&order=asc&page=<?= $currentPage ?>"><i class="fa-solid fa-sort-up"></i></a>
+                    </th>
+                    <th scope="col">手機</th>
+                    <th scope="col">
+                      生日
+                      <a href="?sort=b2c_birth&order=desc&page=<?= $currentPage ?>"><i class="fa-solid fa-sort-down"></i></a>
+                      <a href="?sort=b2c_birth&order=asc&page=<?= $currentPage ?>"><i class="fa-solid fa-sort-up"></i></a>
+                    </th>
+
+                    <th scope="col">地址</th>
+                    <th scope="col"><i class="fa-solid fa-trash"></i></th>
+
+                    <th scope="col"><i class="fa-solid fa-pen-to-square"></i></th>
+                </tr>
+            </thead>
         <tbody>
           <?php foreach ($rows as $r) : ?>
             <tr>
