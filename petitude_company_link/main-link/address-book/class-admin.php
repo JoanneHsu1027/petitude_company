@@ -93,11 +93,9 @@ echo json_encode([
         </ul>
       </nav>
     </div>
-  </div>
 
-  <div class="d-flex flex-row-reverse bd-highlight">
-    <div class="p-2 bd-highlight">
-      <a href="article.php">所有文章<i class="fa-solid fa-angles-right"></i></a>
+    <div class="p-2 bd-highlight" style="display: flex; ">
+      <a style="display: flex;  align-items:center;padding:0 0 14px 0" href="article.php">所有文章<i class="fa-solid fa-angles-right"></i></a>
     </div>
   </div>
 
