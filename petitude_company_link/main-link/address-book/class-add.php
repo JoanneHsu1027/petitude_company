@@ -34,6 +34,7 @@ $pageName = 'add';
       </div>
     </div>
   </div>
+  <a href="class.php"><i class="fa-solid fa-angles-left"></i>主題管理</a>
 </div>
 <!-- Modal -->
 <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
@@ -73,7 +74,7 @@ $pageName = 'add';
     if (nameField.value.length < 2) {
       isPass = false;
       nameField.style.border = '1px solid red';
-      nameField.nextElementSibling.innerText = '請填寫類別名稱';
+      nameField.nextElementSibling.innerText = '請填寫主題名稱';
 
     }
 

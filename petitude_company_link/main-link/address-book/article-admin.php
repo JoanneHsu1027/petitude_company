@@ -91,12 +91,17 @@ echo json_encode([
         <thead>
           <tr>
             <!-- <th scope="col"><i class="fa-solid fa-trash"></i></th> -->
+            <div style="display: flex;  justify-content:space-between"> <a class="btn btn-primary"
+                href="article-add.php" role="button">新增文章 <i class="fa-solid fa-circle-plus"></i></a>
+              <a href="class.php"><i class="fa-solid fa-angles-left"></i>主題管理</a>
+            </div>
+
             <th scope="col">文章ID</th>
             <th scope="col">建立日期</th>
             <th scope="col">文章名稱</th>
             <th scope="col">文章內容</th>
             <th scope="col">文章圖片</th>
-            <th scope="col">類別ID</th>
+            <th scope="col">主題ID</th>
             <th scope="col">會員ID</th>
             <!-- <th scope="col"><i class="fa-solid fa-pen-to-square"></i></th> -->
           </tr>
