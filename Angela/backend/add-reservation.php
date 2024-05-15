@@ -26,22 +26,22 @@
             <form name="form1" onsubmit="sendData(event)">
 
                 <div class="mb-3">
-                <label for="fk_b2c_id" class="form-label">fk_b2c_id</label>
+                <label for="fk_b2c_id" class="form-label">會員編號</label>
                 <input type="text" class="form-control" id="fk_b2c_id" name="fk_b2c_id">
                 <div class="form-text"></div>
                 </div>
                 <div class="mb-3">
-                <label for="fk_pet_id" class="form-label">fk_pet_id</label>
+                <label for="fk_pet_id" class="form-label">寵物編號</label>
                 <input type="text" class="form-control" id="fk_pet_id" name="fk_pet_id">
                 <div class="form-text"></div>
                 </div>
                 <div class="mb-3">
-                <label for="reservation_date" class="form-label">reservation_date</label>
+                <label for="reservation_date" class="form-label">預約參觀日期</label>
                 <input type="date" class="form-control" id="reservation_date" name="reservation_date">
                 <div class="form-text"></div>
                 </div>
                 <div class="mb-3">
-                <label for="note" class="form-label">note</label>
+                <label for="note" class="form-label">備註</label>
                 <textarea class="form-control" name="note" id="note" cols="30" rows="3"></textarea>
                 </div>
 

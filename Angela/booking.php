@@ -24,7 +24,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 }
 ?>
-     <?php include __DIR__ . '/parts/html_head.php' ?>
+    <?php include __DIR__ . '/parts/html_head.php' ?>
         <?php include __DIR__ . '/parts/navbar.php' ?>
     <div class="container">
         <div class="row">

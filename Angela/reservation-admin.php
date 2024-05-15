@@ -2,7 +2,7 @@
     <?php
     require __DIR__ . '/config/pdo_connect.php';
     $title = '線上預約參觀-有權限';
-    $pageName = 'reservation-admin';
+    $pageName = 'reservation';
 
     $page = isset($_GET['page']) ? intval($_GET['page']) : 1;
 
