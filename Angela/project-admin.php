@@ -24,7 +24,7 @@
         exit;
     }
 
-    $sql = sprintf("SELECT * FROM `project` ORDER BY project_id ASC LIMIT %s, %s", ($page - 1) * $perPage, $perPage);
+     $sql = sprintf("SELECT * FROM `project` ORDER BY project_id ASC LIMIT %s, %s", ($page - 1) * $perPage, $perPage);
     $rows = $pdo->query($sql)->fetchAll();
     }
 
@@ -81,7 +81,7 @@
                 <a href=""><button class="btn btn-success mt-2" style="height: 50px;" type="submit">查詢</button></a>
             </form>
             <!-- 新增/搜尋 -->
-<div class="row">
+        <div class="row">
         <div class="col">
         <form id="form1" name="form1" onsubmit="sendMultiDel(event)">
         <table class="table table-bordered table-striped">
@@ -107,12 +107,9 @@
                 <td><?= $r['project_content'] ?></td>
                 <td><?= $r['project_fee'] ?></td>
                 <td>
-                    
-                    <button class="fa-solid fa-pen-to-square btn btn-warning">
-                        <a href="/parts/edit-project.php?project_id=<?= $r['project_id'] ?>">
-                        </a>
-                    </button>
-                    
+                <a href="./backend/edit-project.php?project_id=<?=$r['project_id'] ?>">
+                    <i class="fa-solid fa-pen-to-square btn btn-warning"></i>
+                </a>
                 </td>
                 <td>
                     <a href="javascript: deleteOne(<?= $r['project_id'] ?>)">
@@ -134,15 +131,6 @@
         location.href = `backend/delete-project.php?project_id=${project_id}`;
         }
     }
-
-    function sendMultiDel(event) {
-    event.preventDefault();
-    const fd = new FormData(document.getElementById('form1'));
-    fetch('/backend/edit-project.php', {
-        method: 'POST',
-        body: fd
-    }).then(r => r.json()).then(result => {}).catch(ex => console.log(ex));
-}
 
     </script>
     <?php include __DIR__ . '/parts/html_foot.php' ?>

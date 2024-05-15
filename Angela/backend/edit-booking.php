@@ -35,6 +35,7 @@
             <div class="card-body">
             <h5 class="card-title">編輯訂單資料</h5>
             <form name="form1" onsubmit="sendData(event)">
+            
             <input type="hidden" name="booking_id" value="<?= $row['booking_id'] ?>">            
 
                 <div class="mb-3">
@@ -68,9 +69,10 @@
 
                 <div class="mb-3">
                 <label for="booking_date" class="form-label">booking_date</label>
-                <input type="datetime-local" class="form-control" id="booking_date" name="booking_date" value="<?= $row['booking_date   '] ?>">
+                <input type="datetime-local" class="form-control" id="booking_date" name="booking_date" value="<?= $row['booking_date'] ?>">
                 <div class="form-text"></div>
                 </div>
+
                 <div class="mb-3">
                 <label for="booking_note" class="form-label">booking_note</label>
                 <textarea class="form-control" name="booking_note" id="booking_note" cols="30" rows="3"><?= $row['booking_note'] ?></textarea>
