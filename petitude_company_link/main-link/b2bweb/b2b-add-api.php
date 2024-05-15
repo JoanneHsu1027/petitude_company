@@ -24,35 +24,28 @@ if (empty($_POST)) {
   exit; // 結束 php 程式
 }
 
-$birthday = strtotime($_POST['b2c_birth']);
-if($birthday === false) {
-  $birthday = null;
-} else {
-  $birthday = date('Y-m-d', $birthday);
-}
+$b2bpasswd = password_hash($_POST['b2b_password'], PASSWORD_DEFAULT);
 
-$sql = "INSERT INTO `b2c_members`(
-  `b2c_name`, `b2c_email`, `b2c_mobile`, `b2c_birth`, `fk_county_id`, `fk_city_id`,`b2c_address`) VALUES (
+$sql = "INSERT INTO `b2b_members`(
+  `b2b_name`, `b2b_account`, `b2b_password`, `b2b_email`, `b2b_mobile`, `fk_b2b_job_id`) VALUES (
     ?,
     ?,
     ?,
     ?,
     ?,
-    ?,
-    ? )";
+    ?)";
 
 $stmt = $pdo->prepare($sql);
 
 // 執行資料庫操作
 try {
   $stmt->execute([
-    $_POST['b2c_name'],
-    $_POST['b2c_email'],
-    $_POST['b2c_mobile'],
-    $birthday,
-    $_POST['fk_county_id'],
-    $_POST['fk_city_id'],
-    $_POST['b2c_address']
+    $_POST['b2b_name'],
+    $_POST['b2b_account'],
+    $b2bpasswd,
+    $_POST['b2b_email'],
+    $_POST['b2b_mobile'],
+    $_POST['fk_b2b_job_id']
   ]);
   
   // 檢查是否成功新增資料
@@ -66,10 +59,8 @@ try {
   $output['error'] = '資料庫操作失敗: ' . $e->getMessage();
 }
 
-echo json_encode($output);
-
-
+// 移動以下兩行到 JSON 輸出之前
 $output['success'] = !!$stmt->rowCount(); # 新增了幾筆
 $output['newId'] = $pdo->lastInsertId(); # 取得最近的新增資料的primary key
 
-
+echo json_encode($output);

@@ -83,78 +83,111 @@ if ($endPage > $totalPages) {
 <?php include __DIR__ . '/../parts/navbar.php' ?>
 
 <div class="container">
-  <div class="row">
-    <div class="col">
-      <nav aria-label="Page navigation example">
-        <ul class="pagination">
-          <!-- 跳轉到第一頁，如果已經是則隱藏 -->
-          <li class="page-item " style="display: <?= $currentPage == 1 ? 'none' : '' ?>" ;>
-            <a class="page-link" href="?page=<?= 1 ?>">first</a>
-          </li>
-          <!-- Previous 上一頁 -->
-          <li class="page-item<?= $currentPage == 1 ? 'disabled' : '' ?>">
-            <a class="page-link" href="?page=<?= $currentPage - 1 ?>">Previous</a>
-          </li>
+    <!-- 分頁功能Start -->
+      <div class="row">
+          <div class="col">
+            <div class="p-2 bd-highlight">
+                <button type="button" class="btn btn-primary"><a class=" <?= $pageName == 'b2b_add' ? 'active' : '' ?>" href="b2b-add.php" style="Text-decoration:none; color:white">新增員工 <i class="fa-solid fa-circle-plus"></i></a></button>
+            </div>
+              <nav aria-label="Page navigation example">
+                  <ul class="pagination">
+                      <!-- First Page Link -->
+                      <li class="page-item" style="display: <?= $currentPage == 1 ? 'none' : '' ?>;">
+                          <a class="page-link" href="?page=1&order=<?= $order ?>&sort=<?= $sort ?>">First</a>
+                      </li>
+                      <!-- Previous Page Link -->
+                      <li class="page-item<?= $currentPage == 1 ? ' disabled' : '' ?>">
+                          <a class="page-link" href="?page=<?= $currentPage - 1 ?>&order=<?= $order ?>&sort=<?= $sort ?>">Previous</a>
+                      </li>
+                      <!-- Ellipsis before the start page -->
+                      <?php if ($startPage > 1): ?>
+                          <li class="page-item disabled"><span class="page-link">...</span></li>
+                      <?php endif; ?>
+                      <!-- Page Number Links -->
+                      <?php for ($i = $startPage; $i <= $endPage; $i++): ?>
+                          <li class="page-item<?= $i == $currentPage ? ' active' : '' ?>">
+                              <a class="page-link" href="?page=<?= $i ?>&order=<?= $order ?>&sort=<?= $sort ?>"><?= $i ?></a>
+                          </li>
+                      <?php endfor; ?>
+                      <!-- Ellipsis after the end page -->
+                      <?php if ($endPage < $totalPages): ?>
+                          <li class="page-item disabled"><span class="page-link">...</span></li>
+                      <?php endif; ?>
+                      <!-- Next Page Link -->
+                      <li class="page-item<?= $currentPage == $totalPages ? ' disabled' : '' ?>">
+                          <a class="page-link" href="?page=<?= $currentPage + 1 ?>&order=<?= $order ?>&sort=<?= $sort ?>">Next</a>
+                      </li>
+                      <!-- Last Page Link -->
+                      <li class="page-item" style="display: <?= $currentPage == $totalPages ? 'none' : '' ?>;">
+                          <a class="page-link" href="?page=<?= $totalPages ?>&order=<?= $order ?>&sort=<?= $sort ?>">End</a>
+                      </li>
+                  </ul>
+              </nav>
+          </div>
+      </div>
+    <!-- 分頁功能End -->
 
-          <!-- 起始頁前的省略符號 -->
-          <?php if ($startPage > 1) : ?> <!-- 如果起始的頁面超過1 -->
-            <li class="page-item disabled"><span class="page-link">...</span></li>
-          <?php endif; ?>
-
-          <!-- 每頁按鈕 -->
-          <?php for ($i = $startPage; $i <= $endPage; $i++) : ?>
-            <li class="page-item<?= $i == $currentPage ? 'active' : '' ?>">
-              <a class="page-link" style="width: 44.55px;text-align: center;" href="?page=<?= $i ?>"><?= $i ?></a>
-            </li>
-          <?php endfor; ?>
-
-          <!-- 結束頁後的省略符號 -->
-          <?php if ($endPage < $totalPages) : ?> <!-- 如果結束的頁面小於總頁數 -->
-            <li class="page-item disabled"><span class="page-link">...</span></li>
-          <?php endif; ?>
-
-          <!-- Next 下一頁 -->
-          <li class="page-item <?= $currentPage == $totalPages ? ' disabled' : '' ?>">
-            <a class="page-link" href="?page=<?= $currentPage + 1 ?>">Next</a>
-          </li>
-          <!-- 跳轉到最後一頁，如果已經是則隱藏 -->
-          <li class="page-item " style="display: <?= $currentPage == $totalPages ? 'none' : '' ?>" ;>
-            <a class="page-link" href="?page=<?= $totalPages ?>">End</a>
-          </li>
-        </ul>
-      </nav>
+    <!-- 搜尋功能Start -->
+    <div class="row">
+      <form method="get" action="">
+            <div class="form text-dark">
+                <div class=" col-md-3">
+                    <label for="b2b_id">員工編號</label>
+                    <input type="text" class="form-control" id="b2b_id" name="b2b_id" value="<?= htmlentities($_GET['b2b_id'] ?? '') ?>">
+                </div>
+                <div class=" col-md-3">
+                    <label for="b2b_name">員工姓名</label>
+                    <input type="text" class="form-control" id="b2b_name" name="b2b_name" value="<?= htmlentities($_GET['b2b_name'] ?? '') ?>">
+                </div>
+                <div class=" col-md-3">
+                    <label for="b2b_email">員工Email</label>
+                    <input type="text" class="form-control" id="b2b_email" name="b2b_email" value="<?= htmlentities($_GET['b2b_email'] ?? '') ?>">
+                </div>
+                <div class="col-md-3">
+                    <label for="b2b_mobile">員工手機</label>
+                    <input type="text" class="form-control" id="b2b_mobile" name="b2b_mobile" value="<?= htmlentities($_GET['b2b_mobile'] ?? '') ?>">
+                </div>
+            </div>
+            <button type="submit" class="btn btn-primary" >搜尋</button>
+      </form>
     </div>
-  </div>
-
-  <div class="row">
+    <!-- 搜尋功能End -->
+  <div class="row text-center">
     <div class="col">
       <table class="table table-bordered table-striped">
         <thead>
           <tr>
-            <th scope="col"><i class="fa-solid fa-trash"></i></th>
             <th scope="col">員工編號</th>
-            <th scope="col">姓名</th>
+            <th scope="col">員工姓名</th>
+            <th scope="col">員工手機</th>
+            <th scope="col">員工信箱</th>
             <th scope="col">職位</th>
-
-            <th scope="col"><i class="fa-solid fa-pen-to-square"></i></th>
+            <th scope="col">修改資料</th>
+            <th scope="col">刪除資料</th>
           </tr>
         </thead>
         <tbody>
           <?php foreach ($rows as $r) : ?>
             <tr>
-              <td><a href="javascript: deleteOne(<?= $r['b2b_id'] ?>)">
-                  <i class="fa-solid fa-trash"></i>
-                </a></td>
+
               <td><?= $r['b2b_account'] ?></td>
               <td><?= $r['b2b_name'] ?></td>
+              <td><?= $r['b2b_mobile'] ?></td>
+              <td><?= $r['b2b_email'] ?></td>
               <td><?= $r['b2b_job_name'] ?></td>
-
               <td>
-                <a href="edit.php?b2b_id=<?= $r['b2b_id'] ?>">
-                  <i class="fa-solid fa-pen-to-square"></i>
+                <a href="b2b-edit.php?b2b_id=<?= $r['b2b_id'] ?>">
+                 <button type="button" class="btn btn-warning fa-solid fa-pen-to-square"></button>
+                </a>
+              </td>
+              <td>
+                <a href="javascript: deleteOne(<?= $r['b2b_id'] ?>)">
+                  <button type="button" class="btn btn-danger fa-solid fa-trash-can"></button>
                 </a>
               </td>
             </tr>
+
+
           <?php endforeach; ?>
         </tbody>
       </table>
