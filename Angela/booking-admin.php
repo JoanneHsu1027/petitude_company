@@ -112,7 +112,7 @@
                 <td><?= $r['booking_note'] ?></td>
                 <td>
                 <a href="./backend/edit-booking.php?booking_id=<?=$r['booking_id'] ?>">
-                    <i class="fa-solid fa-pen-to-square"></i>
+                    <i class="fa-solid fa-pen-to-square btn btn-warning"></i>
                 </a>
                 </td>
                 <td>
