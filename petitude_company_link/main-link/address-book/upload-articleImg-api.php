@@ -27,7 +27,7 @@ if (!empty($_FILES) and !empty($_FILES['article_img[]'])) {
       # 依照 mime-type 決定副檔名
       $ext = $exts[$_FILES['article_img[]']['type']]; # 副檔名
 
-      $filename = __DIR__ . 'petitude_company_link/main-link/img' . $f . $ext;
+      $filename = __DIR__ . '/petitude_company_link/main-link/img' . $f . $ext;
       $result = move_uploaded_file($_FILES['article_img[]']['tmp_name'], $filename);
       $output['success'] = $result;
       $output['filename'] = $f . $ext;
