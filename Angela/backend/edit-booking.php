@@ -10,16 +10,7 @@
     exit;
     }
 
-    $sql = "SELECT * FROM booking WHERE booking_id={$booking_id}";
-
-    // $sql = "SELECT *, fk_b2c_id, fk_pet_id, fk_project_id, fk_reservation_id 
-    //     FROM booking AS book
-    //     JOIN fk_b2c_id ON book.fk_b2c_id = b2c.fk_b2c_id
-    //     JOIN fk_pet_id ON book.fk_pet_id = pet.fk_pet_id
-    //     JOIN fk_project_id ON book.fk_project_id = project.fk_project_id
-    //     JOIN fk_reservation_id ON book.fk_reservation_id = reservation.fk_reservation_id
-    //     WHERE booking_id={$booking_id}";
-        
+    $sql = "SELECT * FROM booking WHERE booking_id = {$booking_id}";
 
     $row = $pdo->query($sql)->fetch();
     if (empty($row)) {
@@ -44,50 +35,45 @@
             <div class="card-body">
             <h5 class="card-title">編輯訂單資料</h5>
             <form name="form1" onsubmit="sendData(event)">
-            <input type="hidden" name="booking_id" value="<?= $row['booking_id'] ?>">
-            <input type="hidden" name="fk_b2c_id" value="<?= $row['fk_b2c_id'] ?>">
-            <input type="hidden" name="fk_pet_id" value="<?= $row['fk_pet_id'] ?>">
-            <input type="hidden" name="fk_project_id" value="<?= $row['fk_project_id'] ?>">
-            <input type="hidden" name="fk_reservation_id" value="<?= $row['fk_reservation_id'] ?>">
-            
+            <input type="hidden" name="booking_id" value="<?= $row['booking_id'] ?>">            
 
                 <div class="mb-3">
                 <label for="booking_id" class="form-label">booking_id</label>
-                <input type="text" id="booking_id" class="form-control" disabled value="<?= $row['booking_id'] ?>">
+                <input type="text" id="booking_id" class="form-control" readonly value="<?= $row['booking_id'] ?>">
                 </div>
 
                 <input type="hidden" name="fk_b2c_id" value="<?= $row['fk_b2c_id'] ?>">
                 <div class="mb-3">
                 <label for="fk_b2c_id" class="form-label">fk_b2c_id</label>
-                <input type="text" id="fk_b2c_id" class="form-control" disabled value="<?= $row['fk_b2c_id'] ?>">
+                <input type="text" id="fk_b2c_id" class="form-control" readonly value="<?= $row['fk_b2c_id'] ?>">
                 </div>
 
                 <input type="hidden" name="fk_pet_id" value="<?= $row['fk_pet_id'] ?>">
                 <div class="mb-3">
                 <label for="fk_pet_id" class="form-label">fk_pet_id</label>
-                <input type="text" id="fk_pet_id" class="form-control" disabled value="<?= $row['fk_pet_id'] ?>">
+                <input type="text" id="fk_pet_id" class="form-control" readonly value="<?= $row['fk_pet_id'] ?>">
                 </div>
 
                 <input type="hidden" name="fk_project_id" value="<?= $row['fk_project_id'] ?>">
                 <div class="mb-3">
                 <label for="fk_project_id" class="form-label">fk_project_id</label>
-                <input type="text" id="fk_project_id" class="form-control" disabled value="<?= $row['fk_project_id'] ?>">
+                <input type="text" id="fk_project_id" class="form-control" readonly value="<?= $row['fk_project_id'] ?>">
                 </div>
 
                 <input type="hidden" name="fk_reservation_id" value="<?= $row['fk_reservation_id'] ?>">
                 <div class="mb-3">
                 <label for="fk_reservation_id" class="form-label">fk_reservation_id</label>
-                <input type="text" id="fk_reservation_id" class="form-control" disabled value="<?= $row['fk_reservation_id'] ?>">
+                <input type="text" id="fk_reservation_id" class="form-control" readonly value="<?= $row['fk_reservation_id'] ?>">
                 </div>
 
                 <div class="mb-3">
                 <label for="booking_date" class="form-label">booking_date</label>
-                <input type="date" class="form-control" id="booking_date" name="booking_date">
+                <input type="datetime-local" class="form-control" id="booking_date" name="booking_date" value="<?= $row['booking_date   '] ?>">
                 <div class="form-text"></div>
                 </div>
                 <div class="mb-3">
                 <label for="booking_note" class="form-label">booking_note</label>
-                <textarea class="form-control" name="booking_note" id="booking_note" cols="30" rows="3"></textarea>
+                <textarea class="form-control" name="booking_note" id="booking_note" cols="30" rows="3"><?= $row['booking_note'] ?></textarea>
                 </div>
 
 
@@ -113,7 +99,7 @@
         </div>
         <div class="modal-footer">
 
-            <button type="button" class="btn btn-primary" onclick="location.href='./request.php'">到列表頁</button>
+            <button type="button" class="btn btn-primary" onclick="location.href='./../booking-admin.php'">到列表頁</button>
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">繼續編輯</button>
         </div>
         </div>
@@ -133,7 +119,7 @@
         </div>
         <div class="modal-footer">
 
-            <button type="button" class="btn btn-primary" onclick="location.href='./request.php'">到列表頁</button>
+            <button type="button" class="btn btn-primary" onclick="location.href='./../booking-admin.php'">到列表頁</button>
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">繼續編輯</button>
         </div>
         </div>
