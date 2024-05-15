@@ -104,7 +104,7 @@
                                     <td style="text-align: center"><?= $r['project_content'] ?></td>
                                     <td style="text-align: center"><?= $r['project_fee'] ?></td>
                                     <td style="text-align: center">
-                                        <a href="./backend/edit-project.php?project_id=<?= $r['project_id'] ?>">
+                                        <a href="edit-project.php?project_id=<?= $r['project_id'] ?>">
                                             <i class="fa-solid fa-pen-to-square btn btn-warning"></i>
                                         </a>
                                     </td>

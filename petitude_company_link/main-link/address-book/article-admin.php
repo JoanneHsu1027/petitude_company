@@ -64,12 +64,13 @@ echo json_encode([
               <i class="fa-solid fa-angle-left"></i>
             </a>
           </li>
-          <?php for ($i = $page - 5; $i <= $page + 5; $i++):
-            if ($i >= 1 and $i <= $totalPages): ?>
+          <?php for ($i = $page - 5; $i <= $page + 5; $i++) :
+            if ($i >= 1 and $i <= $totalPages) : ?>
               <li class="page-item <?= $page == $i ? 'active' : '' ?>">
                 <a class="page-link" href="?page=<?= $i ?>"><?= $i ?></a>
               </li>
-            <?php endif; endfor; ?>
+          <?php endif;
+          endfor; ?>
           <li class="page-item ">
             <a class="page-link" href="?page=<?= $page + 1 ?>">
               <i class="fa-solid fa-angle-right"></i>
@@ -91,8 +92,7 @@ echo json_encode([
         <thead>
           <tr>
             <!-- <th scope="col"><i class="fa-solid fa-trash"></i></th> -->
-            <div style="display: flex;  justify-content:space-between"> <a class="btn btn-primary"
-                href="article-add.php" role="button">新增文章 <i class="fa-solid fa-circle-plus"></i></a>
+            <div style="display: flex;  justify-content:space-between"> <a class="btn btn-primary" href="article-add.php" role="button">新增文章 <i class="fa-solid fa-circle-plus"></i></a>
               <a href="class.php"><i class="fa-solid fa-angles-left"></i>主題管理</a>
             </div>
 
@@ -107,7 +107,7 @@ echo json_encode([
           </tr>
         </thead>
         <tbody>
-          <?php foreach ($rows as $r): ?>
+          <?php foreach ($rows as $r) : ?>
             <tr>
               <!-- <td><a href="javascript: deleteOne(<?= $r['article_id'] ?>)">
                   <i class="fa-solid fa-trash"></i>
@@ -140,7 +140,5 @@ echo json_encode([
       location.href = `delete.php?article_id=${article_id}`;
     }
   }
-
-
 </script>
 <?php include __DIR__ . '/../parts/foot.php' ?>

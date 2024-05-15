@@ -115,6 +115,25 @@
             pointer-events: none;
             /* 禁用點擊事件 */
         }
+
+        .pagebar {
+            margin-left: 300px;
+        }
+
+        .c-warning {
+            color: #b1071c;
+
+        }
+
+        .c-dark {
+            color: #0c5a67;
+        }
+
+        .table-container {
+            margin-left: 300px;
+            overflow-x: auto;
+            width: 100%;
+        }
     </style>
 
 

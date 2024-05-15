@@ -69,10 +69,10 @@
                 </h2>
                 <div id="collapse4" class="accordion-collapse collapse" aria-labelledby="heading4" data-bs-parent="#accordionExample">
                     <div class="m-2">
-                        <a href="#" class="align-middle" style="text-decoration:none; color:#0c5a67">保險產品列表</a>
+                        <a href="../insurance_product/product-list.php" class="align-middle" style="text-decoration:none; color:#0c5a67">保險產品列表</a>
                     </div>
                     <div class="m-2">
-                        <a href="#" class="align-middle" style="text-decoration:none; color:#0c5a67">保險訂單列表</a>
+                        <a href="../insurance_order/order-list.php" class="align-middle" style="text-decoration:none; color:#0c5a67">保險訂單列表</a>
                     </div>
                 </div>
             </div>

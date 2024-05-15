@@ -1,6 +1,6 @@
 <?php
 require __DIR__ . '/../b2bweb/admin-required.php';
-require __DIR__ . './config/pdo-connect.php';
+require __DIR__ . '/../config/pdo-connect.php';
 $title = "修改商品資料";
 $pageName = 'product_imgs_edit';
 

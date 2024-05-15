@@ -1,5 +1,5 @@
 <?php
-require __DIR__ . '/admin-required.php';
+require __DIR__ . '/../config/pdo-connect.php';
 if (!isset($_SESSION)) {
   session_start();
 }
@@ -7,8 +7,8 @@ $title = "建立文章";
 $pageName = 'add';
 
 ?>
-<?php include __DIR__ . '/parts/html-head.php' ?>
-<?php include __DIR__ . '/parts/navbar.php' ?>
+<?php include __DIR__ . '/../parts/head.php' ?>
+<?php include __DIR__ . '/../parts/navbar.php' ?>
 <style>
   form .mb-3 .form-text {
     color: red;
@@ -20,7 +20,7 @@ $pageName = 'add';
     <div class="col-6">
       <div class="card">
 
-        <div class="card-body">
+        <div class="card-body" style="color:#0c5a67">
 
           <form name="form1" onsubmit="sendData(event)">
 
@@ -47,8 +47,7 @@ $pageName = 'add';
 
             <div class="mb-3">
               <label for="article_img" class="form-label">文章圖片</label>
-              <input type="file" accept=".jpg, .jpeg, .png, .gif, .svg, .webp" class="form-control" id="article_img"
-                name="article_img">
+              <input type="file" accept=".jpg, .jpeg, .png, .gif, .svg, .webp" class="form-control" id="article_img" name="article_img">
               <div class="form-text"></div>
             </div>
 
@@ -61,8 +60,7 @@ $pageName = 'add';
   <a href="article.php"><i class="fa-solid fa-angles-left"></i>文章列表</a>
 </div>
 <!-- Modal -->
-<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
-  aria-labelledby="staticBackdropLabel" aria-hidden="true">
+<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
@@ -83,9 +81,8 @@ $pageName = 'add';
   </div>
 </div>
 
-<?php include __DIR__ . '/parts/scripts.php' ?>
+<?php include __DIR__ . '/../parts/scripts.php' ?>
 <script>
-
   const nameField = document.form1.article_name;
   const contentField = document.form1.article_content;
   const imgField = document.form1.article_img;
@@ -106,7 +103,7 @@ $pageName = 'add';
       nameField.nextElementSibling.innerText = '請填寫文章名稱';
     }
 
-    let contentIsPass = true;  // 表單有沒有通過檢查
+    let contentIsPass = true; // 表單有沒有通過檢查
     if (contentField.value.length < 2) {
       contentIsPass = false;
       contentField.style.border = '1px solid red';
@@ -117,15 +114,14 @@ $pageName = 'add';
       const fd = new FormData(document.form1);
 
       fetch('article-add-api.php', {
-        method: 'POST',
-        body: fd, // Content-Type: multipart/form-data
-      }).then(r => r.json())
+          method: 'POST',
+          body: fd, // Content-Type: multipart/form-data
+        }).then(r => r.json())
         .then(data => {
           console.log(data);
           if (data.success) {
             myModal.show();
-          } else {
-          }
+          } else {}
         })
         .catch(ex => console.log(ex))
     }
@@ -134,15 +130,14 @@ $pageName = 'add';
       const fd = new FormData(document.form1);
 
       fetch('article-add-api.php', {
-        method: 'POST',
-        body: fd, // Content-Type: multipart/form-data
-      }).then(r => r.json())
+          method: 'POST',
+          body: fd, // Content-Type: multipart/form-data
+        }).then(r => r.json())
         .then(data => {
           console.log(data);
           if (data.success) {
             myModal.show();
-          } else {
-          }
+          } else {}
         })
         .catch(ex => console.log(ex))
     }
@@ -150,6 +145,5 @@ $pageName = 'add';
   };
 
   const myModal = new bootstrap.Modal('#staticBackdrop')
-
 </script>
-<?php include __DIR__ . '/parts/html-foot.php' ?>
+<?php include __DIR__ . '/../parts/foot.php' ?>

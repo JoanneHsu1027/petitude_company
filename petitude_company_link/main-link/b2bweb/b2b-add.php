@@ -1,5 +1,5 @@
 <?php
-require __DIR__. '/admin-required.php';
+require __DIR__ . '/admin-required.php';
 if (!isset($_SESSION)) {
   session_start();
 }
@@ -8,8 +8,10 @@ $pageName = 'b2b-add';
 
 ?>
 <?php
-$jobs = ["--請選擇職位--",
-"老闆", "經理", "業務主管", "會計", "業務"];
+$jobs = [
+  "--請選擇職位--",
+  "老闆", "經理", "業務主管", "會計", "業務"
+];
 
 ?>
 
@@ -26,7 +28,7 @@ $jobs = ["--請選擇職位--",
     <div class="col-6">
       <div class="card">
 
-        <div class="card-body text-dark">
+        <div class="card-body" style="color:#0c5a67">
           <h5 class="card-title">新增員工資料</h5>
           <form name="form1" onsubmit="sendData(event)">
 

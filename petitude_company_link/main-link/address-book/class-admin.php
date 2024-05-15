@@ -58,7 +58,7 @@ echo json_encode([
 <div class="container" style="max-width: 1600px">
   <div class="d-flex flex-row bd-highlight mb-3">
     <div class="p-2 bd-highlight">
-      <button type="button" class="btn btn-primary"><a class=" <?= $pageName == 'request_add' ? 'active' : '' ?>" href="class-add.php" style="Text-decoration:none; color:white">新增類別 <i class="fa-solid fa-circle-plus"></i></a></button>
+      <button type="button" class="btn btn-primary"><a class=" <?= $pageName == 'request_add' ? 'active' : '' ?>" href="class-add.php" style="Text-decoration:none; color:white">新增主題 <i class="fa-solid fa-circle-plus"></i></a></button>
     </div>
     <div class="p-2 bd-highlight">
       <nav aria-label="Page navigation example">
@@ -95,13 +95,15 @@ echo json_encode([
     </div>
   </div>
 
+  <div class="d-flex flex-row-reverse bd-highlight">
+    <div class="p-2 bd-highlight">
+      <a href="article.php">所有文章<i class="fa-solid fa-angles-right"></i></a>
+    </div>
+  </div>
+
   <div class="row">
     <div class="col">
       <table class="table table-bordered table-striped">
-        <div style="display: flex;  justify-content:space-between"> <a class="btn btn-primary" href="class-add.php" role="button">新增主題 <i class="fa-solid fa-circle-plus"></i></a>
-          <a href="article.php">所有文章<i class="fa-solid fa-angles-right"></i></a>
-        </div>
-
         <thead>
           <tr>
             <th></th>

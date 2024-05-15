@@ -1,4 +1,5 @@
 <?php
+require __DIR__ . '/../b2bweb/admin-required.php';
 require __DIR__ . '/../config/pdo-connect.php';
 $title = "訂單列表";
 $pageName = 'request';
