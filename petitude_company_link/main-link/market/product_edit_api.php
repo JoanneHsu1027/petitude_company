@@ -40,6 +40,7 @@ $sql = "UPDATE `product` SET
 `product_quantity` = ?,
 `product_category` = ?,
 `product_date` = ?,
+`product_last_modified` = NOW()
 WHERE product_id = ?";
 
 $stmt = $pdo->prepare($sql);
@@ -56,18 +57,18 @@ $stmt->execute([
 
 $output['success'] = !!$stmt->rowCount(); # 修改了幾筆
 
-if (!!$stmt->rowCount()) {
-  $output['success'] = true;
-  // 追蹤異動 update_at 繞過編輯成功彈跳視窗指標
-  $sql = "UPDATE `product` SET
-`product_last_modified` = ?
-WHERE product_id = ?";
+// if (!!$stmt->rowCount()) {
+//   $output['success'] = true;
+//   // 追蹤異動 update_at 繞過編輯成功彈跳視窗指標
+//   $sql = "UPDATE `product` SET
 
-  $stmt = $pdo->prepare($sql);
-  $stmt->execute([
-    $_POST['product_id'],
-  ]);
-}
+// WHERE product_id = ?";
+// `product_last_modified` = ?
+//   $stmt = $pdo->prepare($sql);
+//   $stmt->execute([
+//     $_POST['product_id'],
+//   ]);
+// }
 
 
 echo json_encode($output);

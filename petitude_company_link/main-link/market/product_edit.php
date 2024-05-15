@@ -39,10 +39,12 @@ if (empty($row)) {
           <h5 class="card-title">編輯商品資料</h5>
           <form name="form1" onsubmit="sendData(event)">
             <input type="hidden" name="product_id" value="<?= $row['product_id'] ?>">
+
             <div class="mb-3">
               <label for="product_id" class="form-label">商品編號</label>
               <input type="text" class="form-control" disabled value="<?= $row['product_id'] ?>">
             </div>
+
             <div class="mb-3">
               <label for="product_name" class="form-label">商品名稱</label>
               <input type="text" class="form-control" id="product_name" name="product_name" value="<?= $row['product_name'] ?>">
@@ -75,7 +77,7 @@ if (empty($row)) {
 
             <div class="mb-3">
               <label for="product_date" class="form-label">進貨日期</label>
-              <input type="datetime-local" class="form-control" id="product_date" name="product_date" value="<?= $row['product_date'] ?>" readonly>
+              <input type="datetime-local" class="form-control" readonly id="product_date" name="product_date" value="<?= $row['product_date'] ?>">
               <div class="form-text"></div>
             </div>
 
