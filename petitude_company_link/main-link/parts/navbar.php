@@ -85,13 +85,13 @@
                 </h2>
                 <div id="collapse5" class="accordion-collapse collapse" aria-labelledby="heading5" data-bs-parent="#accordionExample">
                     <div class="m-2">
-                        <a href="#" class="align-middle" style="text-decoration:none; color:#0c5a67">線上預約參觀列表</a>
+                        <a href="../memorial-service/reservation.php" class="align-middle" style="text-decoration:none; color:#0c5a67">線上預約參觀列表</a>
                     </div>
                     <div class="m-2">
-                        <a href="#" class="align-middle" style="text-decoration:none; color:#0c5a67">生前契約列表</a>
+                        <a href="../memorial-service/project.php" class="align-middle" style="text-decoration:none; color:#0c5a67">生前契約列表</a>
                     </div>
                     <div class="m-2">
-                        <a href="#" class="align-middle" style="text-decoration:none; color:#0c5a67">生前契約預訂列表</a>
+                        <a href="../memorial-service/booking.php" class="align-middle" style="text-decoration:none; color:#0c5a67">生前契約預訂列表</a>
                     </div>
                 </div>
             </div>
