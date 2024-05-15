@@ -1,10 +1,15 @@
 <?php
 require __DIR__ . '/admin-required.php';
+require __DIR__ . '/../config/pdo-connect.php';
 if (!isset($_SESSION)) {
   session_start();
 }
 $title = "建立文章";
 $pageName = 'add';
+
+
+$class_sql = "SELECT * FROM class";
+$stmt = $pdo->query($class_sql);
 
 ?>
 <?php include __DIR__ . '/parts/html-head.php' ?>
@@ -25,12 +30,14 @@ $pageName = 'add';
           <form name="form1" onsubmit="sendData(event)">
 
             <div class="mb-3">
-              <label for="class_name" class="form-label">選擇主題</label>
-              <select name="" id="">
-                <option value=""></option>
-                <option value=""></option>
-                <option value=""></option>
+              <label for="class_id" class="form-label">文章分類</label>
+              <select class="form-select" id="class_id" name="class_id">
+                <option value="">--請選擇文章分類--</option>
+                <?php while ($row = $stmt->fetch(PDO::FETCH_ASSOC)): ?>
+                  <option value="<?= $row['class_id'] ?>"><?= $row['class_name'] ?></option>
+                <?php endwhile; ?>
               </select>
+              <div class="form-text"></div>
             </div>
 
             <div class="mb-3">
@@ -88,7 +95,7 @@ $pageName = 'add';
 
   const nameField = document.form1.article_name;
   const contentField = document.form1.article_content;
-  const imgField = document.form1.article_img;
+  const classField = document.form1.class_id;
 
   const sendData = e => {
     e.preventDefault(); // 不要讓 form1 以傳統的方式送出
@@ -98,6 +105,9 @@ $pageName = 'add';
 
     contentField.style.border = '1px solid #CCCCCC';
     contentField.nextElementSibling.innerText = '';
+
+    classField.style.border = '1px solid #CCCCCC';
+    classField.nextElementSibling.innerText = '';
 
     let nameIsPass = true;
     if (nameField.value.length < 2) {
@@ -112,6 +122,14 @@ $pageName = 'add';
       contentField.style.border = '1px solid red';
       contentField.nextElementSibling.innerText = '請填寫文章內容';
     }
+
+    let classIsPass = true;  // 表單有沒有通過檢查
+    if (classField.value.length < 2) {
+      classIsPass = false;
+      classField.style.border = '1px solid red';
+      classField.nextElementSibling.innerText = '請選擇文章分類';
+    }
+
 
     if (nameIsPass) {
       const fd = new FormData(document.form1);
@@ -147,8 +165,27 @@ $pageName = 'add';
         .catch(ex => console.log(ex))
     }
 
-  };
+    if (classIsPass) {
+      const fd = new FormData(document.form1);
 
+      fetch('article-add-api.php', {
+        method: 'POST',
+        body: fd, // Content-Type: multipart/form-data
+      }).then(r => r.json())
+        .then(data => {
+          console.log(data);
+          if (data.success) {
+            myModal.show();
+          } else {
+          }
+        })
+        .catch(ex => console.log(ex))
+    }
+
+
+
+
+  };
   const myModal = new bootstrap.Modal('#staticBackdrop')
 
 </script>
