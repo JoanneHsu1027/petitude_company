@@ -50,7 +50,7 @@ if (empty($row)) {
             </div>
             <div class="mb-3">
               <label for="request_date" class="form-label">訂單日期</label>
-              <input type="text" class="form-control" id="request_date" name="request_date" value="<?= $row['request_date'] ?>">
+              <input type="datetime-local" class="form-control" readonly id="request_date" name="request_date" value="<?= $row['request_date'] ?>">
               <div class="form-text"></div>
             </div>
 
@@ -74,7 +74,7 @@ if (empty($row)) {
 
             <div class="mb-3">
               <label for="request_price" class="form-label">訂單總價</label>
-              <input type="text" class="form-control" id="request_price" name="request_price" value="<?= $row['request_price'] ?>">
+              <input type="text" class="form-control" readonly id="request_price" name="request_price" value="<?= $row['request_price'] ?>">
               <div class="form-text"></div>
             </div>
 
