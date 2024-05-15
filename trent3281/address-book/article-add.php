@@ -61,7 +61,7 @@ $stmt = $pdo->query($class_sql);
 
             <div class="mb-3">
               <label for="article_img[]" class="form-label">文章圖片</label><br>
-              <form method="post" action="upload-avatar-api.php" enctype="multipart/form-data">
+              <form method="post" action="upload-articleImg-api.php" enctype="multipart/form-data">
                 <input type="file" name="article_img[]" class="form-control" accept="image/*" multiple />
             </div>
 
@@ -89,7 +89,7 @@ $stmt = $pdo->query($class_sql);
       </div>
       <div class="modal-footer">
 
-        <button type="button" class="btn btn-primary" onclick="location.href='class.php'">到列表頁</button>
+        <button type="button" class="btn btn-primary" onclick="location.href='article.php'">到列表頁</button>
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">繼續新增</button>
       </div>
     </div>
@@ -98,13 +98,13 @@ $stmt = $pdo->query($class_sql);
 
 <?php include __DIR__ . '/parts/scripts.php' ?>
 <script>
-
-  const nameField = document.form1.article_name;
-  const contentField = document.form1.article_content;
-  const classField = document.form1.class_id;
-
   const sendData = e => {
-    e.preventDefault(); // 不要讓 form1 以傳統的方式送出
+    e.preventDefault(); // 防止表單自動提交
+
+    const form = document.form1;
+    const nameField = form.article_name;
+    const contentField = form.article_content;
+    const classField = form.class_id;
 
     nameField.style.border = '1px solid #CCCCCC';
     nameField.nextElementSibling.innerText = '';
@@ -122,77 +122,44 @@ $stmt = $pdo->query($class_sql);
       nameField.nextElementSibling.innerText = '請填寫文章名稱';
     }
 
-    let contentIsPass = true;  // 表單有沒有通過檢查
+    let contentIsPass = true;
     if (contentField.value.length < 2) {
       contentIsPass = false;
       contentField.style.border = '1px solid red';
       contentField.nextElementSibling.innerText = '請填寫文章內容';
     }
 
-    let classIsPass = true;  // 表單有沒有通過檢查
-    if (classField.value.length < 2) {
+    let classIsPass = true;
+    if (classField.value === '') { // 修改此處的檢查條件
       classIsPass = false;
       classField.style.border = '1px solid red';
       classField.nextElementSibling.innerText = '請選擇文章分類';
     }
 
-
-    if (nameIsPass) {
-      const fd = new FormData(document.form1);
-
-      fetch('article-add-api.php', {
-        method: 'POST',
-        body: fd, // Content-Type: multipart/form-data
-      }).then(r => r.json())
-        .then(data => {
-          console.log(data);
-          if (data.success) {
-            myModal.show();
-          } else {
-          }
-        })
-        .catch(ex => console.log(ex))
-    }
-
-    if (contentIsPass) {
-      const fd = new FormData(document.form1);
+    if (nameIsPass && contentIsPass && classIsPass) {
+      const fd = new FormData(form);
 
       fetch('article-add-api.php', {
         method: 'POST',
-        body: fd, // Content-Type: multipart/form-data
-      }).then(r => r.json())
-        .then(data => {
-          console.log(data);
-          if (data.success) {
-            myModal.show();
-          } else {
-          }
-        })
-        .catch(ex => console.log(ex))
+        body: fd,
+      }).then(response => {
+        if (response.ok) {
+          return response.json();
+        }
+        throw new Error('Network response was not ok.');
+      }).then(data => {
+        console.log(data);
+        if (data.success) {
+          myModal.show();
+        }
+      }).catch(error => {
+        console.error('Error:', error);
+      });
     }
-
-    if (classIsPass) {
-      const fd = new FormData(document.form1);
-
-      fetch('article-add-api.php', {
-        method: 'POST',
-        body: fd, // Content-Type: multipart/form-data
-      }).then(r => r.json())
-        .then(data => {
-          console.log(data);
-          if (data.success) {
-            myModal.show();
-          } else {
-          }
-        })
-        .catch(ex => console.log(ex))
-    }
-
-
-
-
   };
-  const myModal = new bootstrap.Modal('#staticBackdrop')
 
+  const myModal = new bootstrap.Modal('#staticBackdrop');
 </script>
+
+
 <?php include __DIR__ . '/parts/html-foot.php' ?>

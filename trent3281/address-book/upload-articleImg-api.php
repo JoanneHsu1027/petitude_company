@@ -8,6 +8,9 @@ $output = [
 $exts = [
   'image/jpeg' => '.jpg',
   'image/png' => '.png',
+  'image/gif' => '.gif',
+  'image/svg' => '.svg',
+  'image/webp' => '.webp',
 ];
 
 $f = sha1(uniqid() . rand()); # 隨機的主檔名 
