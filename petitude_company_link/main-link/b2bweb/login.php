@@ -18,7 +18,7 @@ $pageName = 'login';
     font-weight: 800;
   }
 </style>
-<div class="container">
+<div class="container" style="color:#0c5a67">
   <div class="row">
     <div class="col-6">
       <div class="card">
