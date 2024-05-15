@@ -9,7 +9,7 @@ $pdo_options = [
   PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
 ];
 
-$pdo = new PDO($dsn, $db_user, $db_pass, $pdo_options);
+$pdo = new PDO($dsn, $db_user, $db_pass);
 
 if (!isset($_SESSION)) {
   session_start();

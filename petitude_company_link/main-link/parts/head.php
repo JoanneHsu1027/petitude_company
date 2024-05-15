@@ -43,6 +43,15 @@
             padding: 20px;
         }
 
+        h1 {
+            color: #0c5a67;
+        }
+
+        h1 a {
+            text-decoration: none;
+            color: #0c5a67;
+        }
+
         h2 {
             color: #0c5a67;
         }
