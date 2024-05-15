@@ -1,7 +1,7 @@
     <?php
     require __DIR__ . '/config/pdo_connect.php';
     $title = '生前契約列表-有權限';
-    $pageName = 'project-admin';
+    $pageName = 'project';
 
     $page = isset($_GET['page']) ? intval($_GET['page']) : 1;
 

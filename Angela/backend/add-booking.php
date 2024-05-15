@@ -26,32 +26,32 @@
             <form name="form1" onsubmit="sendData(event)">
 
                 <div class="mb-3">
-                <label for="fk_b2c_id" class="form-label">fk_b2c_id</label>
+                <label for="fk_b2c_id" class="form-label">會員編號</label>
                 <input type="text" class="form-control" id="fk_b2c_id" name="fk_b2c_id">
                 <div class="form-text"></div>
                 </div>
                 <div class="mb-3">
-                <label for="fk_pet_id" class="form-label">fk_pet_id</label>
+                <label for="fk_pet_id" class="form-label">寵物編號</label>
                 <input type="text" class="form-control" id="fk_pet_id" name="fk_pet_id">
                 <div class="form-text"></div>
                 </div>
                 <div class="mb-3">
-                <label for="fk_project_id" class="form-label">fk_project_id</label>
+                <label for="fk_project_id" class="form-label">契約方案編號</label>
                 <input type="text" class="form-control" id="fk_project_id" name="fk_project_id">
                 <div class="form-text"></div>
                 </div>
                 <div class="mb-3">
-                <label for="fk_reservation_id" class="form-label">fk_reservation_id</label>
+                <label for="fk_reservation_id" class="form-label">預約參觀編號</label>
                 <input type="text" class="form-control" id="fk_reservation_id" name="fk_reservation_id">
                 <div class="form-text"></div>
                 </div>
                 <div class="mb-3">
-                <label for="booking_date" class="form-label">booking_date</label>
+                <label for="booking_date" class="form-label">預定日期</label>
                 <input type="date" class="form-control" id="booking_date" name="booking_date">
                 <div class="form-text"></div>
                 </div>
                 <div class="mb-3">
-                <label for="booking_note" class="form-label">booking_note</label>
+                <label for="booking_note" class="form-label">備註</label>
                 <textarea class="form-control" name="booking_note" id="booking_note" cols="30" rows="3"></textarea>
                 </div>
 

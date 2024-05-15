@@ -26,27 +26,22 @@
             <form name="form1" onsubmit="sendData(event)">
 
                 <div class="mb-3">
-                <label for="project_id" class="form-label">project_id</label>
-                <input type="text" class="form-control" id="project_id" name="project_id">
-                <div class="form-text"></div>
-                </div>
-                <div class="mb-3">
-                <label for="project_level" class="form-label">project_level</label>
+                <label for="project_level" class="form-label">契約等級</label>
                 <input type="text" class="form-control" id="project_level" name="project_level">
                 <div class="form-text"></div>
                 </div>
                 <div class="mb-3">
-                <label for="project_name" class="form-label">project_name</label>
+                <label for="project_name" class="form-label">契約名稱</label>
                 <input type="text" class="form-control" id="project_name" name="project_name">
                 <div class="form-text"></div>
                 </div>
                 <div class="mb-3">
-                <label for="project_content" class="form-label">project_content</label>
+                <label for="project_content" class="form-label">契約內容</label>
                 <input type="text" class="form-control" id="project_content" name="project_content">
                 <div class="form-text"></div>
                 </div>
                 <div class="mb-3">
-                <label for="project_fee" class="form-label">project_fee</label>
+                <label for="project_fee" class="form-label">契約費用</label>
                 <input type="text" class="form-control" id="project_fee" name="project_fee">
                 <div class="form-text"></div>
                 </div>
