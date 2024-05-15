@@ -37,7 +37,7 @@ if (!isset($pageName)) $pageName = '';
           <?php /*if (isset($_SESSION['admin'])) :*/ ?> 
             <!-- 測試先不確認權限, 註掉 -->
             <li class="nav-item">
-              <a class="nav-link"><?= /* $_SESSION['admin']['nickname']*/ ?></a>
+
               <!-- 測試先不確認權限, 註掉 -->
             </li>
             <li class="nav-item">
