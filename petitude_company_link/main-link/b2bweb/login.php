@@ -24,7 +24,7 @@ $pageName = 'login';
       <div class="card">
 
         <div class="card-body">
-          <h5 class="card-title">登入</h5>
+          <h5 class="card-title"><a href="quick-login.php">登入</a></h5>
           <form name="form1" onsubmit="sendData(event)">
             <div class="mb-3">
               <label for="b2b_account" class="form-label">員工帳號</label>
