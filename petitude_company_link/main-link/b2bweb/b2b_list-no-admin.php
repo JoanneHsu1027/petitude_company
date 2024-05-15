@@ -82,78 +82,77 @@ if ($endPage > $totalPages) {
 <?php include __DIR__ . '/../parts/head.php' ?>
 <?php include __DIR__ . '/../parts/navbar.php' ?>
 
+<!-- 標題 start -->
+<div id="content">
+    <h2>員工列表</h2>
+</div>
+<!-- 標題 end -->
+
 <div class="container">
-  <div class="row">
-    <div class="col">
-      <nav aria-label="Page navigation example">
-        <ul class="pagination">
-          <!-- 跳轉到第一頁，如果已經是則隱藏 -->
-          <li class="page-item " style="display: <?= $currentPage == 1 ? 'none' : '' ?>" ;>
-            <a class="page-link" href="?page=<?= 1 ?>">first</a>
-          </li>
-          <!-- Previous 上一頁 -->
-          <li class="page-item<?= $currentPage == 1 ? 'disabled' : '' ?>">
-            <a class="page-link" href="?page=<?= $currentPage - 1 ?>">Previous</a>
-          </li>
-
-          <!-- 起始頁前的省略符號 -->
-          <?php if ($startPage > 1) : ?> <!-- 如果起始的頁面超過1 -->
-            <li class="page-item disabled"><span class="page-link">...</span></li>
-          <?php endif; ?>
-
-          <!-- 每頁按鈕 -->
-          <?php for ($i = $startPage; $i <= $endPage; $i++) : ?>
-            <li class="page-item<?= $i == $currentPage ? 'active' : '' ?>">
-              <a class="page-link" style="width: 44.55px;text-align: center;" href="?page=<?= $i ?>"><?= $i ?></a>
-            </li>
-          <?php endfor; ?>
-
-          <!-- 結束頁後的省略符號 -->
-          <?php if ($endPage < $totalPages) : ?> <!-- 如果結束的頁面小於總頁數 -->
-            <li class="page-item disabled"><span class="page-link">...</span></li>
-          <?php endif; ?>
-
-          <!-- Next 下一頁 -->
-          <li class="page-item <?= $currentPage == $totalPages ? ' disabled' : '' ?>">
-            <a class="page-link" href="?page=<?= $currentPage + 1 ?>">Next</a>
-          </li>
-          <!-- 跳轉到最後一頁，如果已經是則隱藏 -->
-          <li class="page-item " style="display: <?= $currentPage == $totalPages ? 'none' : '' ?>" ;>
-            <a class="page-link" href="?page=<?= $totalPages ?>">End</a>
-          </li>
-        </ul>
-      </nav>
+    <div class="d-flex flex-row bd-highlight mb-3">
+        <div class="p-2 bd-highlight">
+            <nav aria-label="Page navigation example">
+                <ul class="pagination">
+                    <li class="page-item ">
+                        <a class="page-link" href="#">
+                            <i class="fa-solid fa-angles-left"></i>
+                        </a>
+                    </li>
+                    <li class="page-item ">
+                        <a class="page-link" href="#">
+                            <i class="fa-solid fa-angle-left"></i>
+                        </a>
+                    </li>
+                    <?php for ($i = $page - 5; $i <= $page + 5; $i++) :
+            if ($i >= 1 and $i <= $totalPages) : ?>
+                    <li class="page-item <?= $page == $i ? 'active' : '' ?>">
+                        <a class="page-link" href="?page=<?= $i ?>"><?= $i ?></a>
+                    </li>
+                    <?php endif;
+          endfor; ?>
+                    <li class="page-item ">
+                        <a class="page-link" href="#">
+                            <i class="fa-solid fa-angle-right"></i>
+                        </a>
+                    </li>
+                    <li class="page-item ">
+                        <a class="page-link" href="#">
+                            <i class="fa-solid fa-angles-right"></i>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
     </div>
-  </div>
 
-  <div class="row">
-    <div class="col">
-      <table class="table table-bordered table-striped">
-        <thead>
-          <tr>
+    <div class="row">
+        <div class="col">
+            <table class="table table-bordered table-striped">
+                <thead>
+                    <tr style="vertical-align: middle; text-align: center">
 
-            <th scope="col">員工編號</th>
-            <th scope="col">姓名</th>
-            <th scope="col">職位</th>
+                        <th scope="col">員工編號</th>
+                        <th scope="col">姓名</th>
+                        <th scope="col">職位</th>
 
-          </tr>
-        </thead>
-        <tbody>
-          <?php foreach ($rows as $r) : ?>
-            <tr>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php foreach ($rows as $r) : ?>
+                    <tr style="vertical-align: middle;">
 
-              <td><?= $r['b2b_account'] ?></td>
-              <td><?= $r['b2b_name'] ?></td>
-              <td><?= $r['b2b_job_name'] ?></td>
+                        <td style="text-align: center"><?= $r['b2b_account'] ?></td>
+                        <td style="text-align: center"><?= $r['b2b_name'] ?></td>
+                        <td style="text-align: center"><?= $r['b2b_job_name'] ?></td>
 
 
-            </tr>
-          <?php endforeach; ?>
-        </tbody>
-      </table>
+                    </tr>
+                    <?php endforeach; ?>
+                </tbody>
+            </table>
 
+        </div>
     </div>
-  </div>
 </div>
 
 <?php include __DIR__ . '/../parts/scripts.php' ?>

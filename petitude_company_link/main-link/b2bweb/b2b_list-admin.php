@@ -94,113 +94,137 @@ if ($endPage > $totalPages) {
 <?php include __DIR__ . '/../parts/head.php' ?>
 <?php include __DIR__ . '/../parts/navbar.php' ?>
 
-<div class="container" style="max-width: 1600px">
-  <!-- 分頁功能Start -->
-  <div class="d-flex flex-row bd-highlight mb-3 align-items-center">
-    <div class="p-2 bd-highlight">
-      <button type="button" class="btn btn-primary"><a class=" <?= $pageName == 'b2b_add' ? 'active' : '' ?>" href="b2b-add.php" style="Text-decoration:none; color:white">新增員工 <i class="fa-solid fa-circle-plus"></i></a></button>
-    </div>
-    <div class="p-2 bd-highlight align-items-center">
-      <nav aria-label="Page navigation example">
-        <ul class="pagination">
-          <li class="page-item ">
-            <a class="page-link" href="#">
-              <i class="fa-solid fa-angles-left"></i>
-            </a>
-          </li>
-          <li class="page-item ">
-            <a class="page-link" href="#">
-              <i class="fa-solid fa-angle-left"></i>
-            </a>
-          </li>
-          <?php for ($i = $page - 5; $i <= $page + 5; $i++) :
+<!-- 標題 start -->
+<div id="content">
+    <h2>員工列表</h2>
+</div>
+<!-- 標題 end -->
+
+<div class="container">
+    <!-- 分頁功能Start -->
+    <div class="d-flex flex-row bd-highlight mb-3">
+        <div class="p-2 bd-highlight">
+
+            <button type="button" class="btn btn-primary"><a class=" <?= $pageName == 'b2b_add' ? 'active' : '' ?>"
+                    href="b2b-add.php" style="Text-decoration:none; color:white">新增員工 <i
+                        class="fa-solid fa-circle-plus"></i></a></button>
+        </div>
+        <div class="p-2 bd-highlight">
+            <nav aria-label="Page navigation example">
+                <ul class="pagination">
+                    <li class="page-item ">
+                        <a class="page-link" href="#">
+                            <i class="fa-solid fa-angles-left"></i>
+                        </a>
+                    </li>
+                    <li class="page-item ">
+                        <a class="page-link" href="#">
+                            <i class="fa-solid fa-angle-left"></i>
+                        </a>
+                    </li>
+                    <?php for ($i = $page - 5; $i <= $page + 5; $i++) :
             if ($i >= 1 and $i <= $totalPages) : ?>
-              <li class="page-item <?= $page == $i ? 'active' : '' ?>">
-                <a class="page-link" href="?page=<?= $i ?>"><?= $i ?></a>
-              </li>
-          <?php endif;
+                    <li class="page-item <?= $page == $i ? 'active' : '' ?>">
+                        <a class="page-link" href="?page=<?= $i ?>"><?= $i ?></a>
+                    </li>
+                    <?php endif;
           endfor; ?>
-          <li class="page-item ">
-            <a class="page-link" href="#">
-              <i class="fa-solid fa-angle-right"></i>
-            </a>
-          </li>
-          <li class="page-item ">
-            <a class="page-link" href="#">
-              <i class="fa-solid fa-angles-right"></i>
-            </a>
-          </li>
-        </ul>
-      </nav>
+                    <li class="page-item ">
+                        <a class="page-link" href="#">
+                            <i class="fa-solid fa-angle-right"></i>
+                        </a>
+                    </li>
+                    <li class="page-item ">
+                        <a class="page-link" href="#">
+                            <i class="fa-solid fa-angles-right"></i>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+
+
+        <!-- 分頁功能End -->
+
+        <!-- 搜尋功能Start -->
+        <div class="p-2 bd-highlight">
+            <form method="get" action="" class="form-horizontal">
+                <div class="form-group row mb-0 align-items-center">
+                    <label for="b2b_account" class="col-sm-3 col-form-label pe-0" style="color: #0c5a67;">員工編號</label>
+                    <div class="col-sm-6 ps-0">
+                        <input type="text" class="form-control ps-0" id="b2b_account" name="b2b_account"
+                            value="<?= htmlentities($_GET['b2b_account'] ?? '') ?>">
+                    </div>
+                    <div class="col-sm-3">
+                        <button type="submit" class="btn btn-primary btn-block">搜尋</button>
+                    </div>
+                </div>
+            </form>
+        </div>
     </div>
-    <div class="p2 bd-highlight">
-      <div class="form text-dark">
-        <label for="b2b_account">員工編號</label>
-        <input type="text" class="form-control" id="b2b_account" name="b2b_account" value="<?= htmlentities($_GET['b2b_account'] ?? '') ?>">
-      </div>
+    <!-- 搜尋功能End -->
+    <div class="row text-center">
+        <div class="col">
+            <table class="table table-bordered table-striped">
+                <thead>
+                    <tr style="vertical-align: middle; text-align: center">
+                        <th scope="col">員工編號
+                            <a href="?sort=b2b_id&order=desc&page=<?= $currentPage ?>"><i
+                                    class="fa-solid fa-sort-down"></i></a>
+                            <a href="?sort=b2b_id&order=asc&page=<?= $currentPage ?>"><i
+                                    class="fa-solid fa-sort-up"></i></a>
+                        </th>
+
+                        <th scope="col">員工姓名</th>
+                        <th scope="col">員工手機</th>
+                        <th scope="col">員工信箱</th>
+                        <th scope="col">職位
+                            <a href="?sort=fk_b2b_job_id&order=desc&page=<?= $currentPage ?>"><i
+                                    class="fa-solid fa-sort-down"></i></a>
+                            <a href="?sort=fk_b2b_job_id&order=asc&page=<?= $currentPage ?>"><i
+                                    class="fa-solid fa-sort-up"></i></a>
+                        </th>
+
+                        <th scope="col">修改資料</th>
+                        <th scope="col">刪除資料</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php foreach ($rows as $r) : ?>
+                    <tr style="vertical-align: middle;">
+
+                        <td style="text-align: center"><?= $r['b2b_account'] ?></td>
+                        <td style="text-align: center"><?= $r['b2b_name'] ?></td>
+                        <td style="text-align: center"><?= $r['b2b_mobile'] ?></td>
+                        <td style="text-align: center"><?= $r['b2b_email'] ?></td>
+                        <td style="text-align: center"><?= $r['b2b_job_name'] ?></td>
+                        <td style="text-align: center">
+                            <a href="b2b-edit.php?b2b_id=<?= $r['b2b_id'] ?>">
+                                <button type="button" class="btn btn-warning fa-solid fa-pen-to-square"></button>
+                            </a>
+                        </td>
+                        <td style="text-align: center">
+                            <a href="javascript: deleteOne(<?= $r['b2b_id'] ?>)">
+                                <button type="button" class="btn btn-danger fa-solid fa-trash-can"></button>
+                            </a>
+                        </td>
+                    </tr>
+
+
+                    <?php endforeach; ?>
+                </tbody>
+            </table>
+
+        </div>
     </div>
-    <div class="p2 bd-highlight">
-      <button type="submit" class="btn btn-primary">搜尋</button>
-    </div>
-  </div>
-
-  <!-- 分頁功能End -->
-
-  <div class="row text-center">
-    <div class="col">
-      <table class="table table-bordered table-striped">
-        <thead>
-          <tr>
-            <th scope="col">員工編號
-              <a href="?sort=b2b_id&order=desc&page=<?= $currentPage ?>"><i class="fa-solid fa-sort-down"></i></a>
-              <a href="?sort=b2b_id&order=asc&page=<?= $currentPage ?>"><i class="fa-solid fa-sort-up"></i></a>
-            </th>
-
-            <th scope="col">員工姓名</th>
-            <th scope="col">員工手機</th>
-            <th scope="col">員工信箱</th>
-            <th scope="col">職位
-              <a href="?sort=fk_b2b_job_id&order=desc&page=<?= $currentPage ?>"><i class="fa-solid fa-sort-down"></i></a>
-              <a href="?sort=fk_b2b_job_id&order=asc&page=<?= $currentPage ?>"><i class="fa-solid fa-sort-up"></i></a>
-            </th>
-
-            <th scope="col">修改資料</th>
-            <th scope="col">刪除資料</th>
-          </tr>
-        </thead>
-        <tbody>
-          <?php foreach ($rows as $r) : ?>
-            <tr>
-
-              <td><?= $r['b2b_account'] ?></td>
-              <td><?= $r['b2b_name'] ?></td>
-              <td><?= $r['b2b_mobile'] ?></td>
-              <td><?= $r['b2b_email'] ?></td>
-              <td><?= $r['b2b_job_name'] ?></td>
-              <td>
-                <a href="b2b-edit.php?b2b_id=<?= $r['b2b_id'] ?>">
-                  <button type="button" class="btn btn-warning fa-solid fa-pen-to-square"></button>
-                </a>
-              </td>
-              <td>
-                <a href="javascript: deleteOne(<?= $r['b2b_id'] ?>)">
-                  <button type="button" class="btn btn-danger fa-solid fa-trash-can"></button>
-                </a>
-              </td>
-            </tr>
-          <?php endforeach; ?>
-        </tbody>
-      </table>
-    </div>
-  </div>
 </div>
 
 <?php include __DIR__ . '/../parts/scripts.php' ?>
 <script>
-  const deleteOne = (b2b_id) => {
+const deleteOne = (b2b_id) => {
     if (confirm(`是否要刪除編號為 ${b2b_id} 的資料?`)) {
-      location.href = `b2b-delete.php?b2b_id=${b2b_id}`;
+        location.href = `b2b-delete.php?b2b_id=${b2b_id}`;
     }
-  }
+}
 </script>
 <?php include __DIR__ . '/../parts/foot.php' ?>
