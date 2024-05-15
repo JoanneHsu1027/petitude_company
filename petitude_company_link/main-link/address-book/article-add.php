@@ -51,12 +51,6 @@ $stmt = $pdo->query($class_sql);
               <div class="form-text"></div>
             </div>
 
-            <!-- <div class="mb-3">
-              <label for="article_img" class="form-label">文章圖片</label>
-              <input type="file" accept=".jpg, .jpeg, .png, .gif, .svg, .webp" class="form-control" id="article_img" name="article_img">
-              <div class="form-text"></div>
-            </div> -->
-
             <div class="mb-3">
               <label for="article_img[]" class="form-label">文章圖片</label><br>
               <form method="post" action="upload-articleImg-api.php" enctype="multipart/form-data">

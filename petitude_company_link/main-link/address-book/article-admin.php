@@ -49,9 +49,12 @@ echo json_encode([
 <?php include __DIR__ . '/../parts/head.php' ?>
 <?php include __DIR__ . '/../parts/navbar.php' ?>
 
-<div class="container">
-  <div class="row">
-    <div class="col">
+<div class="container" style="max-width: 1600px">
+  <div class="d-flex flex-row bd-highlight mb-3">
+    <div class="p-2 bd-highlight">
+      <button type="button" class="btn btn-primary"><a  href="article-add.php" style="Text-decoration:none; color:white">新增文章 <i class="fa-solid fa-circle-plus"></i></a></button>
+    </div>
+    <div class="p-2 bd-highlight">
       <nav aria-label="Page navigation example">
         <ul class="pagination">
           <li class="page-item ">
@@ -84,6 +87,10 @@ echo json_encode([
         </ul>
       </nav>
     </div>
+
+    <div class="p-2 bd-highlight" style="display: flex; ">
+      <a style="display: flex;  align-items:center;padding:0 0 14px 0" href="class.php"><i class="fa-solid fa-angles-left"></i>主題管理</a>
+    </div>
   </div>
 
   <div class="row">
@@ -91,11 +98,7 @@ echo json_encode([
       <table class="table table-bordered table-striped">
         <thead>
           <tr>
-            <!-- <th scope="col"><i class="fa-solid fa-trash"></i></th> -->
-            <div style="display: flex;  justify-content:space-between"> <a class="btn btn-primary" href="article-add.php" role="button">新增文章 <i class="fa-solid fa-circle-plus"></i></a>
-              <a href="class.php"><i class="fa-solid fa-angles-left"></i>主題管理</a>
-            </div>
-
+            <!-- <th scope="col"><i class="fa-solid fa-trash"></i></th> --> 
             <th scope="col">文章ID</th>
             <th scope="col">建立日期</th>
             <th scope="col">文章名稱</th>
