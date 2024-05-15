@@ -65,6 +65,16 @@
       transform: translateX(5px);
       color: #fff;
     }
+
+    input[readonly],
+    select[readonly],
+    option[readonly],
+    textarea[readonly] {
+      background-color: #81b6be;
+      /* 設定背景色 */
+      pointer-events: none;
+      /* 禁用點擊事件 */
+    }
   </style>
 </head>
 

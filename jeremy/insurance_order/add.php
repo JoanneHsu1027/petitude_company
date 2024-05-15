@@ -15,6 +15,35 @@ $pageName = 'add';
 //   session_start();
 // };
 
+// 新增完成回到訂單表最後一頁時使用 start
+$perPage = 15; # 每一頁最多有幾筆 注意要跟order-list-admin.php連動
+
+$page = isset($_GET['page']) ? $_GET['page'] : 1;
+if ($page < 1) {
+  header('Location: ?page=1');
+  exit; # 結束這支程式
+}
+
+$t_sql = "SELECT COUNT(insurance_order_id) FROM insurance_order";
+
+# 總筆數
+$totalRows = $pdo->query($t_sql)->fetch(PDO::FETCH_NUM)[0];
+
+
+#預設值
+$totalPages = 0;
+$rows = [];
+if ($totalRows) {
+  # 總頁數
+  $totalPages = ceil($totalRows / $perPage);
+  if ($page > $totalPages) {
+    header("Location: ?page={$totalPages}");
+    exit; # 結束這支程式
+  }
+}
+
+// 新增完成回到訂單表最後一頁時使用 end
+
 $sql = "SELECT *, insurance_product.insurance_fee
 FROM insurance_order
 JOIN insurance_product 
@@ -176,7 +205,7 @@ $product_row = $pdo->query($product_sql)->fetchAll();
 
         <!-- <button type="button" class="btn btn-primary" onclick="location.href='list.php'">到列表頁</button> -->
         <!-- 這邊用onclick設定位址, 也可用a -->
-        <a href="order-list-admin.php" type="button" class="btn btn-primary">到列表頁</a>
+        <a href="order-list-admin.php?page=<?= $totalPages ?>" type="button" class="btn btn-primary">到列表頁</a>
         <!-- 確認權限設定後來改 -->
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">繼續新增</button>
       </div>

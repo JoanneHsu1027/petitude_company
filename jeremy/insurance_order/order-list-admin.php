@@ -5,7 +5,7 @@ require __DIR__ . '/../config/pdo-connect.php';
 $title = "保險訂單表";
 $pageName = 'order-list-admin'; #測試時先不去list驗證, 之後要區分權限再去list
 
-$perPage = 20; # 每一頁最多有幾筆
+$perPage = 15; # 每一頁最多有幾筆
 
 $page = isset($_GET['page']) ? $_GET['page'] : 1;
 if ($page < 1) {
@@ -19,12 +19,6 @@ $t_sql = "SELECT COUNT(insurance_order_id) FROM insurance_order";
 # 總筆數
 $totalRows = $pdo->query($t_sql)->fetch(PDO::FETCH_NUM)[0];
 
-
-
-// SELECT * FROM `address_book` ORDER BY sid DESC LIMIT 0, 20
-// SELECT * FROM `address_book` ORDER BY sid DESC LIMIT 20, 20
-// SELECT * FROM `address_book` ORDER BY sid DESC LIMIT 40, 20
-// SELECT * FROM `address_book` ORDER BY sid DESC LIMIT 60, 20
 
 #預設值
 $totalPages = 0;
@@ -53,12 +47,7 @@ if ($totalRows) {
   $rows = $pdo->query($sql)->fetchAll();
 }
 ?>
-<!-- // echo json_encode([
-// 'totalRows' => $totalRows,
-// 'totalPages' => $totalPages,
-// 'page' => $page,
-// 'rows' => $rows,
-// ]); -->
+
 
 <?php include __DIR__ . '/name-transfer.php'; ?>
 <?php include __DIR__ . '/../page/html-header.php'; ?>

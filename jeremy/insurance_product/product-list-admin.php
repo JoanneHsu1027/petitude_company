@@ -120,6 +120,8 @@ if ($totalRows) {
         <table class="table table-bordered table-striped ">
           <thead>
             <tr>
+              <th scope="col" class="text-center"><i class="fa-solid fa-copy"></i></th>
+
               <th scope="col" class="text-center"><i class="fa-solid fa-trash-can"></i></th>
 
               <th scope="col">#</th>
@@ -147,6 +149,10 @@ if ($totalRows) {
           <tbody>
             <?php foreach ($rows as $r) : ?>
               <tr>
+                <td class="text-center"><a href="add-copy.php?insurance_product_id=<?= $r['insurance_product_id'] ?>">
+                    <i class="fa-solid fa-copy"></i>
+                  </a></td>
+
                 <td class="text-center"><a href="javascript: deleteOne(<?= $r['insurance_product_id'] ?>)">
                     <!-- href="javascript: 假連結 -->
                     <i class="fa-regular fa-trash-can c-warning"></i>
