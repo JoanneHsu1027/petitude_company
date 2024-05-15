@@ -1,7 +1,5 @@
 <?php
-// require __DIR__ . '/admin-required.php';
-// 權限確認用先註掉
-
+require __DIR__ . '/admin-required.php';
 require __DIR__ . '/../config/pdo-connect.php';
 
 // 地址的縣市鄉鎮選擇使用
@@ -11,9 +9,9 @@ $title = "新增保險訂單";
 $pageName = 'add';
 
 
-// if (!isset($_SESSION)) {
-//   session_start();
-// };
+if (!isset($_SESSION)) {
+  session_start();
+};
 
 // 新增完成回到訂單表最後一頁時使用 start
 $perPage = 15; # 每一頁最多有幾筆 注意要跟order-list-admin.php連動
@@ -51,8 +49,7 @@ ON insurance_order.fk_insurance_product_id = insurance_product.insurance_product
 ";
 $row = $pdo->query($sql)->fetchAll();
 if (empty($row)) {
-  header('Location: order-list-admin.php');
-  // 等權限設定後再來改
+  header('Location: order-list.php');
   exit;
 }
 
@@ -114,9 +111,6 @@ $product_row = $pdo->query($product_sql)->fetchAll();
                 <div class="form-text"></div>
               </select>
 
-              <!-- <label for="insurance_fee" class="form-label">保險費用</label>
-              <input type="text" class="form-control mb-3" value="">
-              <div class="form-text"></div> -->
 
 
               <!-- <?php foreach ($row as $r) : ?>
@@ -205,14 +199,14 @@ $product_row = $pdo->query($product_sql)->fetchAll();
 
         <!-- <button type="button" class="btn btn-primary" onclick="location.href='list.php'">到列表頁</button> -->
         <!-- 這邊用onclick設定位址, 也可用a -->
-        <a href="order-list-admin.php?page=<?= $totalPages ?>" type="button" class="btn btn-primary">到列表頁</a>
+        <a href="order-list.php?page=<?= $totalPages ?>" type="button" class="btn btn-primary">到列表頁</a>
         <!-- 確認權限設定後來改 -->
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">繼續新增</button>
       </div>
     </div>
   </div>
 </div>
-
+<!-- Modal -->
 
 <?php include __DIR__ . '/../page/html-scripts.php'; ?>
 <script>

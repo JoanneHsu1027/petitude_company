@@ -1,6 +1,6 @@
 <?php
-// require __DIR__ . '/admin-required.php';
-// 驗證的先註解掉
+require __DIR__ . '/admin-required.php';
+
 require __DIR__ . '/../config/pdo-connect.php';
 
 header('Content-Type: application/json');

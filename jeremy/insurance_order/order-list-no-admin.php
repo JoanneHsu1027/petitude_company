@@ -1,5 +1,5 @@
 <?php
-require __DIR__ . '/admin-required.php';
+
 require __DIR__ . '/../config/pdo-connect.php';
 
 $title = "保險訂單表";
@@ -113,29 +113,27 @@ if ($totalRows) {
         <table class="table table-bordered table-striped">
           <thead>
             <tr>
-              <th scope="col" class="text-center"><i class="fa-regular fa-trash-can"></i></th>
+
               <th scope="col" class="text-center"><i class="fa-solid fa-pen-to-square"></i></th>
               <th scope="col">#</th>
               <th scope="col">會員帳號</th>
               <th scope="col">寵物帳號</th>
               <th scope="col">保險商品代號</th>
-              <th scope="col">保險費用</th>
+
               <th scope="col">付款狀態</th>
               <th scope="col">保險起始日期</th>
-              <th scope="col">地址</th>
+
               <th scope="col">手機號碼</th>
               <th scope="col">聯絡信箱</th>
-              <th scope="col">身分證字號</th>
+
 
             </tr>
           </thead>
           <tbody>
             <?php foreach ($rows as $r) : ?>
               <tr>
-                <td class="text-center"><a href="javascript: deleteOne(<?= $r['insurance_order_id'] ?>)">
-                    <!-- href="javascript: 假連結 -->
-                    <i class="fa-regular fa-trash-can"></i>
-                  </a></td>
+
+                </a></td>
                 <td class="text-center"><a href="edit.php?insurance_order_id=<?= $r['insurance_order_id'] ?>">
                     <i class="fa-solid fa-pen-to-square"></i>
                   </a></td>
@@ -144,15 +142,14 @@ if ($totalRows) {
                 <td><?= $r['fk_b2c_id'] ?></td>
                 <td><?= $r['fk_pet_id'] ?></td>
                 <td><?= $r['fk_insurance_product_id'] ?></td>
-                <td><?= $r['insurance_fee'] ?></td>
-                <!-- db沒有這個欄位, 要在抓insurance_product時去特別抓 -->
+
                 <td><?= $transfer[$r['payment_status']] ?></td>
                 <!-- db是布林值, 另外寫一個name-transfer.php來改. 上面要再require檔案 -->
                 <td><?= $r['insurance_start_date'] ?></td>
-                <td><?= htmlentities($r['county_name'] . $r['city_name'] . $r['policyholder_address']) ?></td>
+
                 <td><?= htmlentities($r['policyholder_mobile']) ?></td>
                 <td><?= htmlentities($r['policyholder_email']) ?></td>
-                <td><?= htmlentities($r['policyholder_IDcard']) ?></td>
+
                 <!-- 可以用兩種, strip_tags會擋掉tags,看不到對方用了甚麼tag. htmlentities只跳脫,可以看到對方用了甚麼,較建議用 -->
 
               </tr>
@@ -163,12 +160,5 @@ if ($totalRows) {
     </div>
   </div>
   <?php include __DIR__ . '/../page/html-scripts.php'; ?>
-  <script>
-    // 確認是否刪除
-    const deleteOne = (insurance_order_id) => {
-      if (confirm(`是否要刪除編號為 ${insurance_order_id} 的資料?`)) {
-        location.href = `delete.php?insurance_order_id=${insurance_order_id}`;
-      }
-    }
-  </script>
+
   <?php include __DIR__ . '/../page/html-footer.php'; ?>

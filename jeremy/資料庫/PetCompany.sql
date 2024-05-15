@@ -1,9 +1,9 @@
 -- try full titanic data
-create database if not exists petcomnpany ;
-use petcomnpany;
-
-
+create database if not exists PetCompany ;
+use PetCompany;
+-- drop database petcompany;
 #　　　共用資料庫　　　#
+
 
 #縣市列表
 CREATE TABLE IF NOT EXISTS county(
@@ -332,7 +332,6 @@ ENCLOSED BY '"'
 LINES TERMINATED BY '\r\n'
 IGNORE 1 ROWS
 (insurance_order_id,fk_b2c_id,fk_pet_id,fk_insurance_product_id,payment_status,insurance_start_date,fk_county_id,fk_city_id,policyholder_address,policyholder_mobile,policyholder_email,policyholder_IDcard);
-show warnings;
 
 -- 預約參觀 --
 LOAD DATA
@@ -423,6 +422,7 @@ LINES TERMINATED BY '\r\n'
 IGNORE 1 ROWS
 (b2b_id,b2b_account,b2b_password,b2b_name,b2b_email,b2b_mobile,fk_b2b_job_id);
 
+show warnings;
 
 -- 主題分類 --
 LOAD DATA
