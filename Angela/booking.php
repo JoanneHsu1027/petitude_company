@@ -24,11 +24,34 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 }
 ?>
-    <?php include __DIR__ . '/parts/html_head.php' ?>
+     <?php include __DIR__ . '/parts/html_head.php' ?>
         <?php include __DIR__ . '/parts/navbar.php' ?>
     <div class="container">
         <div class="row">
-            <a href="booking-admin.php">list</a>
+            <div class="col-6">
+            <div class="card">
+
+                <div class="card-body">
+                <h5 class="card-title">登入</h5>
+
+                <form name="form1" onsubmit="sendData(event)">
+                    <div class="mb-3">
+                    <label for="email" class="form-label">電子郵箱</label>
+                    <input type="text" class="form-control" id="email" name="email">
+                    <div class="form-text"></div>
+                    </div>
+                    <div class="mb-3">
+                    <label for="password" class="form-label">密碼</label>
+                    <input type="password" class="form-control" id="password" name="password">
+                    <div class="form-text"></div>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary">登入</button>
+                </form>
+
+                </div>
+            </div>
+            </div>
         </div>
     </div>
 
@@ -86,7 +109,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         if (isPass) {
         const fd = new FormData(document.form1); // 沒有外觀的表單物件
 
-        fetch(`Angela/backend/login-api.php`, {
+        fetch(`login-api.php`, {
             method: 'POST',
             body: fd,
         }).then(r => r.json()).then(data => {
