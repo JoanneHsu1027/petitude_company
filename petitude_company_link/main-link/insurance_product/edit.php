@@ -4,7 +4,7 @@ require __DIR__ . '/../config/pdo-connect.php';
 
 $sid = isset($_GET['insurance_product_id']) ? intval($_GET['insurance_product_id']) : 0;
 if ($sid < 1) {
-  header('Location: product-list.php');
+  header('Location: product-list-admin.php');
   // 等權限設定後再來改
   exit;
 }
@@ -14,7 +14,7 @@ $pdo->query($sql);
 
 $row = $pdo->query($sql)->fetch();
 if (empty($row)) {
-  header('Location: product-list.php');
+  header('Location: product-list-admin.php');
   // 等權限設定後再來改
   exit;
 }
@@ -39,7 +39,7 @@ $title = "修改商品表資料";
 <div class="container">
   <div class="row">
     <div class="col-6">
-      <div class="card" style="width: 18rem; color:#0c5a67">
+      <div class="card" style="width: 18rem;">
 
         <div class="card-body">
           <h5 class="card-title">修改資料</h5>
@@ -183,7 +183,7 @@ $title = "修改商品表資料";
 </div>
 <!-- Modal 2 -->
 
-<?php include __DIR__ . '/../parts/scripts.php' ?>
+<?php include __DIR__ . '/../parts/scripts.php'; ?>
 <!-- 新的js需要寫在原本掛的js下方 -->
 <script>
   const nameField = document.form1.insurance_name;
@@ -230,4 +230,4 @@ $title = "修改商品表資料";
   const myModal2 = new bootstrap.Modal('#staticBackdrop2')
 </script>
 
-<?php include __DIR__ . '/../parts/foot.php' ?>
+<?php include __DIR__ . '/../parts/foot.php'; ?>

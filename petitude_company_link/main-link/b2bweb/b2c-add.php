@@ -21,7 +21,7 @@ $pageName = 'add';
     <div class="col-6">
       <div class="card">
 
-        <div class="card-body">
+        <div class="card-body" style="color:#0c5a67">
           <h5 class="card-title">新增資料</h5>
           <form name="form1" onsubmit="sendData(event)">
 
@@ -50,22 +50,22 @@ $pageName = 'add';
             </div>
 
             <div class="mb-3">
-                <label for="fk_county_id" class="form-label">居住縣市</label>
-                <select id="fk_county_id" name="fk_county_id" class="form-select mb-2" onchange="updatecitys()">
-                    <?php 
-                        for ($i = 0; $i <= 23; $i++) {
-                    ?>
-                        <option value="<?php echo $i; ?>"><?php echo $counties[$i]; ?></option>
-                    <?php
-                        }
-                    ?>
-                </select>
+              <label for="fk_county_id" class="form-label">居住縣市</label>
+              <select id="fk_county_id" name="fk_county_id" class="form-select mb-2" onchange="updatecitys()">
+                <?php
+                for ($i = 0; $i <= 23; $i++) {
+                ?>
+                  <option value="<?php echo $i; ?>"><?php echo $counties[$i]; ?></option>
+                <?php
+                }
+                ?>
+              </select>
             </div>
 
             <div class="mb-3">
               <label for="fk_city_id" class="form-label">居住地區</label>
               <select id="fk_city_id" name="fk_city_id" class="form-select mb-2">
-                    <option value="0">--請先選擇縣市--</option>
+                <option value="0">--請先選擇縣市--</option>
               </select>
             </div>
 
@@ -85,8 +85,7 @@ $pageName = 'add';
   </div>
 </div>
 <!-- Modal -->
-<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
-  aria-labelledby="staticBackdropLabel" aria-hidden="true">
+<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
@@ -95,11 +94,11 @@ $pageName = 'add';
       </div>
       <div class="modal-body">
         <div class="alert alert-success" role="alert">
-        資料新增成功
+          資料新增成功
         </div>
       </div>
       <div class="modal-footer">
-        
+
         <button type="button" class="btn btn-primary" onclick="location.href='b2c_list.php'">到列表頁</button>
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">繼續新增</button>
       </div>
@@ -127,7 +126,7 @@ $pageName = 'add';
     emailField.nextElementSibling.innerText = '';
     // TODO: 欄位資料檢查
 
-    let isPass = true;  // 表單有沒有通過檢查
+    let isPass = true; // 表單有沒有通過檢查
     if (nameField.value.length < 2) {
       // isPass = false;
       nameField.style.border = '1px solid red';
@@ -146,22 +145,20 @@ $pageName = 'add';
       const fd = new FormData(document.form1); // 沒有外觀的表單物件
 
       fetch('b2c-add-api.php', {
-        method: 'POST',
-        body: fd, // Content-Type: multipart/form-data
-      }).then(r => r.json())
+          method: 'POST',
+          body: fd, // Content-Type: multipart/form-data
+        }).then(r => r.json())
         .then(data => {
           console.log(data);
           if (data.success) {
             myModal.show();
-          } else {
-          }
+          } else {}
         })
         .catch(ex => console.log(ex))
     }
   };
 
   const myModal = new bootstrap.Modal('#staticBackdrop')
-
 </script>
 <script src="./js/city.js"></script>
 <?php include __DIR__ . '/../parts/html-foot.php' ?>

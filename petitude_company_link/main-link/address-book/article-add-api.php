@@ -1,5 +1,5 @@
 <?php
-require __DIR__ . '/admin-required.php';
+require __DIR__ . '/../b2bweb/admin-required.php';
 require __DIR__ . '/../config/pdo-connect.php';
 
 header('Content-Type: application/json');
@@ -55,4 +55,3 @@ if (
 }
 
 echo json_encode($output);
-?>

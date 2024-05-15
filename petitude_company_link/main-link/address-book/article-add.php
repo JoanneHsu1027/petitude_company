@@ -1,8 +1,4 @@
 <?php
-<<<<<<< HEAD:petitude_company_link/main-link/address-book/article-add.php
-=======
-require __DIR__ . '/admin-required.php';
->>>>>>> origin/trent3281:trent3281/address-book/article-add.php
 require __DIR__ . '/../config/pdo-connect.php';
 if (!isset($_SESSION)) {
   session_start();
@@ -36,7 +32,7 @@ $stmt = $pdo->query($class_sql);
               <label for="class_id" class="form-label">文章分類</label>
               <select class="form-select" id="class_id" name="class_id">
                 <option value="">--請選擇文章分類--</option>
-                <?php while ($row = $stmt->fetch(PDO::FETCH_ASSOC)): ?>
+                <?php while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) : ?>
                   <option value="<?= $row['class_id'] ?>"><?= $row['class_name'] ?></option>
                 <?php endwhile; ?>
               </select>
@@ -99,13 +95,6 @@ $stmt = $pdo->query($class_sql);
 
 <?php include __DIR__ . '/../parts/scripts.php' ?>
 <script>
-<<<<<<< HEAD:petitude_company_link/main-link/address-book/article-add.php
-  const nameField = document.form1.article_name;
-  const contentField = document.form1.article_content;
-  const imgField = document.form1.article_img;
-
-=======
->>>>>>> origin/trent3281:trent3281/address-book/article-add.php
   const sendData = e => {
     e.preventDefault(); // 防止表單自動提交
 
@@ -130,11 +119,7 @@ $stmt = $pdo->query($class_sql);
       nameField.nextElementSibling.innerText = '請填寫文章名稱';
     }
 
-<<<<<<< HEAD:petitude_company_link/main-link/address-book/article-add.php
-    let contentIsPass = true; // 表單有沒有通過檢查
-=======
     let contentIsPass = true;
->>>>>>> origin/trent3281:trent3281/address-book/article-add.php
     if (contentField.value.length < 2) {
       contentIsPass = false;
       contentField.style.border = '1px solid red';
@@ -152,41 +137,6 @@ $stmt = $pdo->query($class_sql);
       const fd = new FormData(form);
 
       fetch('article-add-api.php', {
-<<<<<<< HEAD:petitude_company_link/main-link/address-book/article-add.php
-          method: 'POST',
-          body: fd, // Content-Type: multipart/form-data
-        }).then(r => r.json())
-        .then(data => {
-          console.log(data);
-          if (data.success) {
-            myModal.show();
-          } else {}
-        })
-        .catch(ex => console.log(ex))
-    }
-
-    if (contentIsPass) {
-      const fd = new FormData(document.form1);
-
-      fetch('article-add-api.php', {
-          method: 'POST',
-          body: fd, // Content-Type: multipart/form-data
-        }).then(r => r.json())
-        .then(data => {
-          console.log(data);
-          if (data.success) {
-            myModal.show();
-          } else {}
-        })
-        .catch(ex => console.log(ex))
-    }
-
-  };
-
-  const myModal = new bootstrap.Modal('#staticBackdrop')
-</script>
-<?php include __DIR__ . '/../parts/foot.php' ?>
-=======
         method: 'POST',
         body: fd,
       }).then(response => {
@@ -209,5 +159,4 @@ $stmt = $pdo->query($class_sql);
 </script>
 
 
-<?php include __DIR__ . '/parts/html-foot.php' ?>
->>>>>>> origin/trent3281:trent3281/address-book/article-add.php
+<?php include __DIR__ . '/../parts/foot.php'; ?>

@@ -19,8 +19,8 @@ $searchConditions = [];
 $params = [];
 
 if (!empty($_GET['b2b_account'])) {
-    $searchConditions[] = 'b2b_account = :b2b_account';
-    $params[':b2b_account'] = $_GET['b2b_account'];
+  $searchConditions[] = 'b2b_account = :b2b_account';
+  $params[':b2b_account'] = $_GET['b2b_account'];
 }
 
 if (!empty($_GET['b2b_job_name'])) {
@@ -30,7 +30,7 @@ if (!empty($_GET['b2b_job_name'])) {
 
 $searchSql = '';
 if (!empty($searchConditions)) {
-    $searchSql = 'WHERE ' . implode(' AND ', $searchConditions);
+  $searchSql = 'WHERE ' . implode(' AND ', $searchConditions);
 }
 
 
@@ -75,17 +75,17 @@ $startPage = $currentPage - $range;
 $endPage = $currentPage + $range;
 
 if ($startPage < 1) {
-    $endPage += 1 - $startPage;
-    $startPage = 1;
+  $endPage += 1 - $startPage;
+  $startPage = 1;
 }
 
 if ($endPage > $totalPages) {
-    $startPage -= $endPage - $totalPages;
-    $endPage = $totalPages;
+  $startPage -= $endPage - $totalPages;
+  $endPage = $totalPages;
 
-    if ($startPage < 1) {
-        $startPage = 1;
-    }
+  if ($startPage < 1) {
+    $startPage = 1;
+  }
 }
 ?>
 
@@ -94,64 +94,58 @@ if ($endPage > $totalPages) {
 <?php include __DIR__ . '/../parts/head.php' ?>
 <?php include __DIR__ . '/../parts/navbar.php' ?>
 
-<div class="container">
-    <!-- 分頁功能Start -->
-      <div class="row">
-          <div class="col">
-            <div class="p-2 bd-highlight">
-                <button type="button" class="btn btn-primary"><a class=" <?= $pageName == 'b2b_add' ? 'active' : '' ?>" href="b2b-add.php" style="Text-decoration:none; color:white">新增員工 <i class="fa-solid fa-circle-plus"></i></a></button>
-            </div>
-              <nav aria-label="Page navigation example">
-                  <ul class="pagination">
-                      <!-- First Page Link -->
-                      <li class="page-item" style="display: <?= $currentPage == 1 ? 'none' : '' ?>;">
-                          <a class="page-link" href="?page=1&order=<?= $order ?>&sort=<?= $sort ?>">First</a>
-                      </li>
-                      <!-- Previous Page Link -->
-                      <li class="page-item<?= $currentPage == 1 ? ' disabled' : '' ?>">
-                          <a class="page-link" href="?page=<?= $currentPage - 1 ?>&order=<?= $order ?>&sort=<?= $sort ?>">Previous</a>
-                      </li>
-                      <!-- Ellipsis before the start page -->
-                      <?php if ($startPage > 1): ?>
-                          <li class="page-item disabled"><span class="page-link">...</span></li>
-                      <?php endif; ?>
-                      <!-- Page Number Links -->
-                      <?php for ($i = $startPage; $i <= $endPage; $i++): ?>
-                          <li class="page-item<?= $i == $currentPage ? ' active' : '' ?>">
-                              <a class="page-link" href="?page=<?= $i ?>&order=<?= $order ?>&sort=<?= $sort ?>"><?= $i ?></a>
-                          </li>
-                      <?php endfor; ?>
-                      <!-- Ellipsis after the end page -->
-                      <?php if ($endPage < $totalPages): ?>
-                          <li class="page-item disabled"><span class="page-link">...</span></li>
-                      <?php endif; ?>
-                      <!-- Next Page Link -->
-                      <li class="page-item<?= $currentPage == $totalPages ? ' disabled' : '' ?>">
-                          <a class="page-link" href="?page=<?= $currentPage + 1 ?>&order=<?= $order ?>&sort=<?= $sort ?>">Next</a>
-                      </li>
-                      <!-- Last Page Link -->
-                      <li class="page-item" style="display: <?= $currentPage == $totalPages ? 'none' : '' ?>;">
-                          <a class="page-link" href="?page=<?= $totalPages ?>&order=<?= $order ?>&sort=<?= $sort ?>">End</a>
-                      </li>
-                  </ul>
-              </nav>
-          </div>
-      </div>
-    <!-- 分頁功能End -->
-
-    <!-- 搜尋功能Start -->
-    <div class="row">
-      <form method="get" action="">
-            <div class="form text-dark">
-                <div class=" col-md-3">
-                    <label for="b2b_account">員工編號</label>
-                    <input type="text" class="form-control" id="b2b_account" name="b2b_account" value="<?= htmlentities($_GET['b2b_account'] ?? '') ?>">
-                </div>
-            </div>
-            <button type="submit" class="btn btn-primary" >搜尋</button>
-      </form>
+<div class="container" style="max-width: 1600px">
+  <!-- 分頁功能Start -->
+  <div class="d-flex flex-row bd-highlight mb-3 align-items-center">
+    <div class="p-2 bd-highlight">
+      <button type="button" class="btn btn-primary"><a class=" <?= $pageName == 'b2b_add' ? 'active' : '' ?>" href="b2b-add.php" style="Text-decoration:none; color:white">新增員工 <i class="fa-solid fa-circle-plus"></i></a></button>
     </div>
-    <!-- 搜尋功能End -->
+    <div class="p-2 bd-highlight align-items-center">
+      <nav aria-label="Page navigation example">
+        <ul class="pagination">
+          <li class="page-item ">
+            <a class="page-link" href="#">
+              <i class="fa-solid fa-angles-left"></i>
+            </a>
+          </li>
+          <li class="page-item ">
+            <a class="page-link" href="#">
+              <i class="fa-solid fa-angle-left"></i>
+            </a>
+          </li>
+          <?php for ($i = $page - 5; $i <= $page + 5; $i++) :
+            if ($i >= 1 and $i <= $totalPages) : ?>
+              <li class="page-item <?= $page == $i ? 'active' : '' ?>">
+                <a class="page-link" href="?page=<?= $i ?>"><?= $i ?></a>
+              </li>
+          <?php endif;
+          endfor; ?>
+          <li class="page-item ">
+            <a class="page-link" href="#">
+              <i class="fa-solid fa-angle-right"></i>
+            </a>
+          </li>
+          <li class="page-item ">
+            <a class="page-link" href="#">
+              <i class="fa-solid fa-angles-right"></i>
+            </a>
+          </li>
+        </ul>
+      </nav>
+    </div>
+    <div class="p2 bd-highlight">
+      <div class="form text-dark">
+        <label for="b2b_account">員工編號</label>
+        <input type="text" class="form-control" id="b2b_account" name="b2b_account" value="<?= htmlentities($_GET['b2b_account'] ?? '') ?>">
+      </div>
+    </div>
+    <div class="p2 bd-highlight">
+      <button type="submit" class="btn btn-primary">搜尋</button>
+    </div>
+  </div>
+
+  <!-- 分頁功能End -->
+
   <div class="row text-center">
     <div class="col">
       <table class="table table-bordered table-striped">
@@ -185,7 +179,7 @@ if ($endPage > $totalPages) {
               <td><?= $r['b2b_job_name'] ?></td>
               <td>
                 <a href="b2b-edit.php?b2b_id=<?= $r['b2b_id'] ?>">
-                 <button type="button" class="btn btn-warning fa-solid fa-pen-to-square"></button>
+                  <button type="button" class="btn btn-warning fa-solid fa-pen-to-square"></button>
                 </a>
               </td>
               <td>
@@ -194,12 +188,9 @@ if ($endPage > $totalPages) {
                 </a>
               </td>
             </tr>
-
-
           <?php endforeach; ?>
         </tbody>
       </table>
-
     </div>
   </div>
 </div>
