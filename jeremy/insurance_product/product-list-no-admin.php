@@ -1,5 +1,5 @@
 <?php
-require __DIR__ . '/admin-required.php';
+
 require __DIR__ . '/../config/pdo-connect.php';
 
 $title = "保險產品表";
@@ -20,11 +20,6 @@ $t_sql = "SELECT COUNT(insurance_product_id) FROM insurance_product";
 $totalRows = $pdo->query($t_sql)->fetch(PDO::FETCH_NUM)[0];
 
 
-
-// SELECT * FROM `address_book` ORDER BY sid DESC LIMIT 0, 20
-// SELECT * FROM `address_book` ORDER BY sid DESC LIMIT 20, 20
-// SELECT * FROM `address_book` ORDER BY sid DESC LIMIT 40, 20
-// SELECT * FROM `address_book` ORDER BY sid DESC LIMIT 60, 20
 
 #預設值
 $totalPages = 0;
@@ -115,10 +110,12 @@ if ($totalRows) {
           <thead>
             <tr>
               <th scope="col" class="text-center"><i class="fa-solid fa-copy"></i></th>
-              <th scope="col" class="text-center"><i class="fa-solid fa-trash-can"></i></th>
+
+
+
               <th scope="col">#</th>
               <th scope="col">保險名稱</th>
-              <th scope="col">保險費用</th>
+
               <th scope="col">每年門診次數</th>
               <th scope="col">每年門診費用</th>
               <th scope="col">每年住院次數</th>
@@ -135,6 +132,7 @@ if ($totalRows) {
               <th scope="col">寵物喪葬費保險</th>
               <th scope="col">寵物重取得費保險</th>
               <th scope="col">旅遊取消費用保險</th>
+
             </tr>
           </thead>
           <tbody>
@@ -144,14 +142,11 @@ if ($totalRows) {
                     <i class="fa-solid fa-copy"></i>
                   </a></td>
 
-                <td class="text-center"><a href="javascript: deleteOne(<?= $r['insurance_product_id'] ?>)">
-                    <!-- href="javascript: 假連結 -->
-                    <i class="fa-regular fa-trash-can c-warning"></i>
-                  </a></td>
+
 
                 <td><?= $r['insurance_product_id'] ?></td>
                 <td><?= $r['insurance_name'] ?></td>
-                <td><?= $r['insurance_fee'] ?></td>
+
                 <td><?= $r['outpatient_clinic_time'] ?></td>
                 <td><?= $r['outpatient_clinic_fee'] ?></td>
                 <td><?= $r['Hospitalized_time'] ?></td>
@@ -185,12 +180,5 @@ if ($totalRows) {
 
 </div>
 <?php include __DIR__ . '/../page/html-scripts.php'; ?>
-<script>
-  // 確認是否刪除
-  const deleteOne = (insurance_product_id) => {
-    if (confirm(`是否要刪除編號為 ${insurance_product_id} 的資料?`)) {
-      location.href = `delete.php?insurance_product_id=${insurance_product_id}`;
-    }
-  }
-</script>
+
 <?php include __DIR__ . '/../page/html-footer.php'; ?>
