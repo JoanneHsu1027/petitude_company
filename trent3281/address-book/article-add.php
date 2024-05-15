@@ -3,7 +3,7 @@ require __DIR__ . '/admin-required.php';
 if (!isset($_SESSION)) {
   session_start();
 }
-$title = "建立主題";
+$title = "建立文章";
 $pageName = 'add';
 
 ?>
@@ -23,18 +23,42 @@ $pageName = 'add';
         <div class="card-body">
 
           <form name="form1" onsubmit="sendData(event)">
+
             <div class="mb-3">
-              <label for="class_name" class="form-label">主題名稱</label>
-              <input type="text" class="form-control" id="class_name" name="class_name">
+              <label for="class_name" class="form-label">選擇主題</label>
+              <select name="" id="">
+                <option value=""></option>
+                <option value=""></option>
+                <option value=""></option>
+              </select>
+            </div>
+
+            <div class="mb-3">
+              <label for="article_name" class="form-label">文章名稱</label>
+              <input type="text" class="form-control" id="article_name" name="article_name">
               <div class="form-text"></div>
             </div>
+
+            <div class="mb-3">
+              <label for="article_content" class="form-label">文章內容</label>
+              <input type="text" class="form-control" id="article_content" name="article_content">
+              <div class="form-text"></div>
+            </div>
+
+            <div class="mb-3">
+              <label for="article_img" class="form-label">文章圖片</label>
+              <input type="file" accept=".jpg, .jpeg, .png, .gif, .svg, .webp" class="form-control" id="article_img"
+                name="article_img">
+              <div class="form-text"></div>
+            </div>
+
             <button type="submit" class="btn btn-primary">新增</button>
           </form>
         </div>
       </div>
     </div>
   </div>
-  <a href="class.php"><i class="fa-solid fa-angles-left"></i>主題管理</a>
+  <a href="article.php"><i class="fa-solid fa-angles-left"></i>文章列表</a>
 </div>
 <!-- Modal -->
 <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
@@ -62,7 +86,9 @@ $pageName = 'add';
 <?php include __DIR__ . '/parts/scripts.php' ?>
 <script>
 
-  const nameField = document.form1.class_name;
+  const nameField = document.form1.article_name;
+  const contentField = document.form1.article_content;
+  const imgField = document.form1.article_img;
 
   const sendData = e => {
     e.preventDefault(); // 不要讓 form1 以傳統的方式送出
@@ -70,18 +96,44 @@ $pageName = 'add';
     nameField.style.border = '1px solid #CCCCCC';
     nameField.nextElementSibling.innerText = '';
 
-    let isPass = true;  // 表單有沒有通過檢查
-    if (nameField.value.length < 2) {
-      isPass = false;
-      nameField.style.border = '1px solid red';
-      nameField.nextElementSibling.innerText = '請填寫主題名稱';
+    contentField.style.border = '1px solid #CCCCCC';
+    contentField.nextElementSibling.innerText = '';
 
+    let nameIsPass = true;
+    if (nameField.value.length < 2) {
+      nameIsPass = false;
+      nameField.style.border = '1px solid red';
+      nameField.nextElementSibling.innerText = '請填寫文章名稱';
     }
 
-    if (isPass) {
+    let contentIsPass = true;  // 表單有沒有通過檢查
+    if (contentField.value.length < 2) {
+      contentIsPass = false;
+      contentField.style.border = '1px solid red';
+      contentField.nextElementSibling.innerText = '請填寫文章內容';
+    }
+
+    if (nameIsPass) {
       const fd = new FormData(document.form1);
 
-      fetch('class-add-api.php', {
+      fetch('article-add-api.php', {
+        method: 'POST',
+        body: fd, // Content-Type: multipart/form-data
+      }).then(r => r.json())
+        .then(data => {
+          console.log(data);
+          if (data.success) {
+            myModal.show();
+          } else {
+          }
+        })
+        .catch(ex => console.log(ex))
+    }
+
+    if (contentIsPass) {
+      const fd = new FormData(document.form1);
+
+      fetch('article-add-api.php', {
         method: 'POST',
         body: fd, // Content-Type: multipart/form-data
       }).then(r => r.json())

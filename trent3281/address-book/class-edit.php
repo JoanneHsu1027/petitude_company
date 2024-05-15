@@ -1,7 +1,7 @@
 <?php
 require __DIR__ . '/admin-required.php';
 require __DIR__ . '/../config/pdo-connect.php';
-$title = "修改通訊錄資料";
+$title = "修改主題";
 
 
 $class_id = isset($_GET['class_id']) ? intval($_GET['class_id']) : 0;
@@ -41,7 +41,7 @@ if (empty($row)) {
             <input type="hidden" name="class_id" value="<?= $row['class_id'] ?>">
 
             <div class="mb-3">
-              <label for="class_name" class="form-label">類別名稱</label>
+              <label for="class_name" class="form-label">主題名稱</label>
               <input type="text" class="form-control" id="class_name" name="class_name"
                 value="<?= $row['class_name'] ?>">
               <div class="form-text"></div>
@@ -115,7 +115,7 @@ if (empty($row)) {
     if (nameField.value.length < 2) {
       isPass = false;
       nameField.style.border = '1px solid red';
-      nameField.nextElementSibling.innerText = '請填寫類別名稱';
+      nameField.nextElementSibling.innerText = '請填寫主題名稱';
 
     }
 

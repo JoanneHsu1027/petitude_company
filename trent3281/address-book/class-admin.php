@@ -1,6 +1,6 @@
 <?php
 require __DIR__ . '/../config/pdo-connect.php';
-$title = "通訊錄列表";
+$title = "主題管理";
 $pageName = 'class';
 
 $perPage = 20; # 每一頁最多有幾筆
@@ -88,12 +88,16 @@ echo json_encode([
   <div class="row">
     <div class="col">
       <table class="table table-bordered table-striped">
-        <a class="btn btn-primary" href="class-add.php" role="button">新增類別 <i class="fa-solid fa-circle-plus"></i></a>
+        <div style="display: flex;  justify-content:space-between"> <a class="btn btn-primary" href="class-add.php"
+            role="button">新增主題 <i class="fa-solid fa-circle-plus"></i></a>
+          <a href="article.php">所有文章<i class="fa-solid fa-angles-right"></i></a>
+        </div>
+
         <thead>
           <tr>
             <th></th>
-            <th scope="col">類別ID</th>
-            <th scope="col">類別名稱</th>
+            <th scope="col">主題ID</th>
+            <th scope="col">主題名稱</th>
             <th scope="col">員工ID</th>
             <th colspan="2"></th>
           </tr>
@@ -150,7 +154,7 @@ echo json_encode([
                             <th>標題</th>
                             <th>內容</th>
                             <th>圖片</th>
-                            <th>類別ID</th>
+                            <th>主題ID</th>
                             <th>B2C會員ID</th>
                           </tr>
                         </thead>
@@ -184,7 +188,7 @@ echo json_encode([
           <?php endforeach; ?>
         </tbody>
       </table>
-      <a href="article.php">所有文章<i class="fa-solid fa-angles-right"></i></a>
+
     </div>
   </div>
 </div>
