@@ -49,96 +49,86 @@ $title = "訂單編輯";
 
 <div class="container">
   <div class="row">
-    <div class="col-">
-      <div class="card" style="width: 18rem;">
-
+    <div class="col-9">
+      <div class="card ">
         <div class="card-body">
-          <h5 class="card-title">修改保單資料</h5>
+          <div class="text-center mb-3">
+            <h4 class="card-title text-decoration-underline c-dark">修改表單資料</h4>
+          </div>
+
           <form name="form1" onsubmit="sendData1(event)">
-            <!-- 設定name和設定onsubmit -->
             <?php foreach ($row as $r) : ?>
-              <div class="mb-3">
-                <label for="insurance_order_id" class="form-label">訂單編號</label>
-                <input type="text" class="form-control mb-3" id="insurance_order_id" name="insurance_order_id" value="<?= $r['insurance_order_id'] ?>" readonly>
+              <div class="row">
+                <div class="col-6">
+                  <h4>基本資料</h4>
+                  <label for="insurance_order_id" class="form-label">訂單編號</label>
+                  <input type="text" class="form-control mb-3" id="insurance_order_id" name="insurance_order_id" value="<?= $r['insurance_order_id'] ?>" readonly>
+
+                  <label for="fk_b2c_id" class="form-label">會員帳號</label>
+                  <input type="text" class="form-control mb-3" id="fk_b2c_id" name="fk_b2c_id" value="<?= $r['fk_b2c_id'] ?>" readonly>
+
+                  <label for="fk_pet_id" class="form-label">寵物帳號</label>
+                  <input type="text" class="form-control mb-3" id="fk_pet_id" name="fk_pet_id" value="<?= $r['fk_pet_id'] ?>" readonly>
+
+                  <label for="fk_insurance_product_id" class="form-label">保險商品代號</label>
+                  <select class="form-select mb-3" id="fk_insurance_product_id" name="fk_insurance_product_id" readonly>
+                    <option value="<?= $r['insurance_product_id'] ?>">
+                      <?= $r['insurance_product_id'] ?> <?= $r['insurance_name'] ?>
+                    </option>
+                  </select>
+
+                  <label for="insurance_fee" class="form-label">保險費用</label>
+                  <input type="text" class="form-control mb-3" id="insurance_fee" name="insurance_fee" value="<?= $r['insurance_fee'] ?>" readonly>
+
+                  <label for="payment_status" class="form-label">付款狀態</label>
+                  <select class="form-select mb-3" id="payment_status" name="payment_status">
+                    <option value="<?= $r['payment_status'] ?>"><?= $transfer[$r['payment_status']] ?></option>
+                    <option value="<?= $r['payment_status'] ? 0 : 1 ?>"><?= $transfer[!$r['payment_status']] ?></option>
+                  </select>
+
+                  <label for="insurance_start_date" class="form-label">保險起始日期(YYYY-MM-DD)</label>
+                  <input type="date" class="form-control mb-3" id="insurance_start_date" name="insurance_start_date" value="<?= $r['insurance_start_date'] ?>" readonly>
+                </div>
+                <div class="col-6">
+                  <h4>聯絡資料</h4>
+                  <label for="fk_county_id" class="form-label">居住縣市</label>
+                  <select class="form-select mb-3" id="fk_county_id" name="fk_county_id" readonly>
+                    <option value="<?= $r['fk_county_id'] ?>">
+                      <?= $r['county_name'] ?>
+                    </option>
+                  </select>
+
+                  <label for="fk_city_id" class="form-label">地址(鄉鎮區)</label>
+                  <select class="form-select mb-3" id="fk_city_id" name="fk_city_id" readonly>
+                    <option value="<?= $r['fk_city_id'] ?>">
+                      <?= $r['city_name'] ?>
+                    </option>
+                  </select>
+
+                  <label for="policyholder_address" class="form-label">地址</label>
+                  <textarea type="text" class="form-control mb-3" id="policyholder_address" name="policyholder_address" cols="30" rows="5" readonly><?= $r['policyholder_address'] ?></textarea>
+
+                  <label for="policyholder_mobile" class="form-label">手機號碼</label>
+                  <input type="text" class="form-control mb-3" id="policyholder_mobile" name="policyholder_mobile" value="<?= $r['policyholder_mobile'] ?>" readonly>
+
+                  <label for="policyholder_email" class="form-label">聯絡信箱</label>
+                  <input type="text" class="form-control mb-3" id="policyholder_email" name="policyholder_email" value="<?= $r['policyholder_email'] ?>" readonly>
+
+                  <label for="policyholder_IDcard" class="form-label">身分證字號</label>
+                  <input type="text" class="form-control mb-3" id="policyholder_IDcard" name="policyholder_IDcard" value="<?= $r['policyholder_IDcard'] ?>" readonly>
+                </div>
               </div>
-              <div class="form-text"></div>
-
-              <div class="mb-3">
-                <label for="fk_b2c_id" class="form-label">會員帳號</label>
-                <input type="text" class="form-control mb-3" id="fk_b2c_id" name="fk_b2c_id" value="<?= $r['fk_b2c_id'] ?>" readonly>
-              </div>
-              <div class="form-text"></div>
-
-              <label for="fk_pet_id" class="form-label">寵物帳號</label>
-              <input type="text" class="form-control mb-3" id="fk_pet_id" name="fk_pet_id" value="<?= $r['fk_pet_id'] ?>" placeholder="<?= $r['fk_pet_id'] ?>" readonly>
-              <div class="form-text"></div>
-
-              <label for="fk_insurance_product_id" class="form-label">保險商品代號</label>
-              <select class="form-select mb-3" id="fk_insurance_product_id" name="fk_insurance_product_id" readonly>
-                <option value="<?= $r['fk_insurance_product_id'] ?>" readonly>
-                  <?= $r['fk_insurance_product_id'] ?> <?= $r['insurance_name'] ?>
-                </option>
-              </select>
-              <div class="form-text"></div>
-
-
-              <label for="payment_status" class="form-label">付款狀態</label>
-              <div class="dropdown mb-3">
-                <select class="form-select mb-3" id="payment_status" name="payment_status">
-                  <option value="<?= $r['payment_status'] ?>"><?= $transfer[$r['payment_status']] ?></option>
-                  <!-- db是布林值, 另外寫一個name-transfer.php來改. 上面要再require檔案 -->
-                  <option value="<?= $r['payment_status'] ? 0 : 1 ?>"><?= $transfer[!$r['payment_status']] ?></option>
-                  <!-- 用三元運算子來根據 $r['payment_status'] 的值來直接設置相反的value -->
-                </select>
-                <div class="form-text"></div>
-
-                <label for="insurance_start_date" class="form-label">保險起始日期(YYYY-MM-DD)</label>
-                <input type="date" class="form-control mb-3" id="insurance_start_date" name="insurance_start_date" value="<?= $r['insurance_start_date'] ?>" readonly>
-                <div class="form-text"></div>
-
-                <label for="fk_county_id" class="form-label">地址(縣市)</label>
-                <select class="form-select mb-3" id="fk_county_id" name="fk_county_id" readonly>
-                  <option value="<?= $r['fk_county_id'] ?>">
-                    <?= $r['county_name'] ?>
-                  </option>
-                </select>
-                <div class="form-text"></div>
-
-
-                <label for="fk_city_id" class="form-label">地址(鄉鎮區)</label>
-                <select class="form-select mb-3" id="fk_city_id" name="fk_city_id" readonly>
-                  <option value="<?= $r['fk_city_id'] ?>">
-                    <?= $r['city_name'] ?>
-                  </option>
-                </select>
-                <div class="form-text"></div>
-
-                <label for="policyholder_address" class="form-label">地址</label>
-                <textarea type="text" class="form-control mb-3" id="policyholder_address" name="policyholder_address" cols="30" rows="5" readonly><?= $r['policyholder_address'] ?></textarea>
-                <div class="form-text"></div>
-
-                <label for="policyholder_mobile" class="form-label">手機號碼</label>
-                <input type="text" class="form-control mb-3" id="policyholder_mobile" name="policyholder_mobile" value="<?= $r['policyholder_mobile'] ?>" readonly>
-                <div class="form-text"></div>
-
-                <label for="policyholder_email" class="form-label">聯絡信箱</label>
-                <input type="text" class="form-control mb-3" id="policyholder_email" name="policyholder_email" value="<?= $r['policyholder_email'] ?>" readonly>
-                <div class="form-text"></div>
-
-                <label for="policyholder_IDcard" class="form-label">身分證字號</label>
-                <input type="text" class="form-control mb-3" id="policyholder_IDcard" name="policyholder_IDcard" value="<?= $r['policyholder_IDcard'] ?>" readonly>
-                <div class="form-text"></div>
-
-              <?php endforeach; ?>
+            <?php endforeach; ?>
+            <div class="text-end">
               <button type="submit" class="btn btn-primary">修改</button>
-              </div>
+            </div>
           </form>
-
         </div>
       </div>
     </div>
   </div>
 </div>
+
 
 <!-- Modal 提示修改成功-->
 <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
