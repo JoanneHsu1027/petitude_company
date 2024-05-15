@@ -75,7 +75,7 @@ if (empty($row)) {
 
             <div class="mb-3">
               <label for="product_date" class="form-label">進貨日期</label>
-              <input type="text" class="form-control" id="product_date" name="product_date" value="<?= $row['product_date'] ?>">
+              <input type="datetime-local" class="form-control" id="product_date" name="product_date" value="<?= $row['product_date'] ?>" readonly>
               <div class="form-text"></div>
             </div>
 

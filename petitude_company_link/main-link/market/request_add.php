@@ -27,7 +27,7 @@ $pageName = 'request_add';
 
             <div class="mb-3">
               <label for="request_date" class="form-label">訂單日期</label>
-              <input type="text" class="form-control" id="request_date" name="request_date">
+              <input type="datetime-local" class="form-control" id="request_date" name="request_date">
               <div class="form-text"></div>
             </div>
 

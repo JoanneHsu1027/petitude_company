@@ -55,7 +55,7 @@ $pageName = 'product_add';
 
             <div class="mb-3">
               <label for="product_date" class="form-label">進貨日期</label>
-              <input type="text" class="form-control" id="product_date" name="product_date">
+              <input type="datetime-local" class="form-control" id="product_date" name="product_date">
               <div class="form-text"></div>
             </div>
 
