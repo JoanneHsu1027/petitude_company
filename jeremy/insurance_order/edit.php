@@ -11,15 +11,6 @@ if ($sid < 1) {
   exit;
 }
 
-// 從表單抓資料原始
-// $sql = "SELECT * FROM insurance_order WHERE insurance_order_id=$sid";
-// $row = $pdo->query($sql)->fetchAll();
-// if (empty($row)) {
-//   header('Location: order-list-admin.php');
-//   // 等權限設定後再來改
-//   exit;
-// }
-// 從表單抓資料原始
 
 // 從表單抓資料測試
 $sql = "SELECT *, insurance_product.insurance_fee, city.city_name, county.county_name 
@@ -60,7 +51,7 @@ $title = "訂單編輯";
 
 <div class="container">
   <div class="row">
-    <div class="col-6">
+    <div class="col-">
       <div class="card" style="width: 18rem;">
 
         <div class="card-body">
@@ -70,7 +61,7 @@ $title = "訂單編輯";
             <div class="mb-3">
               <label for="insurance_order_id" class="form-label">訂單編號</label>
               <?php foreach ($row as $r) : ?>
-                <input type="text" class="form-control mb-3" id="insurance_order_id" name="insurance_order_id" value="<?= $r['insurance_order_id'] ?>" disabled>
+                <input type="text" class="form-control mb-3" id="insurance_order_id" name="insurance_order_id" value="<?= $r['insurance_order_id'] ?>" readonly>
               <?php endforeach; ?>
             </div>
             <div class="form-text"></div>
@@ -78,21 +69,21 @@ $title = "訂單編輯";
             <div class="mb-3">
               <label for="fk_b2c_id" class="form-label">會員帳號</label>
               <?php foreach ($row as $r) : ?>
-                <input type="text" class="form-control mb-3" id="fk_b2c_id" name="fk_b2c_id" value="<?= $r['fk_b2c_id'] ?>" disabled>
+                <input type="text" class="form-control mb-3" id="fk_b2c_id" name="fk_b2c_id" value="<?= $r['fk_b2c_id'] ?>" readonly>
               <?php endforeach; ?>
             </div>
             <div class="form-text"></div>
 
             <label for="fk_pet_id" class="form-label">寵物帳號</label>
             <?php foreach ($row as $r) : ?>
-              <input type="text" class="form-control mb-3" id="fk_pet_id" name="fk_pet_id" value="<?= $r['fk_pet_id'] ?>" placeholder="<?= $r['fk_pet_id'] ?>" disabled>
+              <input type="text" class="form-control mb-3" id="fk_pet_id" name="fk_pet_id" value="<?= $r['fk_pet_id'] ?>" placeholder="<?= $r['fk_pet_id'] ?>" readonly>
             <?php endforeach; ?>
             <div class="form-text"></div>
 
             <label for="fk_insurance_product_id" class="form-label">保險商品代號</label>
-            <select class="form-select mb-3" id="fk_insurance_product_id" name="fk_insurance_product_id" disabled>
+            <select class="form-select mb-3" id="fk_insurance_product_id" name="fk_insurance_product_id" readonly>
               <?php foreach ($row as $r) : ?>
-                <option value="<?= $r['fk_insurance_product_id'] ?>">
+                <option value="<?= $r['fk_insurance_product_id'] ?>" readonly>
                   <?= $r['fk_insurance_product_id'] ?> <?= $r['insurance_name'] ?>
                 </option>
               <?php endforeach; ?>
@@ -121,12 +112,12 @@ $title = "訂單編輯";
 
               <label for="insurance_start_date" class="form-label">保險起始日期(YYYY-MM-DD)</label>
               <?php foreach ($row as $r) : ?>
-                <input type="date" class="form-control mb-3" id="insurance_start_date" name="insurance_start_date" value="<?= $r['insurance_start_date'] ?>" disabled>
+                <input type="date" class="form-control mb-3" id="insurance_start_date" name="insurance_start_date" value="<?= $r['insurance_start_date'] ?>" readonly>
               <?php endforeach; ?>
               <div class="form-text"></div>
 
               <label for="fk_county_id" class="form-label">地址(縣市)</label>
-              <select class="form-select mb-3" id="fk_county_id" name="fk_county_id" disabled>
+              <select class="form-select mb-3" id="fk_county_id" name="fk_county_id" readonly>
                 <?php foreach ($row as $r) : ?>
                   <option value="<?= $r['fk_county_id'] ?>">
                     <?= $r['county_name'] ?>
@@ -137,7 +128,7 @@ $title = "訂單編輯";
 
 
               <label for="fk_city_id" class="form-label">地址(鄉鎮區)</label>
-              <select class="form-select mb-3" id="fk_city_id" name="fk_city_id" disabled>
+              <select class="form-select mb-3" id="fk_city_id" name="fk_city_id" readonly>
                 <?php foreach ($row as $r) : ?>
                   <option value="<?= $r['fk_city_id'] ?>">
                     <?= $r['city_name'] ?>
@@ -148,25 +139,25 @@ $title = "訂單編輯";
 
               <label for="policyholder_address" class="form-label">地址</label>
               <?php foreach ($row as $r) : ?>
-                <textarea type="text" class="form-control mb-3" id="policyholder_address" name="policyholder_address" disabled cols="30" rows="5"><?= $r['policyholder_address'] ?></textarea>
+                <textarea type="text" class="form-control mb-3" id="policyholder_address" name="policyholder_address" cols="30" rows="5" readonly><?= $r['policyholder_address'] ?></textarea>
               <?php endforeach; ?>
               <div class="form-text"></div>
 
               <label for="policyholder_mobile" class="form-label">手機號碼</label>
               <?php foreach ($row as $r) : ?>
-                <input type="text" class="form-control mb-3" id="policyholder_mobile" name="policyholder_mobile" value="<?= $r['policyholder_mobile'] ?>" disabled>
+                <input type="text" class="form-control mb-3" id="policyholder_mobile" name="policyholder_mobile" value="<?= $r['policyholder_mobile'] ?>" readonly>
               <?php endforeach; ?>
               <div class="form-text"></div>
 
               <label for="policyholder_email" class="form-label">聯絡信箱</label>
               <?php foreach ($row as $r) : ?>
-                <input type="text" class="form-control mb-3" id="policyholder_email" name="policyholder_email" value="<?= $r['policyholder_email'] ?>" disabled>
+                <input type="text" class="form-control mb-3" id="policyholder_email" name="policyholder_email" value="<?= $r['policyholder_email'] ?>" readonly>
               <?php endforeach; ?>
               <div class="form-text"></div>
 
               <label for="policyholder_IDcard" class="form-label">身分證字號</label>
               <?php foreach ($row as $r) : ?>
-                <input type="text" class="form-control mb-3" id="policyholder_IDcard" name="policyholder_IDcard" value="<?= $r['policyholder_IDcard'] ?>" disabled>
+                <input type="text" class="form-control mb-3" id="policyholder_IDcard" name="policyholder_IDcard" value="<?= $r['policyholder_IDcard'] ?>" readonly>
               <?php endforeach; ?>
               <div class="form-text"></div>
 
@@ -198,7 +189,8 @@ $title = "訂單編輯";
 
         <!-- <button type="button" class="btn btn-primary" onclick="location.href='list.php'">到列表頁</button> -->
         <!-- 這邊用onclick設定位址, 也可用a -->
-        <a href="list.php" type="button" class="btn btn-primary">到列表頁</a>
+        <a href="order-list-admin.php" type="button" class="btn btn-primary">到列表頁</a>
+        <!-- 權限設定後改去list.php -->
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">繼續修改</button>
       </div>
     </div>
@@ -234,19 +226,14 @@ $title = "訂單編輯";
 <?php include __DIR__ . '/../page/html-scripts.php'; ?>
 <!-- 新的js需要寫在原本掛的js下方 -->
 <script>
-  // const nameField = document.form1.insurance_name;
-
-
   const sendData1 = e => {
     e.preventDefault(); // 不要讓 form1 以傳統的方式送出
 
-    // nameField.style.border = '1px solid #CCCCCC';
-    // nameField.nextElementSibling.innerText = '';
 
     // TODO: 欄位資料檢查
 
     const fd = new FormData(document.form1); // 沒有外觀的表單物件
-    // let isPass = true; // 表單有沒有通過檢查
+    let isPass = true; // 表單有沒有通過檢查
     // 檢驗姓名欄位
     // if (nameField.value.length < 2) {
     //   isPass = false;
@@ -256,22 +243,22 @@ $title = "訂單編輯";
     // 因為只有一個欄位所以用innerHTML或innerText都可以
 
     // 有通過檢查, 才要送表單
-    fetch('edit-api.php', {
-        method: 'POST',
-        body: fd, // Content-Type: multipart/form-data
-      }).then(r => r.json())
-      .then(data => {
-        console.log(data);
-        if (data.success) {
-          myModal.show();
-        } else {
-          myModal2.show();
-        }
-      })
-      .catch(ex => console.log(ex))
-    // if (isPass) {
 
-    // }
+    if (isPass) {
+      fetch('edit-api.php', {
+          method: 'POST',
+          body: fd, // Content-Type: multipart/form-data
+        }).then(r => r.json())
+        .then(data => {
+          console.log(data);
+          if (data.success) {
+            myModal.show();
+          } else {
+            myModal2.show();
+          }
+        })
+        .catch(ex => console.log(ex))
+    }
 
   };
   const myModal = new bootstrap.Modal('#staticBackdrop')
