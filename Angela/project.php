@@ -17,7 +17,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     if ($username === 'admin' && $password === 'password') {
         $_SESSION['admin'] = true; // 将用户标记为管理员
-        header('Location: booking.php'); // 重定向到自身页面
+        header('Location: project.php'); // 重定向到自身页面
         exit;
     } else {
         echo '用户名或密码错误，请重试。'; // 显示错误消息

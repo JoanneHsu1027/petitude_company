@@ -98,6 +98,8 @@
                 <th>刪除</th>
             </tr>
             </thead>
+            <!-- table欄位 -->
+        <!-- 欄位值 -->
             <tbody>
             <?php foreach ($rows as $r) : ?>
                 <tr>
@@ -107,10 +109,9 @@
                 <td><?= $r['reservation_date'] ?></td>
                 <td><?= $r['note'] ?></td>
                 <td>
-                    <button class="fa-solid fa-pen-to-square btn btn-warning">
-                        <a href="/parts/edit-reservation.php?reservation_id=<?= $r['reservation_id'] ?>">
-                        </a>
-                    </button>
+                <a href="./backend/edit-reservation.php?reservation_id=<?=$r['reservation_id'] ?>">
+                    <i class="fa-solid fa-pen-to-square btn btn-warning"></i>
+                </a>
                 </td>
                 <td>
                     <a href="javascript: deleteOne(<?= $r['reservation_id'] ?>)">
@@ -133,13 +134,5 @@
         }
     }
 
-    function sendMultiDel(event) {
-    event.preventDefault();
-    const fd = new FormData(document.getElementById('form1'));
-    fetch('/backend/edit-reservation.php', {
-        method: 'POST',
-        body: fd
-    }).then(r => r.json()).then(result => {}).catch(ex => console.log(ex));
-}
     </script>
     <?php include __DIR__ . '/parts/html_foot.php' ?>
