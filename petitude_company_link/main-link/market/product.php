@@ -92,7 +92,7 @@ if ($totalRows) {
         <div class="col-9">
             <table class="table table-bordered table-striped">
                 <thead>
-                    <tr>
+                    <tr style="vertical-align: middle; text-align: center">
                         <th scope="col">商品號</th>
                         <th scope="col">商品名稱</th>
                         <th scope="col">商品敘述</th>
@@ -107,19 +107,19 @@ if ($totalRows) {
                 </thead>
                 <tbody>
                     <?php foreach ($rows as $r) : ?>
-                        <tr>
-                            <td><?= $r['product_id'] ?></td>
-                            <td><?= $r['product_name'] ?></td>
+                        <tr style="vertical-align: middle;">
+                            <td style="text-align: center"><?= $r['product_id'] ?></td>
+                            <td style="text-align: center"><?= $r['product_name'] ?></td>
                             <td><?= $r['product_description'] ?></td>
-                            <td><?= $r['product_price'] ?></td>
-                            <td><?= $r['product_quantity'] ?></td>
-                            <td><?= $r['product_category'] ?></td>
+                            <td style="text-align: center"><?= $r['product_price'] ?></td>
+                            <td style="text-align: center"><?= $r['product_quantity'] ?></td>
+                            <td style="text-align: center"><?= $r['product_category'] ?></td>
                             <td><?= $r['product_date'] ?></td>
                             <td><?= $r['product_last_modified'] ?></td>
-                            <td>
+                            <td style="text-align: center">
                                 <a href="./product_edit.php?product_id=<?= $r['product_id'] ?>" class="btn btn-warning fa-solid fa-pen-to-square"></a>
                             </td>
-                            <td>
+                            <td style="text-align: center">
                                 <a href="javascript: deleteOne(<?= $r['product_id'] ?>)">
                                     <button type="button" class="btn btn-danger fa-solid fa-trash-can"></button>
                                 </a>

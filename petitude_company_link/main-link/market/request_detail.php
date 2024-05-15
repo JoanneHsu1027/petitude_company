@@ -89,10 +89,10 @@ if ($totalRows) {
         <div class="col">
             <table class="table table-bordered table-striped">
                 <thead>
-                    <tr>
-                        <th scope="col">#</th>
-                        <th scope="col">訂單號</th>
-                        <th scope="col">商品號</th>
+                    <tr style="text-align: center">
+                        <th scope="col">訂單細項編號</th>
+                        <th scope="col">訂單編號</th>
+                        <th scope="col">商品編號</th>
                         <th scope="col">購買數量</th>
                         <th scope="col">評論星數</th>
                         <th scope="col">評論內容</th>
@@ -103,14 +103,14 @@ if ($totalRows) {
                 <tbody>
                     <?php foreach ($rows as $r) : ?>
                         <tr>
-                            <td><?= $r['request_detail_id'] ?></td>
-                            <td><?= $r['fk_request_id'] ?></td>
-                            <td><?= $r['fk_product_id'] ?></td>
-                            <td><?= $r['purchase_quantity'] ?></td>
-                            <td><?= $r['comment_score'] ?></td>
-                            <td><?= $r['comment_comments'] ?></td>
+                            <td style="text-align: center"><?= $r['request_detail_id'] ?></td>
+                            <td style="text-align: center"><?= $r['fk_request_id'] ?></td>
+                            <td style="text-align: center"><?= $r['fk_product_id'] ?></td>
+                            <td style="text-align: center"><?= $r['purchase_quantity'] ?></td>
+                            <td style="text-align: center"><?= $r['comment_score'] ?></td>
+                            <td style="text-align: center"><?= $r['comment_comments'] ?></td>
                             <td><a href="<?= $r['comment_image'] ?>"><?= $r['comment_image'] ?></a></td>
-                            <td>
+                            <td style="text-align: center">
                                 <a href="javascript: deleteOne(<?= $r['request_detail_id'] ?>)">
                                     <button type="button" class="btn btn-danger fa-solid fa-trash-can"></button>
                                 </a>

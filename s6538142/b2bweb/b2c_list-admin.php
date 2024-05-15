@@ -1,180 +1,241 @@
 <?php
 require __DIR__ . '/../config/pdo-connect.php';
+
 $title = "會員列表";
 $pageName = 'b2c_member-list';
 
-$perPage = 20; # 每一頁最多有幾筆
-
+$perPage = 20;
 $page = isset($_GET['page']) ? intval($_GET['page']) : 1;
 if ($page < 1) {
-  header('Location: ?page=1');
-  exit; # 結束這支程式
+    header('Location: ?page=1');
+    exit;
 }
 
-$t_sql = "SELECT COUNT(b2c_id) FROM b2c_members";
+$sort = isset($_GET['sort']) ? $_GET['sort'] : 'b2c_id';
+$order = isset($_GET['order']) ? $_GET['order'] : 'asc';
+$order = $order === 'desc' ? 'DESC' : 'ASC';
 
-# 總筆數
-$totalRows = $pdo->query($t_sql)->fetch(PDO::FETCH_NUM)[0];
+$validSortColumns = ['b2c_id', 'b2c_name', 'b2c_email', 'b2c_mobile', 'b2c_birth'];
+if (!in_array($sort, $validSortColumns)) {
+    $sort = 'b2c_id';
+}
 
-# 預設值
-$totalPages = 0;
+$searchConditions = [];
+$params = [];
+
+if (!empty($_GET['b2c_id'])) {
+    $searchConditions[] = 'b2c_id = :b2c_id';
+    $params[':b2c_id'] = $_GET['b2c_id'];
+}
+
+if (!empty($_GET['b2c_name'])) {
+    $searchConditions[] = 'b2c_name LIKE :b2c_name';
+    $params[':b2c_name'] = '%' . $_GET['b2c_name'] . '%';
+}
+
+if (!empty($_GET['b2c_email'])) {
+    $searchConditions[] = 'b2c_email LIKE :b2c_email';
+    $params[':b2c_email'] = '%' . $_GET['b2c_email'] . '%';
+}
+
+if (!empty($_GET['b2c_mobile'])) {
+    $searchConditions[] = 'b2c_mobile LIKE :b2c_mobile';
+    $params[':b2c_mobile'] = '%' . $_GET['b2c_mobile'] . '%';
+}
+
+$searchSql = '';
+if (!empty($searchConditions)) {
+    $searchSql = 'WHERE ' . implode(' AND ', $searchConditions);
+}
+
+// 計算總筆數
+$t_sql = "SELECT COUNT(b2c_id) FROM b2c_members $searchSql";
+$stmt = $pdo->prepare($t_sql);
+$stmt->execute($params);
+$totalRows = $stmt->fetch(PDO::FETCH_NUM)[0];
+
+// 計算總頁數
+$totalPages = $totalRows ? ceil($totalRows / $perPage) : 0;
 $rows = [];
 
 if ($totalRows) {
-  # 總頁數
-  $totalPages = ceil($totalRows / $perPage);
-  if ($page > $totalPages) {
-    header("Location: ?page={$totalPages}");
-    exit; # 結束這支程式
-  }
+    if ($page > $totalPages) {
+        header("Location: ?page={$totalPages}");
+        exit;
+    }
 
-  # 取得分頁資料
-  $sql = sprintf(
-    "SELECT b2c.*,county_name,city_name
-    FROM b2c_members as b2c
-    JOIN county ON fk_county_id = county_id
-    JOIN city ON b2c.fk_city_id = city_id
-    ORDER BY b2c_id ASC
-    LIMIT %s, %s",
-    ($page - 1) * $perPage,
-    $perPage
-  );
-  $rows = $pdo->query($sql)->fetchAll();
+    $offset = ($page - 1) * $perPage;
+    $sql = "SELECT b2c.*, county_name, city_name
+            FROM b2c_members AS b2c
+            JOIN county ON fk_county_id = county_id
+            JOIN city ON b2c.fk_city_id = city_id
+            $searchSql
+            ORDER BY $sort $order
+            LIMIT $offset, $perPage";
+    $stmt = $pdo->prepare($sql);
+    $stmt->execute($params);
+    $rows = $stmt->fetchAll();
 }
 
-/*
-echo json_encode([
-  'totalRows' => $totalRows,
-  'totalPages' => $totalPages,
-  'page' => $page,
-  'rows' => $rows,
-]);
-*/
-?>
+// 分頁邏輯保持不變
+$currentPage = max($page, 1);
+$range = 5;
+$startPage = $currentPage - $range;
+$endPage = $currentPage + $range;
 
-<?php
-    
-    $currentPage = isset($_GET['page']) ? intval($_GET['page']) : 1;
-    
-    $currentPage = max($currentPage, 1); #  currentPage 不小於 1
+if ($startPage < 1) {
+    $endPage += 1 - $startPage;
+    $startPage = 1;
+}
 
-    $range = 5; // 前後按鈕長度
-    
-    $startPage = $currentPage - $range;
-    $endPage = $currentPage + $range;
-    
-    
+if ($endPage > $totalPages) {
+    $startPage -= $endPage - $totalPages;
+    $endPage = $totalPages;
+
     if ($startPage < 1) {
-        $endPage += 1 - $startPage; #由於這時候$startPage是負數，$endPage會加上 1-$startPage 補足缺少的長度 
         $startPage = 1;
     }
-    
-    if ($endPage > $totalPages) {
-        $startPage -= $endPage - $totalPages; #由於這時候$endPage超過了原本的總頁數，$startPage- ($endPage - $totalPages) 減去多餘的長度 
-        $endPage = $totalPages;
-    
-        # 確保 `startPage` 不小於 1
-        if ($startPage < 1) {
-            $startPage = 1;
-        }
-    }
-    ?>
+}
+?>
 
-<?php include __DIR__ . '/parts/html-head.php' ?>
-<?php include __DIR__ . '/parts/html-bar.php' ?>
+<?php include __DIR__ . '/parts/html-head.php'; ?>
+<?php include __DIR__ . '/parts/html-bar.php'; ?>
 
 <div class="container">
-  
-<div class="row">
-    <div class="col">
-        <nav aria-label="Page navigation example" >
-            <ul class="pagination">
-                <!-- 跳轉到第一頁，如果已經是則隱藏 -->
-                <li class="page-item " style="display: <?= $currentPage == 1 ? 'none' : '' ?>";>
-                    <a class="page-link" href="?page=<?= 1 ?>">first</a>
-                </li>
-                <!-- Previous 上一頁 -->
-                <li class="page-item<?= $currentPage == 1 ? 'disabled' : '' ?>">
-                    <a class="page-link" href="?page=<?= $currentPage - 1 ?>">Previous</a>
-                </li>
-
-                <!-- 起始頁前的省略符號 -->
-                <?php if ($startPage > 1): ?> <!-- 如果起始的頁面超過1 -->
-                    <li class="page-item disabled"><span class="page-link">...</span></li>
-                <?php endif; ?>
-
-                <!-- 每頁按鈕 -->
-                <?php for ($i = $startPage; $i <= $endPage; $i++): ?>
-                    <li class="page-item<?= $i == $currentPage ? 'active' : '' ?>">
-                        <a class="page-link" style="width: 44.55px;text-align: center;" href="?page=<?= $i ?>"><?= $i ?></a>
+    <!-- 分頁功能Start -->
+    <div class="row">
+        <div class="col">
+            <nav aria-label="Page navigation example">
+                <ul class="pagination">
+                    <!-- First Page Link -->
+                    <li class="page-item" style="display: <?= $currentPage == 1 ? 'none' : '' ?>;">
+                        <a class="page-link" href="?page=1&order=<?= $order ?>&sort=<?= $sort ?>">First</a>
                     </li>
-                <?php endfor; ?>
-
-                <!-- 結束頁後的省略符號 -->
-                <?php if ($endPage < $totalPages): ?> <!-- 如果結束的頁面小於總頁數 -->
-                    <li class="page-item disabled"><span class="page-link">...</span></li>
-                <?php endif; ?>
-
-                <!-- Next 下一頁 -->
-                <li class="page-item <?= $currentPage == $totalPages ? ' disabled' : '' ?>">
-                    <a class="page-link" href="?page=<?= $currentPage + 1 ?>">Next</a>
-                </li>
-                <!-- 跳轉到最後一頁，如果已經是則隱藏 -->
-                <li class="page-item " style="display: <?= $currentPage == $totalPages ? 'none' : '' ?>";>
-                    <a class="page-link" href="?page=<?= $totalPages ?>">End</a>
-                </li>
-            </ul>
-        </nav>
+                    <!-- Previous Page Link -->
+                    <li class="page-item<?= $currentPage == 1 ? ' disabled' : '' ?>">
+                        <a class="page-link" href="?page=<?= $currentPage - 1 ?>&order=<?= $order ?>&sort=<?= $sort ?>">Previous</a>
+                    </li>
+                    <!-- Ellipsis before the start page -->
+                    <?php if ($startPage > 1): ?>
+                        <li class="page-item disabled"><span class="page-link">...</span></li>
+                    <?php endif; ?>
+                    <!-- Page Number Links -->
+                    <?php for ($i = $startPage; $i <= $endPage; $i++): ?>
+                        <li class="page-item<?= $i == $currentPage ? ' active' : '' ?>">
+                            <a class="page-link" href="?page=<?= $i ?>&order=<?= $order ?>&sort=<?= $sort ?>"><?= $i ?></a>
+                        </li>
+                    <?php endfor; ?>
+                    <!-- Ellipsis after the end page -->
+                    <?php if ($endPage < $totalPages): ?>
+                        <li class="page-item disabled"><span class="page-link">...</span></li>
+                    <?php endif; ?>
+                    <!-- Next Page Link -->
+                    <li class="page-item<?= $currentPage == $totalPages ? ' disabled' : '' ?>">
+                        <a class="page-link" href="?page=<?= $currentPage + 1 ?>&order=<?= $order ?>&sort=<?= $sort ?>">Next</a>
+                    </li>
+                    <!-- Last Page Link -->
+                    <li class="page-item" style="display: <?= $currentPage == $totalPages ? 'none' : '' ?>;">
+                        <a class="page-link" href="?page=<?= $totalPages ?>&order=<?= $order ?>&sort=<?= $sort ?>">End</a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
     </div>
+    <!-- 分頁功能End -->
+    
+    <!-- 搜尋功能Start -->
+    <div class="row">
+      <form method="get" action="">
+            <div class="form text-dark">
+                <div class=" col-md-3">
+                    <label for="b2c_id">會員編號</label>
+                    <input type="text" class="form-control" id="b2c_id" name="b2c_id" value="<?= htmlentities($_GET['b2c_id'] ?? '') ?>">
+                </div>
+                <div class=" col-md-3">
+                    <label for="b2c_name">姓名</label>
+                    <input type="text" class="form-control" id="b2c_name" name="b2c_name" value="<?= htmlentities($_GET['b2c_name'] ?? '') ?>">
+                </div>
+                <div class=" col-md-3">
+                    <label for="b2c_email">Email</label>
+                    <input type="text" class="form-control" id="b2c_email" name="b2c_email" value="<?= htmlentities($_GET['b2c_email'] ?? '') ?>">
+                </div>
+                <div class="col-md-3">
+                    <label for="b2c_mobile">手機</label>
+                    <input type="text" class="form-control" id="b2c_mobile" name="b2c_mobile" value="<?= htmlentities($_GET['b2c_mobile'] ?? '') ?>">
+                </div>
+            </div>
+            <button type="submit" class="btn btn-primary" hidden>搜尋</button>
+      </form>
+    </div>
+    <!-- 搜尋功能End -->
+    
+    <!-- 資列陳列Start -->
+    <div class="row">
+        <div class="col">
+            <table class="table table-bordered table-striped">
+
+                <thead>
+                    <tr>
+                        <th scope="col"><i class="fa-solid fa-trash"></i></th>
+                        <th scope="col">
+                            會員編號
+                            <a href="?sort=b2c_id&order=desc&page=<?= $currentPage ?>"><i class="fa-solid fa-sort-down"></i></a>
+                            <a href="?sort=b2c_id&order=asc&page=<?= $currentPage ?>"><i class="fa-solid fa-sort-up"></i></a>
+                        </th>
+                        <th scope="col">
+                            姓名
+                        </th>
+                        <th scope="col">
+                            Email
+                            <a href="?sort=b2c_email&order=desc&page=<?= $currentPage ?>"><i class="fa-solid fa-sort-down"></i></a>
+                            <a href="?sort=b2c_email&order=asc&page=<?= $currentPage ?>"><i class="fa-solid fa-sort-up"></i></a>
+                        </th>
+                        <th scope="col">手機</th>
+                        <th scope="col">
+                          生日
+                          <a href="?sort=b2c_birth&order=desc&page=<?= $currentPage ?>"><i class="fa-solid fa-sort-down"></i></a>
+                          <a href="?sort=b2c_birth&order=asc&page=<?= $currentPage ?>"><i class="fa-solid fa-sort-up"></i></a>
+                        </th>
+
+                        <th scope="col">地址</th>
+                        <th scope="col"><i class="fa-solid fa-pen-to-square"></i></th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <?php foreach ($rows as $r): ?>
+                        <tr>
+                            <td>
+                                <a href="javascript: deleteOne(<?= $r['b2c_id'] ?>)">
+                                    <i class="fa-solid fa-trash"></i>
+                                </a>
+                            </td>
+                            <td><?= $r['b2c_id'] ?></td>
+                            <td><?= $r['b2c_name'] ?></td>
+                            <td><?= $r['b2c_email'] ?></td>
+                            <td><?= $r['b2c_mobile'] ?></td>
+                            <td><?= $r['b2c_birth'] ?></td>
+                            <td><?= htmlentities($r['county_name'] . $r['city_name'] . $r['b2c_address']) ?></td>
+                            <td>
+                                <a href="b2c-edit.php?b2c_id=<?= $r['b2c_id'] ?>">
+                                    <i class="fa-solid fa-pen-to-square"></i>
+                                </a>
+                            </td>
+                        </tr>
+                    <?php endforeach; ?>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <!-- 資列陳列End -->
 </div>
 
-  <div class="row">
-    <div class="col">
-      <table class="table table-bordered table-striped">
-        <thead>
-          <tr>
-            <th scope="col"><i class="fa-solid fa-trash"></i></th>
-            <th scope="col">會員編號</th>
-            <th scope="col">姓名</th>
-            <th scope="col">Email</th>
-            <th scope="col">手機</th>
-            <th scope="col">生日</th>
-            <th scope="col">地址</th>
-            <th scope="col"><i class="fa-solid fa-pen-to-square"></i></th>
-          </tr>
-        </thead>
-        <tbody>
-          <?php foreach ($rows as $r): ?>
-            <tr>
-              <td><a href="javascript: deleteOne(<?= $r['b2c_id'] ?>)">
-                  <i class="fa-solid fa-trash"></i>
-                </a></td>
-              <td><?= $r['b2c_id'] ?></td>
-              <td><?= $r['b2c_name'] ?></td>
-              <td><?= $r['b2c_email'] ?></td>
-              <td><?= $r['b2c_mobile'] ?></td>
-              <td><?= $r['b2c_birth'] ?></td>
-              <td><?= htmlentities($r['county_name'].$r['city_name'].$r['b2c_address']) ?></td>
-              <td>
-                <a href="b2c-edit.php?b2c_id=<?= $r['b2c_id'] ?>">
-                  <i class="fa-solid fa-pen-to-square"></i>
-                </a>
-              </td>
-            </tr>
-          <?php endforeach; ?>
-        </tbody>
-      </table>
-
-    </div>
-  </div>
-</div>
-
-<?php include __DIR__ . '/parts/scripts.php' ?>
+<?php include __DIR__ . '/parts/scripts.php'; ?>
 <script>
-  const deleteOne = (b2c_id) => {
+const deleteOne = (b2c_id) => {
     if (confirm(`是否要刪除編號為 ${b2c_id} 的資料?`)) {
-      location.href = `b2c-delete.php?b2c_id=${b2c_id}`;
+        location.href = `b2c-delete.php?b2c_id=${b2c_id}`;
     }
-  }
+}
 </script>
-<?php include __DIR__ . '/parts/html-foot.php' ?>
+<?php include __DIR__ . '/parts/html-foot.php'; ?>
