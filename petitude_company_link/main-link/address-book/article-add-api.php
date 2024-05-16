@@ -17,7 +17,7 @@ if (
   $uploadedImages = null; // 將預設值設置為 NULL
   if (!empty($_FILES['article_img']['name'][0])) {
     $uploadedImages = []; // 如果有上傳圖片，初始化一個空數組
-    $uploadDir = __DIR__ . '/../img/';
+    $uploadDir = __DIR__ . 'img';
     foreach ($_FILES['article_img']['tmp_name'] as $key => $tmp_name) {
       $uploadedFile = $uploadDir . basename($_FILES['article_img']['name'][$key]);
       if (move_uploaded_file($tmp_name, $uploadedFile)) {

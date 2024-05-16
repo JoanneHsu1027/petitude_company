@@ -3,9 +3,9 @@
 session_start();
 
 $_SESSION['admin'] = [
-    'id' => 7,
-    'email' => 'shin@gg.com',
-    'nickname' => '小新新',
-  ];
+  'b2b_id' => 1,
+  'b2b_email' => 'user1@example.com',
+  'b2b_name' => '王大明',
+];
 
-header('Location: list.php');
+header('Location: index_.php');
