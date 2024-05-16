@@ -1,8 +1,6 @@
 <div id="sidebar" class="show">
-    <h1>Petitude</h1>
-    <div class="menu-item">
-        <a href="../b2bweb/index_.php">回首頁</a>
-    </div>
+    <img src="./../公司Logo.png" alt="" style="width:200px">
+    <h1 class="text-center">Petitude</h1>
 
     <?php if (isset($_SESSION['admin'])) : ?>
 
@@ -114,6 +112,10 @@
             <a class="nav-link" href="../b2bweb/logout.php">登出</a>
         </div>
     <?php else : ?>
+        <div class="menu-item">
+            <a href="../b2bweb/login.php">回首頁</a>
+        </div>
+
         <div class="menu-item">
             <a class="nav-link <?= $pageName == 'login' ? 'active' : '' ?>" href="../b2bweb/login.php">登入</a>
         </div>
