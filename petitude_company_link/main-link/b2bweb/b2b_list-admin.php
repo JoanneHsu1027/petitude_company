@@ -11,7 +11,7 @@ if ($page < 1) {
     exit; # 結束這支程式
 }
 
-$sort = isset($_GET['sort']) ? $_GET['sort'] : 'b2b_account';
+$sort = isset($_GET['sort']) ? $_GET['sort'] : 'b2b_id';
 $order = isset($_GET['order']) ? $_GET['order'] : 'asc';
 $order = $order === 'desc' ? 'DESC' : 'ASC';
 
