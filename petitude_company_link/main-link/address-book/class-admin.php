@@ -90,14 +90,8 @@ echo json_encode([
         </ul>
       </nav>
     </div>
-<<<<<<< HEAD
-
-    <div class="p-2 bd-highlight" style="display: flex; ">
-      <a style="display: flex;  align-items:center;padding:0 0 14px 0" href="article.php">所有文章<i class="fa-solid fa-angles-right"></i></a>
-=======
     <div class="p-2 bd-highlight align-items-center">
       <a href="article.php">所有文章<i class="fa-solid fa-angles-right"></i></a>
->>>>>>> origin/Joanne
     </div>
   </div>
 

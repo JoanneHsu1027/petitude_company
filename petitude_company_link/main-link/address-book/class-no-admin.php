@@ -55,16 +55,11 @@ echo json_encode([
 </div>
 <!-- 標題 end -->
 
-<<<<<<< HEAD
-<div class="container">
-  <div class="d-flex flex-row bd-highlight mb-3 ">
-=======
 <div class="container" style="max-width: 1600px">
   <div class="d-flex flex-row bd-highlight mb-3">
     <!-- <div class="p-2 bd-highlight">
       <button type="button" class="btn btn-primary"><a class=" <?= $pageName == 'request_add' ? 'active' : '' ?>" href="class-add.php" style="Text-decoration:none; color:white">新增主題 <i class="fa-solid fa-circle-plus"></i></a></button>
     </div> -->
->>>>>>> origin/trent3281
     <div class="p-2 bd-highlight">
       <nav aria-label="Page navigation example">
         <ul class="pagination">
