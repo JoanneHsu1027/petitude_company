@@ -49,24 +49,13 @@ echo json_encode([
 <?php include __DIR__ . '/../parts/head.php' ?>
 <?php include __DIR__ . '/../parts/navbar.php' ?>
 
-<<<<<<< HEAD
 <div class="container" style="max-width: 1600px">
   <div class="d-flex flex-row bd-highlight mb-3">
     <div class="p-2 bd-highlight">
-      <button type="button" class="btn btn-primary"><a  href="article-add.php" style="Text-decoration:none; color:white">新增文章 <i class="fa-solid fa-circle-plus"></i></a></button>
+      <button type="button" class="btn btn-primary"><a href="article-add.php"
+          style="Text-decoration:none; color:white">新增文章 <i class="fa-solid fa-circle-plus"></i></a></button>
     </div>
     <div class="p-2 bd-highlight">
-=======
-<div id="content">
-  <h2>文章列表</h2>
-</div>
-<!-- 標題 end -->
-
-
-<div class="container">
-  <div class="d-flex flex-row bd-highlight mb-3">
-    <div class="p-2 bd-highlight">
->>>>>>> origin/Joanne
       <nav aria-label="Page navigation example">
         <ul class="pagination">
           <!-- 前頁按鈕的功能 -->
@@ -75,19 +64,21 @@ echo json_encode([
               <i class="fa-solid fa-angles-left"></i></a>
           </li>
           <li class="page-item">
-            <a class="page-link" href="?page=<?= $page >= 1 ? $page - 1 : '' ?>"><i class="fa-solid fa-angle-left"></i></a>
+            <a class="page-link" href="?page=<?= $page >= 1 ? $page - 1 : '' ?>"><i
+                class="fa-solid fa-angle-left"></i></a>
           </li>
           <!-- 前頁按鈕的功能 -->
-          <?php for ($i = $page - 5; $i <= $page + 5; $i++) :
-            if ($i >= 1 and $i <= $totalPages) : ?>
+          <?php for ($i = $page - 5; $i <= $page + 5; $i++):
+            if ($i >= 1 and $i <= $totalPages): ?>
               <li class="page-item <?= $page == $i ? 'active' : '' ?>">
                 <a class="page-link" href="?page=<?= $i ?>"><?= $i ?></a>
               </li>
-          <?php endif;
+            <?php endif;
           endfor; ?>
           <!-- 後頁按鈕的功能 -->
           <li class="page-item">
-            <a class="page-link" href="?page=<?= $page <= $totalPages ? $page + 1 : '' ?>"><i class="fa-solid fa-angle-right"></i></a>
+            <a class="page-link" href="?page=<?= $page <= $totalPages ? $page + 1 : '' ?>"><i
+                class="fa-solid fa-angle-right"></i></a>
           </li>
           <li class="page-item">
             <a class="page-link" href="?page=<?= $totalPages ?>"><i class="fa-solid fa-angles-right"></i></a>
@@ -98,7 +89,8 @@ echo json_encode([
     </div>
 
     <div class="p-2 bd-highlight" style="display: flex; ">
-      <a style="display: flex;  align-items:center;padding:0 0 14px 0" href="class.php"><i class="fa-solid fa-angles-left"></i>主題管理</a>
+      <a style="display: flex;  align-items:center;padding:0 0 14px 0" href="class.php"><i
+          class="fa-solid fa-angles-left"></i>主題管理</a>
     </div>
   </div>
 
@@ -107,7 +99,7 @@ echo json_encode([
       <table class="table table-bordered table-striped">
         <thead>
           <tr>
-            <!-- <th scope="col"><i class="fa-solid fa-trash"></i></th> --> 
+            <!-- <th scope="col"><i class="fa-solid fa-trash"></i></th> -->
             <th scope="col">文章ID</th>
             <th scope="col">建立日期</th>
             <th scope="col">文章名稱</th>
@@ -119,7 +111,7 @@ echo json_encode([
           </tr>
         </thead>
         <tbody>
-          <?php foreach ($rows as $r) : ?>
+          <?php foreach ($rows as $r): ?>
             <tr>
               <!-- <td><a href="javascript: deleteOne(<?= $r['article_id'] ?>)">
                   <i class="fa-solid fa-trash"></i>

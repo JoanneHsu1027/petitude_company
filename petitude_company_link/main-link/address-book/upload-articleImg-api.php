@@ -13,8 +13,6 @@ $exts = [
   'image/webp' => '.webp',
 ];
 
-$f = sha1(uniqid() . rand()); # 隨機的主檔名 
-
 # 先確定有上傳的欄位
 if (!empty($_FILES) and !empty($_FILES['article_img[]'])) {
   $output['code'] = 100;
@@ -27,7 +25,7 @@ if (!empty($_FILES) and !empty($_FILES['article_img[]'])) {
       # 依照 mime-type 決定副檔名
       $ext = $exts[$_FILES['article_img[]']['type']]; # 副檔名
 
-      $filename = __DIR__ . '/../petitude_company_link/main-link/address-book/img/' . $f . $ext;
+      $filename = __DIR__ . '/../main-link/img/' . $f . $ext;
 
       $result = move_uploaded_file($_FILES['article_img[]']['tmp_name'], $filename);
       $output['success'] = $result;
