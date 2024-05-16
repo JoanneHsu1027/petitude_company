@@ -117,15 +117,6 @@ if ($endPage > $totalPages) {
         <div class="p-2 bd-highlight">
             <nav aria-label="Page navigation example">
                 <ul class="pagination">
-<<<<<<< HEAD
-                    <!-- 前頁按鈕的功能 -->
-                    <li class="page-item">
-                        <a class="page-link" href="?page=1">
-                            <i class="fa-solid fa-angles-left"></i></a>
-                    </li>
-                    <li class="page-item">
-                        <a class="page-link" href="?page=<?= $page >= 1 ? $page - 1 : '' ?>"><i class="fa-solid fa-angle-left"></i></a>
-=======
                     <li class="page-item ">
                         <a class="page-link" href="?page=<?= 1 ?>">
                             <i class="fa-solid fa-angles-left"></i>
@@ -135,7 +126,6 @@ if ($endPage > $totalPages) {
                         <a class="page-link" href="?page=<?= $currentPage - 1 ?>">
                             <i class="fa-solid fa-angle-left"></i>
                         </a>
->>>>>>> origin/s6538142
                     </li>
                     <!-- 前頁按鈕的功能 -->
                     <?php for ($i = $page - 5; $i <= $page + 5; $i++) :
@@ -145,24 +135,15 @@ if ($endPage > $totalPages) {
                             </li>
                     <?php endif;
                     endfor; ?>
-<<<<<<< HEAD
-                    <!-- 後頁按鈕的功能 -->
-                    <li class="page-item">
-                        <a class="page-link" href="?page=<?= $page <= $totalPages ? $page + 1 : '' ?>"><i class="fa-solid fa-angle-right"></i></a>
-                    </li>
-                    <li class="page-item">
-                        <a class="page-link" href="?page=<?= $totalPages ?>"><i class="fa-solid fa-angles-right"></i></a>
-=======
                     <li class="page-item ">
                         <a class="page-link" href="?page=<?= $currentPage + 1 ?>">
                             <i class="fa-solid fa-angle-right"></i>
                         </a>
                     </li>
                     <li class="page-item ">
-                        <a class="page-link"  href="?page=<?= $totalPages ?>">
+                        <a class="page-link" href="?page=<?= $totalPages ?>">
                             <i class="fa-solid fa-angles-right"></i>
                         </a>
->>>>>>> origin/s6538142
                     </li>
                     <!-- 後頁按鈕的功能 -->
                 </ul>
