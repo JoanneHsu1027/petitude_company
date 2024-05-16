@@ -9,8 +9,7 @@ $pageName = 'add';
 
 if (!isset($_SESSION)) {
   session_start();
-}
-;
+};
 
 // 新增完成回到訂單表最後一頁時使用 start
 $perPage = 15; # 每一頁最多有幾筆 注意要跟product-list-admin.php連動
@@ -47,13 +46,13 @@ if ($totalRows) {
 <?php include __DIR__ . '/../parts/navbar.php' ?>
 
 
-<div class="container">
+<div class="container" style="padding-top: 8px;">
   <div class="row">
     <div class="col-9">
-      <div class="card justify-" style="color:#0c5a67">
+      <div class="card" style="color: #0c5a67;">
         <div class="card-body">
-          <div class="text-center mb-2">
-            <h3 class="card-title text-decoration-underline c-dark  mt-1 mb-4">新增資料</h3>
+          <div class="text-center mb-3">
+            <h4 class="card-title text-decoration-underline c-dark">新增資料</h4>
           </div>
 
           <form name="form1" onsubmit="sendData(event)">
@@ -70,13 +69,11 @@ if ($totalRows) {
                   <div class="form-text"></div>
 
                   <label for="outpatient_clinic_time" class="form-label">每年門診次數</label>
-                  <input type="number" class="form-control mb-2" id="outpatient_clinic_time"
-                    name="outpatient_clinic_time">
+                  <input type="number" class="form-control mb-2" id="outpatient_clinic_time" name="outpatient_clinic_time">
                   <div class="form-text"></div>
 
                   <label for="outpatient_clinic_fee" class="form-label">每年門診費用</label>
-                  <input type="number" class="form-control mb-2" id="outpatient_clinic_fee"
-                    name="outpatient_clinic_fee">
+                  <input type="number" class="form-control mb-2" id="outpatient_clinic_fee" name="outpatient_clinic_fee">
                   <div class="form-text"></div>
 
                   <label for="hospitalized_time" class="form-label">每年住院次數</label>
@@ -96,16 +93,14 @@ if ($totalRows) {
                   <div class="form-text"></div>
 
                   <label for="max_compensation_of_medical_expense" class="form-label">累積最高賠償限額</label>
-                  <input type="number" class="form-control mb-2" id="max_compensation_of_medical_expense"
-                    name="max_compensation_of_medical_expense">
+                  <input type="number" class="form-control mb-2" id="max_compensation_of_medical_expense" name="max_compensation_of_medical_expense">
                   <div class="form-text"></div>
                 </div>
 
                 <div class="col-3">
                   <h4>寵物侵權責任險</h4>
                   <label for="personal_injury_liability" class="form-label">每一個人體傷責任</label>
-                  <input type="number" class="form-control mb-2" id="personal_injury_liability"
-                    name="personal_injury_liability">
+                  <input type="number" class="form-control mb-2" id="personal_injury_liability" name="personal_injury_liability">
                   <div class="form-text"></div>
 
                   <label for="bodily_injury" class="form-label">每一意外事故體傷責任</label>
@@ -117,8 +112,7 @@ if ($totalRows) {
                   <div class="form-text"></div>
 
                   <label for="max_compensation_of_pet_tort" class="form-label">保險期間最高賠償金額</label>
-                  <input type="number" class="form-control mb-2" id="max_compensation_of_pet_tort"
-                    name="max_compensation_of_pet_tort">
+                  <input type="number" class="form-control mb-2" id="max_compensation_of_pet_tort" name="max_compensation_of_pet_tort">
                   <div class="form-text"></div>
 
 
@@ -128,11 +122,10 @@ if ($totalRows) {
                 <div class="col-3">
                   <h4>其他保險</h4>
                   <label for="pet_search_advertising_expenses" class="form-label">寵物協尋廣告費</label>
-                  <input type="number" class="form-control mb-2" id="pet_search_advertising_expenses"
-                    name="pet_search_advertising_expenses">
+                  <input type="number" class="form-control mb-2" id="pet_search_advertising_expenses" name="pet_search_advertising_expenses">
                   <div class="form-text"></div>
 
-                  <label for="pet_boarding_fee" class="form-label">被保人住院期間寵物寄宿費每日</label>
+                  <label for="pet_boarding_fee" class="form-label">被保人住院時寵物每日寄宿費</label>
                   <input type="number" class="form-control mb-2" id="pet_boarding_fee" name="pet_boarding_fee">
                   <div class="form-text"></div>
 
@@ -141,23 +134,22 @@ if ($totalRows) {
                   <div class="form-text"></div>
 
                   <label for="pet_reacquisition_cost" class="form-label">寵物重取得費保險</label>
-                  <input type="number" class="form-control mb-2" id="pet_reacquisition_cost"
-                    name="pet_reacquisition_cost">
+                  <input type="number" class="form-control mb-2" id="pet_reacquisition_cost" name="pet_reacquisition_cost">
                   <div class="form-text"></div>
 
                   <label for="travel_cancellation_fee" class="form-label">旅遊取消費用保險</label>
-                  <input type="number" class="form-control mb-2" id="travel_cancellation_fee"
-                    name="travel_cancellation_fee">
+                  <input type="number" class="form-control mb-2" id="travel_cancellation_fee" name="travel_cancellation_fee">
                   <div class="form-text"></div>
 
+                  <div class="text-end" style="margin-top: 270px;">
+                    <button type="submit" class="btn btn-primary">新增</button>
+                  </div>
 
 
                 </div>
               </div>
 
-              <div class="text-end">
-                <button type="submit" class="btn btn-primary">新增</button>
-              </div>
+
             </div>
           </form>
 
@@ -168,8 +160,7 @@ if ($totalRows) {
 </div>
 
 <!-- Modal -->
-<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
-  aria-labelledby="staticBackdropLabel" aria-hidden="true">
+<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
@@ -210,14 +201,14 @@ if ($totalRows) {
     if (isPass) {
       const fd = new FormData(document.form1);
       fetch('add-api.php', {
-        method: 'POST',
-        body: fd,
-      }).then(r => r.json())
+          method: 'POST',
+          body: fd,
+        }).then(r => r.json())
         .then(data => {
           console.log(data);
           if (data.success) {
             myModal.show();
-          } else { }
+          } else {}
         })
         .catch(ex => console.log(ex))
     }

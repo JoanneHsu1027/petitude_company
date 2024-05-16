@@ -107,7 +107,7 @@ $title = "修改商品表資料";
             <input type="text" class="form-control mb-3" id="pet_search_advertising_expenses" name="pet_search_advertising_expenses">
             <div class="form-text"></div>
 
-            <label for="pet_boarding_fee" class="form-label">被保人住院期間寵物寄宿費每日</label>
+            <label for="pet_boarding_fee" class="form-label">被保人住院時寵物每日寄宿費</label>
             <input type="text" class="form-control mb-3" id="pet_boarding_fee" name="pet_boarding_fee">
             <div class="form-text"></div>
 

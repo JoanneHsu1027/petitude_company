@@ -66,12 +66,12 @@ if ($totalRows) {
 </style>
 
 
-<div class="container">
+<div class="container" style="padding-top: 8px;">
   <div class="row">
     <div class="col-9">
-      <div class="card justify-">
+      <div class="card" style="margin-top: 0;">
         <div class="card-body" style="color:#0c5a67">
-          <div class="text-center mb-2">
+          <div class="text-center mb-3">
             <h4 class="card-title text-decoration-underline c-dark">新增資料</h4>
           </div>
 
@@ -146,7 +146,7 @@ if ($totalRows) {
                     <input type="number" class="form-control mb-2" id="pet_search_advertising_expenses" name="pet_search_advertising_expenses" value="<?= $r['pet_search_advertising_expenses'] ?>">
                     <div class="form-text"></div>
 
-                    <label for="pet_boarding_fee" class="form-label">被保人住院期間寵物寄宿費每日</label>
+                    <label for="pet_boarding_fee" class="form-label">被保人住院時寵物每日寄宿費</label>
                     <input type="number" class="form-control mb-2" id="pet_boarding_fee" name="pet_boarding_fee" value="<?= $r['pet_boarding_fee'] ?>">
                     <div class="form-text"></div>
 
@@ -162,15 +162,16 @@ if ($totalRows) {
                     <input type="number" class="form-control mb-2" id="travel_cancellation_fee" name="travel_cancellation_fee" value="<?= $r['travel_cancellation_fee'] ?>">
                     <div class="form-text"></div>
 
+                  <?php endforeach; ?>
+                  <div class="text-end" style="margin-top: 270px;">
+                    <button type="submit" class="btn btn-primary">新增</button>
+                  </div>
 
 
                   </div>
                 </div>
-              <?php endforeach; ?>
 
-              <div class="text-end">
-                <button type="submit" class="btn btn-primary">新增</button>
-              </div>
+
               </div>
           </form>
 
