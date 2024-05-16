@@ -1,7 +1,7 @@
 <div id="sidebar" class="show">
     <h1>Petitude</h1>
     <div class="menu-item">
-        <a href="./index_.php">回首頁</a>
+        <a href="../b2bweb/index_.php">回首頁</a>
     </div>
 
     <?php if (isset($_SESSION['admin'])) : ?>

@@ -61,13 +61,13 @@ $title = "訂單編輯";
                 <div class="col-6">
                   <h4>基本資料</h4>
                   <label for="insurance_order_id" class="form-label">訂單編號</label>
-                  <input type="text" class="form-control mb-3" id="insurance_order_id" name="insurance_order_id" value="<?= $r['insurance_order_id'] ?>" readonly>
+                  <input type="text" class="form-control mb-3" id="insurance_order_id" name="insurance_order_id" value="<?= $r['insurance_order_id'] ?>" readonly style=" background-color: #81b6be;">
 
                   <label for="fk_b2c_id" class="form-label">會員帳號</label>
-                  <input type="text" class="form-control mb-3" id="fk_b2c_id" name="fk_b2c_id" value="<?= $r['fk_b2c_id'] ?>" readonly>
+                  <input type="text" class="form-control mb-3" id="fk_b2c_id" name="fk_b2c_id" value="<?= $r['fk_b2c_id'] ?>" readonly style=" background-color: #81b6be;">
 
                   <label for="fk_pet_id" class="form-label">寵物帳號</label>
-                  <input type="text" class="form-control mb-3" id="fk_pet_id" name="fk_pet_id" value="<?= $r['fk_pet_id'] ?>" readonly>
+                  <input type="text" class="form-control mb-3" id="fk_pet_id" name="fk_pet_id" value="<?= $r['fk_pet_id'] ?>" readonly style=" background-color: #81b6be;">
 
                   <label for="fk_insurance_product_id" class="form-label">保險商品代號</label>
                   <select class="form-select mb-3" id="fk_insurance_product_id" name="fk_insurance_product_id" readonly>
@@ -77,7 +77,7 @@ $title = "訂單編輯";
                   </select>
 
                   <label for="insurance_fee" class="form-label">保險費用</label>
-                  <input type="text" class="form-control mb-3" id="insurance_fee" name="insurance_fee" value="<?= $r['insurance_fee'] ?>" readonly>
+                  <input type="text" class="form-control mb-3" id="insurance_fee" name="insurance_fee" value="<?= $r['insurance_fee'] ?>" readonly style=" background-color: #81b6be;">
 
                   <label for="payment_status" class="form-label">付款狀態</label>
                   <select class="form-select mb-3" id="payment_status" name="payment_status">
@@ -86,7 +86,7 @@ $title = "訂單編輯";
                   </select>
 
                   <label for="insurance_start_date" class="form-label">保險起始日期(YYYY-MM-DD)</label>
-                  <input type="date" class="form-control mb-3" id="insurance_start_date" name="insurance_start_date" value="<?= $r['insurance_start_date'] ?>" readonly>
+                  <input type="date" class="form-control mb-3" id="insurance_start_date" name="insurance_start_date" value="<?= $r['insurance_start_date'] ?>" readonly style=" background-color: #81b6be;">
                 </div>
                 <div class="col-6">
                   <h4>聯絡資料</h4>
@@ -105,16 +105,16 @@ $title = "訂單編輯";
                   </select>
 
                   <label for="policyholder_address" class="form-label">地址</label>
-                  <textarea type="text" class="form-control mb-3" id="policyholder_address" name="policyholder_address" cols="30" rows="5" readonly><?= $r['policyholder_address'] ?></textarea>
+                  <textarea type="text" class="form-control mb-3" id="policyholder_address" name="policyholder_address" cols="30" rows="5" readonly style=" background-color: #81b6be;"><?= $r['policyholder_address'] ?></textarea>
 
                   <label for="policyholder_mobile" class="form-label">手機號碼</label>
-                  <input type="text" class="form-control mb-3" id="policyholder_mobile" name="policyholder_mobile" value="<?= $r['policyholder_mobile'] ?>" readonly>
+                  <input type="text" class="form-control mb-3" id="policyholder_mobile" name="policyholder_mobile" value="<?= $r['policyholder_mobile'] ?>" readonly style=" background-color: #81b6be;">
 
                   <label for="policyholder_email" class="form-label">聯絡信箱</label>
-                  <input type="text" class="form-control mb-3" id="policyholder_email" name="policyholder_email" value="<?= $r['policyholder_email'] ?>" readonly>
+                  <input type="text" class="form-control mb-3" id="policyholder_email" name="policyholder_email" value="<?= $r['policyholder_email'] ?>" readonly style=" background-color: #81b6be;">
 
                   <label for="policyholder_IDcard" class="form-label">身分證字號</label>
-                  <input type="text" class="form-control mb-3" id="policyholder_IDcard" name="policyholder_IDcard" value="<?= $r['policyholder_IDcard'] ?>" readonly>
+                  <input type="text" class="form-control mb-3" id="policyholder_IDcard" name="policyholder_IDcard" value="<?= $r['policyholder_IDcard'] ?>" readonly style=" background-color: #81b6be;">
                 </div>
               </div>
             <?php endforeach; ?>

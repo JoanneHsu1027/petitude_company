@@ -51,40 +51,35 @@ if ($totalRows) {
 <div class="container" style="max-width: 1600px">
     <div class="d-flex flex-row bd-highlight mb-3">
         <div class="p-2 bd-highlight">
-            <button type="button" class="btn btn-primary"><a class=" <?= $pageName == 'product_add' ? 'active' : '' ?>"
-                    href="product_add.php" style="Text-decoration:none; color:white">新增商品 <i
-                        class="fa-solid fa-circle-plus"></i></a></button>
+            <button type="button" class="btn btn-primary"><a class=" <?= $pageName == 'product_add' ? 'active' : '' ?>" href="product_add.php" style="Text-decoration:none; color:white">新增商品 <i class="fa-solid fa-circle-plus"></i></a></button>
         </div>
         <div class="p-2 bd-highlight">
             <nav aria-label="Page navigation example">
                 <ul class="pagination">
-                    <li class="page-item ">
-                        <a class="page-link" href="#">
-                            <i class="fa-solid fa-angles-left"></i>
-                        </a>
+                    <!-- 前頁按鈕的功能 -->
+                    <li class="page-item">
+                        <a class="page-link" href="?page=1">
+                            <i class="fa-solid fa-angles-left"></i></a>
                     </li>
-                    <li class="page-item ">
-                        <a class="page-link" href="#">
-                            <i class="fa-solid fa-angle-left"></i>
-                        </a>
+                    <li class="page-item">
+                        <a class="page-link" href="?page=<?= $page >= 1 ? $page - 1 : '' ?>"><i class="fa-solid fa-angle-left"></i></a>
                     </li>
+                    <!-- 前頁按鈕的功能 -->
                     <?php for ($i = $page - 5; $i <= $page + 5; $i++) :
                         if ($i >= 1 and $i <= $totalPages) : ?>
-                    <li class="page-item <?= $page == $i ? 'active' : '' ?>">
-                        <a class="page-link" href="?page=<?= $i ?>"><?= $i ?></a>
-                    </li>
+                            <li class="page-item <?= $page == $i ? 'active' : '' ?>">
+                                <a class="page-link" href="?page=<?= $i ?>"><?= $i ?></a>
+                            </li>
                     <?php endif;
                     endfor; ?>
-                    <li class="page-item ">
-                        <a class="page-link" href="#">
-                            <i class="fa-solid fa-angle-right"></i>
-                        </a>
+                    <!-- 後頁按鈕的功能 -->
+                    <li class="page-item">
+                        <a class="page-link" href="?page=<?= $page <= $totalPages ? $page + 1 : '' ?>"><i class="fa-solid fa-angle-right"></i></a>
                     </li>
-                    <li class="page-item ">
-                        <a class="page-link" href="#">
-                            <i class="fa-solid fa-angles-right"></i>
-                        </a>
+                    <li class="page-item">
+                        <a class="page-link" href="?page=<?= $totalPages ?>"><i class="fa-solid fa-angles-right"></i></a>
                     </li>
+                    <!-- 後頁按鈕的功能 -->
                 </ul>
             </nav>
         </div>
@@ -109,25 +104,24 @@ if ($totalRows) {
                 </thead>
                 <tbody>
                     <?php foreach ($rows as $r) : ?>
-                    <tr style="vertical-align: middle;">
-                        <td style="text-align: center"><?= $r['product_id'] ?></td>
-                        <td style="text-align: center"><?= $r['product_name'] ?></td>
-                        <td><?= $r['product_description'] ?></td>
-                        <td style="text-align: center"><?= $r['product_price'] ?></td>
-                        <td style="text-align: center"><?= $r['product_quantity'] ?></td>
-                        <td style="text-align: center"><?= $r['product_category'] ?></td>
-                        <td><?= $r['product_date'] ?></td>
-                        <td><?= $r['product_last_modified'] ?></td>
-                        <td style="text-align: center">
-                            <a href="./product_edit.php?product_id=<?= $r['product_id'] ?>"
-                                class="btn btn-warning fa-solid fa-pen-to-square"></a>
-                        </td>
-                        <td style="text-align: center">
-                            <a href="javascript: deleteOne(<?= $r['product_id'] ?>)">
-                                <button type="button" class="btn btn-danger fa-solid fa-trash-can"></button>
-                            </a>
-                        </td>
-                    </tr>
+                        <tr style="vertical-align: middle;">
+                            <td style="text-align: center"><?= $r['product_id'] ?></td>
+                            <td style="text-align: center"><?= $r['product_name'] ?></td>
+                            <td><?= $r['product_description'] ?></td>
+                            <td style="text-align: center"><?= $r['product_price'] ?></td>
+                            <td style="text-align: center"><?= $r['product_quantity'] ?></td>
+                            <td style="text-align: center"><?= $r['product_category'] ?></td>
+                            <td><?= $r['product_date'] ?></td>
+                            <td><?= $r['product_last_modified'] ?></td>
+                            <td style="text-align: center">
+                                <a href="./product_edit.php?product_id=<?= $r['product_id'] ?>" class="btn btn-warning fa-solid fa-pen-to-square"></a>
+                            </td>
+                            <td style="text-align: center">
+                                <a href="javascript: deleteOne(<?= $r['product_id'] ?>)">
+                                    <button type="button" class="btn btn-danger fa-solid fa-trash-can"></button>
+                                </a>
+                            </td>
+                        </tr>
                     <?php endforeach; ?>
                 </tbody>
             </table>
@@ -138,10 +132,10 @@ if ($totalRows) {
 
 <?php include __DIR__ . '/../parts/scripts.php' ?>
 <script>
-const deleteOne = (product_id) => {
-    if (confirm(`是否要刪除編號為 ${product_id} 的資料?`)) {
-        location.href = `product_delete.php?product_id=${product_id}`;
+    const deleteOne = (product_id) => {
+        if (confirm(`是否要刪除編號為 ${product_id} 的資料?`)) {
+            location.href = `product_delete.php?product_id=${product_id}`;
+        }
     }
-}
 </script>
 <?php include __DIR__ . '/../parts/foot.php' ?>
