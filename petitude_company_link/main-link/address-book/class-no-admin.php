@@ -56,7 +56,7 @@ echo json_encode([
 <!-- 標題 end -->
 
 <div class="container">
-  <div class="d-flex flex-row bd-highlight mb-3">
+  <div class="d-flex flex-row bd-highlight mb-3 ">
     <div class="p-2 bd-highlight">
       <nav aria-label="Page navigation example">
         <ul class="pagination">

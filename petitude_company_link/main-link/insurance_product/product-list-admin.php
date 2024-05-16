@@ -67,6 +67,7 @@ if ($totalRows) {
     <div class="p-2 bd-highlight">
       <nav aria-label="Page navigation example">
         <ul class="pagination">
+<<<<<<< HEAD
           <li class="page-item ">
             <a class="page-link" href="?page=1">
               <i class="fa-solid fa-angles-left"></i>
@@ -76,7 +77,17 @@ if ($totalRows) {
             <a class="page-link" href="?page=<?= $page >= 1 ? $page - 1 : '' ?>">
               <i class="fa-solid fa-angle-left"></i>
             </a>
+=======
+          <!-- 前頁按鈕的功能 -->
+          <li class="page-item">
+            <a class="page-link" href="?page=1">
+              <i class="fa-solid fa-angles-left"></i></a>
           </li>
+          <li class="page-item">
+            <a class="page-link" href="?page=<?= $page >= 1 ? $page - 1 : '' ?>"><i class="fa-solid fa-angle-left"></i></a>
+>>>>>>> origin/Joanne
+          </li>
+          <!-- 前頁按鈕的功能 -->
           <?php for ($i = $page - 5; $i <= $page + 5; $i++) :
             if ($i >= 1 and $i <= $totalPages) : ?>
               <li class="page-item <?= $page == $i ? 'active' : '' ?>">
@@ -84,6 +95,7 @@ if ($totalRows) {
               </li>
           <?php endif;
           endfor; ?>
+<<<<<<< HEAD
           <li class="page-item ">
             <a class="page-link" href="?page=<?= $page <= $totalPages ? $page + 1 : '' ?>">
               <i class="fa-solid fa-angle-right"></i>
@@ -93,7 +105,16 @@ if ($totalRows) {
             <a class="page-link" href="?page=<?= $totalPages ?>">
               <i class="fa-solid fa-angles-right"></i>
             </a>
+=======
+          <!-- 後頁按鈕的功能 -->
+          <li class="page-item">
+            <a class="page-link" href="?page=<?= $page <= $totalPages ? $page + 1 : '' ?>"><i class="fa-solid fa-angle-right"></i></a>
           </li>
+          <li class="page-item">
+            <a class="page-link" href="?page=<?= $totalPages ?>"><i class="fa-solid fa-angles-right"></i></a>
+>>>>>>> origin/Joanne
+          </li>
+          <!-- 後頁按鈕的功能 -->
         </ul>
       </nav>
     </div>
@@ -151,7 +172,7 @@ if ($totalRows) {
               <td><?= $r['pet_funeral_expenses'] ?></td>
               <td><?= $r['pet_reacquisition_cost'] ?></td>
               <td><?= $r['travel_cancellation_fee'] ?></td>
-              <td class="text-center"><a href="add-copy.php?insurance_product_id=<?= $r['insurance_product_id'] ?>" class="btn btn-warning fa-solid fa-pen-to-square">
+              <td class="text-center"><a href="add-copy.php?insurance_product_id=<?= $r['insurance_product_id'] ?>" class="btn btn-warning fa-solid fa-copy">
                 </a></td>
 
               <td class="text-center"><a href="javascript: deleteOne(<?= $r['insurance_product_id'] ?>)">

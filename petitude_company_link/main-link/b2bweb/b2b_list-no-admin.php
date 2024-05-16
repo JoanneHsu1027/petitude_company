@@ -7,8 +7,8 @@ $perPage = 20; # 每一頁最多有幾筆
 
 $page = isset($_GET['page']) ? intval($_GET['page']) : 1;
 if ($page < 1) {
-  header('Location: ?page=1');
-  exit; # 結束這支程式
+    header('Location: ?page=1');
+    exit; # 結束這支程式
 }
 
 $t_sql = "SELECT COUNT(b2b_id) FROM b2b_members";
@@ -21,24 +21,24 @@ $totalPages = 0;
 $rows = [];
 
 if ($totalRows) {
-  # 總頁數
-  $totalPages = ceil($totalRows / $perPage);
-  if ($page > $totalPages) {
-    header("Location: ?page={$totalPages}");
-    exit; # 結束這支程式
-  }
+    # 總頁數
+    $totalPages = ceil($totalRows / $perPage);
+    if ($page > $totalPages) {
+        header("Location: ?page={$totalPages}");
+        exit; # 結束這支程式
+    }
 
-  # 取得分頁資料
-  $sql = sprintf(
-    "SELECT b2b.*,b2b_job_name
+    # 取得分頁資料
+    $sql = sprintf(
+        "SELECT b2b.*,b2b_job_name
     FROM b2b_members as b2b
     JOIN b2b_job ON fk_b2b_job_id = b2b_job_id
     ORDER BY b2b_id ASC
     LIMIT %s, %s",
-    ($page - 1) * $perPage,
-    $perPage
-  );
-  $rows = $pdo->query($sql)->fetchAll();
+        ($page - 1) * $perPage,
+        $perPage
+    );
+    $rows = $pdo->query($sql)->fetchAll();
 }
 
 /*
@@ -64,18 +64,18 @@ $endPage = $currentPage + $range;
 
 
 if ($startPage < 1) {
-  $endPage += 1 - $startPage; #由於這時候$startPage是負數，$endPage會加上 1-$startPage 補足缺少的長度 
-  $startPage = 1;
+    $endPage += 1 - $startPage; #由於這時候$startPage是負數，$endPage會加上 1-$startPage 補足缺少的長度 
+    $startPage = 1;
 }
 
 if ($endPage > $totalPages) {
-  $startPage -= $endPage - $totalPages; #由於這時候$endPage超過了原本的總頁數，$startPage- ($endPage - $totalPages) 減去多餘的長度 
-  $endPage = $totalPages;
+    $startPage -= $endPage - $totalPages; #由於這時候$endPage超過了原本的總頁數，$startPage- ($endPage - $totalPages) 減去多餘的長度 
+    $endPage = $totalPages;
 
-  # 確保 `startPage` 不小於 1
-  if ($startPage < 1) {
-    $startPage = 1;
-  }
+    # 確保 `startPage` 不小於 1
+    if ($startPage < 1) {
+        $startPage = 1;
+    }
 }
 ?>
 
@@ -93,33 +93,30 @@ if ($endPage > $totalPages) {
         <div class="p-2 bd-highlight">
             <nav aria-label="Page navigation example">
                 <ul class="pagination">
-                    <li class="page-item ">
-                        <a class="page-link" href="#">
-                            <i class="fa-solid fa-angles-left"></i>
-                        </a>
+                    <!-- 前頁按鈕的功能 -->
+                    <li class="page-item">
+                        <a class="page-link" href="?page=1">
+                            <i class="fa-solid fa-angles-left"></i></a>
                     </li>
-                    <li class="page-item ">
-                        <a class="page-link" href="#">
-                            <i class="fa-solid fa-angle-left"></i>
-                        </a>
+                    <li class="page-item">
+                        <a class="page-link" href="?page=<?= $page >= 1 ? $page - 1 : '' ?>"><i class="fa-solid fa-angle-left"></i></a>
                     </li>
+                    <!-- 前頁按鈕的功能 -->
                     <?php for ($i = $page - 5; $i <= $page + 5; $i++) :
-            if ($i >= 1 and $i <= $totalPages) : ?>
-                    <li class="page-item <?= $page == $i ? 'active' : '' ?>">
-                        <a class="page-link" href="?page=<?= $i ?>"><?= $i ?></a>
-                    </li>
+                        if ($i >= 1 and $i <= $totalPages) : ?>
+                            <li class="page-item <?= $page == $i ? 'active' : '' ?>">
+                                <a class="page-link" href="?page=<?= $i ?>"><?= $i ?></a>
+                            </li>
                     <?php endif;
-          endfor; ?>
-                    <li class="page-item ">
-                        <a class="page-link" href="#">
-                            <i class="fa-solid fa-angle-right"></i>
-                        </a>
+                    endfor; ?>
+                    <!-- 後頁按鈕的功能 -->
+                    <li class="page-item">
+                        <a class="page-link" href="?page=<?= $page <= $totalPages ? $page + 1 : '' ?>"><i class="fa-solid fa-angle-right"></i></a>
                     </li>
-                    <li class="page-item ">
-                        <a class="page-link" href="#">
-                            <i class="fa-solid fa-angles-right"></i>
-                        </a>
+                    <li class="page-item">
+                        <a class="page-link" href="?page=<?= $totalPages ?>"><i class="fa-solid fa-angles-right"></i></a>
                     </li>
+                    <!-- 後頁按鈕的功能 -->
                 </ul>
             </nav>
         </div>
@@ -139,14 +136,14 @@ if ($endPage > $totalPages) {
                 </thead>
                 <tbody>
                     <?php foreach ($rows as $r) : ?>
-                    <tr style="vertical-align: middle;">
+                        <tr style="vertical-align: middle;">
 
-                        <td style="text-align: center"><?= $r['b2b_account'] ?></td>
-                        <td style="text-align: center"><?= $r['b2b_name'] ?></td>
-                        <td style="text-align: center"><?= $r['b2b_job_name'] ?></td>
+                            <td style="text-align: center"><?= $r['b2b_account'] ?></td>
+                            <td style="text-align: center"><?= $r['b2b_name'] ?></td>
+                            <td style="text-align: center"><?= $r['b2b_job_name'] ?></td>
 
 
-                    </tr>
+                        </tr>
                     <?php endforeach; ?>
                 </tbody>
             </table>

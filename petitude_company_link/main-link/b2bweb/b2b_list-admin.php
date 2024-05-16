@@ -7,8 +7,8 @@ $perPage = 20; # 每一頁最多有幾筆
 
 $page = isset($_GET['page']) ? intval($_GET['page']) : 1;
 if ($page < 1) {
-  header('Location: ?page=1');
-  exit; # 結束這支程式
+    header('Location: ?page=1');
+    exit; # 結束這支程式
 }
 
 $sort = isset($_GET['sort']) ? $_GET['sort'] : 'b2b_account';
@@ -19,18 +19,18 @@ $searchConditions = [];
 $params = [];
 
 if (!empty($_GET['b2b_account'])) {
-  $searchConditions[] = 'b2b_account = :b2b_account';
-  $params[':b2b_account'] = $_GET['b2b_account'];
+    $searchConditions[] = 'b2b_account = :b2b_account';
+    $params[':b2b_account'] = $_GET['b2b_account'];
 }
 
 if (!empty($_GET['b2b_job_name'])) {
-  $searchConditions[] = 'b2b_job_name LIKE :b2b_job_name';
-  $params[':b2b_job_name'] = '%' . $_GET['b2b_job_name'] . '%';
+    $searchConditions[] = 'b2b_job_name LIKE :b2b_job_name';
+    $params[':b2b_job_name'] = '%' . $_GET['b2b_job_name'] . '%';
 }
 
 $searchSql = '';
 if (!empty($searchConditions)) {
-  $searchSql = 'WHERE ' . implode(' AND ', $searchConditions);
+    $searchSql = 'WHERE ' . implode(' AND ', $searchConditions);
 }
 
 
@@ -45,27 +45,27 @@ $totalPages = $totalRows ? ceil($totalRows / $perPage) : 0;
 $rows = [];
 
 if ($totalRows) {
-  # 總頁數
-  $totalPages = ceil($totalRows / $perPage);
-  if ($page > $totalPages) {
-    header("Location: ?page={$totalPages}");
-    exit; # 結束這支程式
-  }
+    # 總頁數
+    $totalPages = ceil($totalRows / $perPage);
+    if ($page > $totalPages) {
+        header("Location: ?page={$totalPages}");
+        exit; # 結束這支程式
+    }
 
-  # 取得分頁資料
-  $sql = sprintf(
-    "SELECT b2b.*,b2b_job_name
+    # 取得分頁資料
+    $sql = sprintf(
+        "SELECT b2b.*,b2b_job_name
     FROM b2b_members as b2b
     JOIN b2b_job ON fk_b2b_job_id = b2b_job_id
     $searchSql
     ORDER BY $sort $order
     LIMIT %s, %s",
-    ($page - 1) * $perPage,
-    $perPage
-  );
-  $stmt = $pdo->prepare($sql);
-  $stmt->execute($params);
-  $rows = $stmt->fetchAll();
+        ($page - 1) * $perPage,
+        $perPage
+    );
+    $stmt = $pdo->prepare($sql);
+    $stmt->execute($params);
+    $rows = $stmt->fetchAll();
 }
 
 // 分頁邏輯保持不變
@@ -75,17 +75,17 @@ $startPage = $currentPage - $range;
 $endPage = $currentPage + $range;
 
 if ($startPage < 1) {
-  $endPage += 1 - $startPage;
-  $startPage = 1;
+    $endPage += 1 - $startPage;
+    $startPage = 1;
 }
 
 if ($endPage > $totalPages) {
-  $startPage -= $endPage - $totalPages;
-  $endPage = $totalPages;
+    $startPage -= $endPage - $totalPages;
+    $endPage = $totalPages;
 
-  if ($startPage < 1) {
-    $startPage = 1;
-  }
+    if ($startPage < 1) {
+        $startPage = 1;
+    }
 }
 ?>
 
@@ -105,40 +105,35 @@ if ($endPage > $totalPages) {
     <div class="d-flex flex-row bd-highlight mb-3">
         <div class="p-2 bd-highlight">
 
-            <button type="button" class="btn btn-primary"><a class=" <?= $pageName == 'b2b_add' ? 'active' : '' ?>"
-                    href="b2b-add.php" style="Text-decoration:none; color:white">新增員工 <i
-                        class="fa-solid fa-circle-plus"></i></a></button>
+            <button type="button" class="btn btn-primary"><a class=" <?= $pageName == 'b2b_add' ? 'active' : '' ?>" href="b2b-add.php" style="Text-decoration:none; color:white">新增員工 <i class="fa-solid fa-circle-plus"></i></a></button>
         </div>
         <div class="p-2 bd-highlight">
             <nav aria-label="Page navigation example">
                 <ul class="pagination">
-                    <li class="page-item ">
-                        <a class="page-link" href="#">
-                            <i class="fa-solid fa-angles-left"></i>
-                        </a>
+                    <!-- 前頁按鈕的功能 -->
+                    <li class="page-item">
+                        <a class="page-link" href="?page=1">
+                            <i class="fa-solid fa-angles-left"></i></a>
                     </li>
-                    <li class="page-item ">
-                        <a class="page-link" href="#">
-                            <i class="fa-solid fa-angle-left"></i>
-                        </a>
+                    <li class="page-item">
+                        <a class="page-link" href="?page=<?= $page >= 1 ? $page - 1 : '' ?>"><i class="fa-solid fa-angle-left"></i></a>
                     </li>
+                    <!-- 前頁按鈕的功能 -->
                     <?php for ($i = $page - 5; $i <= $page + 5; $i++) :
-            if ($i >= 1 and $i <= $totalPages) : ?>
-                    <li class="page-item <?= $page == $i ? 'active' : '' ?>">
-                        <a class="page-link" href="?page=<?= $i ?>"><?= $i ?></a>
-                    </li>
+                        if ($i >= 1 and $i <= $totalPages) : ?>
+                            <li class="page-item <?= $page == $i ? 'active' : '' ?>">
+                                <a class="page-link" href="?page=<?= $i ?>"><?= $i ?></a>
+                            </li>
                     <?php endif;
-          endfor; ?>
-                    <li class="page-item ">
-                        <a class="page-link" href="#">
-                            <i class="fa-solid fa-angle-right"></i>
-                        </a>
+                    endfor; ?>
+                    <!-- 後頁按鈕的功能 -->
+                    <li class="page-item">
+                        <a class="page-link" href="?page=<?= $page <= $totalPages ? $page + 1 : '' ?>"><i class="fa-solid fa-angle-right"></i></a>
                     </li>
-                    <li class="page-item ">
-                        <a class="page-link" href="#">
-                            <i class="fa-solid fa-angles-right"></i>
-                        </a>
+                    <li class="page-item">
+                        <a class="page-link" href="?page=<?= $totalPages ?>"><i class="fa-solid fa-angles-right"></i></a>
                     </li>
+                    <!-- 後頁按鈕的功能 -->
                 </ul>
             </nav>
         </div>
@@ -152,8 +147,7 @@ if ($endPage > $totalPages) {
                 <div class="form-group row mb-0 align-items-center">
                     <label for="b2b_account" class="col-sm-3 col-form-label pe-0" style="color: #0c5a67;">員工編號</label>
                     <div class="col-sm-6 ps-0">
-                        <input type="text" class="form-control ps-0" id="b2b_account" name="b2b_account"
-                            value="<?= htmlentities($_GET['b2b_account'] ?? '') ?>">
+                        <input type="text" class="form-control ps-0" id="b2b_account" name="b2b_account" value="<?= htmlentities($_GET['b2b_account'] ?? '') ?>">
                     </div>
                     <div class="col-sm-3">
                         <button type="submit" class="btn btn-primary btn-block">搜尋</button>
@@ -169,20 +163,16 @@ if ($endPage > $totalPages) {
                 <thead>
                     <tr style="vertical-align: middle; text-align: center">
                         <th scope="col">員工編號
-                            <a href="?sort=b2b_id&order=desc&page=<?= $currentPage ?>"><i
-                                    class="fa-solid fa-sort-down"></i></a>
-                            <a href="?sort=b2b_id&order=asc&page=<?= $currentPage ?>"><i
-                                    class="fa-solid fa-sort-up"></i></a>
+                            <a href="?sort=b2b_id&order=desc&page=<?= $currentPage ?>"><i class="fa-solid fa-sort-down"></i></a>
+                            <a href="?sort=b2b_id&order=asc&page=<?= $currentPage ?>"><i class="fa-solid fa-sort-up"></i></a>
                         </th>
 
                         <th scope="col">員工姓名</th>
                         <th scope="col">員工手機</th>
                         <th scope="col">員工信箱</th>
                         <th scope="col">職位
-                            <a href="?sort=fk_b2b_job_id&order=desc&page=<?= $currentPage ?>"><i
-                                    class="fa-solid fa-sort-down"></i></a>
-                            <a href="?sort=fk_b2b_job_id&order=asc&page=<?= $currentPage ?>"><i
-                                    class="fa-solid fa-sort-up"></i></a>
+                            <a href="?sort=fk_b2b_job_id&order=desc&page=<?= $currentPage ?>"><i class="fa-solid fa-sort-down"></i></a>
+                            <a href="?sort=fk_b2b_job_id&order=asc&page=<?= $currentPage ?>"><i class="fa-solid fa-sort-up"></i></a>
                         </th>
 
                         <th scope="col">修改資料</th>
@@ -191,24 +181,24 @@ if ($endPage > $totalPages) {
                 </thead>
                 <tbody>
                     <?php foreach ($rows as $r) : ?>
-                    <tr style="vertical-align: middle;">
+                        <tr style="vertical-align: middle;">
 
-                        <td style="text-align: center"><?= $r['b2b_account'] ?></td>
-                        <td style="text-align: center"><?= $r['b2b_name'] ?></td>
-                        <td style="text-align: center"><?= $r['b2b_mobile'] ?></td>
-                        <td style="text-align: center"><?= $r['b2b_email'] ?></td>
-                        <td style="text-align: center"><?= $r['b2b_job_name'] ?></td>
-                        <td style="text-align: center">
-                            <a href="b2b-edit.php?b2b_id=<?= $r['b2b_id'] ?>">
-                                <button type="button" class="btn btn-warning fa-solid fa-pen-to-square"></button>
-                            </a>
-                        </td>
-                        <td style="text-align: center">
-                            <a href="javascript: deleteOne(<?= $r['b2b_id'] ?>)">
-                                <button type="button" class="btn btn-danger fa-solid fa-trash-can"></button>
-                            </a>
-                        </td>
-                    </tr>
+                            <td style="text-align: center"><?= $r['b2b_account'] ?></td>
+                            <td style="text-align: center"><?= $r['b2b_name'] ?></td>
+                            <td style="text-align: center"><?= $r['b2b_mobile'] ?></td>
+                            <td style="text-align: center"><?= $r['b2b_email'] ?></td>
+                            <td style="text-align: center"><?= $r['b2b_job_name'] ?></td>
+                            <td style="text-align: center">
+                                <a href="b2b-edit.php?b2b_id=<?= $r['b2b_id'] ?>">
+                                    <button type="button" class="btn btn-warning fa-solid fa-pen-to-square"></button>
+                                </a>
+                            </td>
+                            <td style="text-align: center">
+                                <a href="javascript: deleteOne(<?= $r['b2b_id'] ?>)">
+                                    <button type="button" class="btn btn-danger fa-solid fa-trash-can"></button>
+                                </a>
+                            </td>
+                        </tr>
 
 
                     <?php endforeach; ?>
@@ -221,10 +211,10 @@ if ($endPage > $totalPages) {
 
 <?php include __DIR__ . '/../parts/scripts.php' ?>
 <script>
-const deleteOne = (b2b_id) => {
-    if (confirm(`是否要刪除編號為 ${b2b_id} 的資料?`)) {
-        location.href = `b2b-delete.php?b2b_id=${b2b_id}`;
+    const deleteOne = (b2b_id) => {
+        if (confirm(`是否要刪除編號為 ${b2b_id} 的資料?`)) {
+            location.href = `b2b-delete.php?b2b_id=${b2b_id}`;
+        }
     }
-}
 </script>
 <?php include __DIR__ . '/../parts/foot.php' ?>
