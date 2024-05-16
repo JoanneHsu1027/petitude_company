@@ -32,7 +32,7 @@ $stmt = $pdo->query($class_sql);
               <label for="class_id" class="form-label">文章分類</label>
               <select class="form-select" id="class_id" name="class_id">
                 <option value="">--請選擇文章分類--</option>
-                <?php while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) : ?>
+                <?php while ($row = $stmt->fetch(PDO::FETCH_ASSOC)): ?>
                   <option value="<?= $row['class_id'] ?>"><?= $row['class_name'] ?></option>
                 <?php endwhile; ?>
               </select>
@@ -55,6 +55,7 @@ $stmt = $pdo->query($class_sql);
               <label for="article_img[]" class="form-label">文章圖片</label><br>
               <form method="post" action="upload-articleImg-api.php" enctype="multipart/form-data">
                 <input type="file" name="article_img[]" class="form-control" accept="image/*" multiple />
+              </form>
             </div>
 
             <button type="submit" class="btn btn-primary">新增</button>
@@ -66,7 +67,8 @@ $stmt = $pdo->query($class_sql);
   <a href="article.php"><i class="fa-solid fa-angles-left"></i>文章列表</a>
 </div>
 <!-- Modal -->
-<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+  aria-labelledby="staticBackdropLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
