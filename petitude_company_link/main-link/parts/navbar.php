@@ -64,7 +64,7 @@
             <div class="accordion-item">
                 <h2 class="accordion-header" id="heading4">
                     <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse4" aria-expanded="true" aria-controls="collapse4">
-                        保險管理
+                        寵物保險管理
                     </button>
                 </h2>
                 <div id="collapse4" class="accordion-collapse collapse" aria-labelledby="heading4" data-bs-parent="#accordionExample">
@@ -99,7 +99,7 @@
             <div class="accordion-item">
                 <h2 class="accordion-header" id="heading6">
                     <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse6" aria-expanded="true" aria-controls="collapse6">
-                        論壇管理
+                        網站論壇管理
                     </button>
                 </h2>
                 <div id="collapse6" class="accordion-collapse collapse" aria-labelledby="heading6" data-bs-parent="#accordionExample">

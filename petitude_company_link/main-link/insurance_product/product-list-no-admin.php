@@ -60,11 +60,12 @@ if ($totalRows) {
   <!-- 標題 end -->
 
 
-
-  <div class="container" style="max-width: 1800px">
+  <!-- pagenation -->
+  <div class="container pagenation" style="max-width: 1700px">
     <div class="d-flex flex-row bd-highlight mb-3">
-
       <div class="p-2 bd-highlight">
+
+
         <nav aria-label="Page navigation example">
           <ul class="pagination">
             <!-- 前頁按鈕的功能 -->
@@ -93,9 +94,10 @@ if ($totalRows) {
             <!-- 後頁按鈕的功能 -->
           </ul>
         </nav>
+
+
       </div>
     </div>
-    <!-- pagenation -->
 
 
     <div class="row">

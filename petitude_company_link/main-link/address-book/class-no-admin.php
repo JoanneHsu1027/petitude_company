@@ -55,16 +55,8 @@ echo json_encode([
 </div>
 <!-- 標題 end -->
 
-<<<<<<< HEAD
 <div class="container">
   <div class="d-flex flex-row bd-highlight mb-3 ">
-=======
-<div class="container" style="max-width: 1600px">
-  <div class="d-flex flex-row bd-highlight mb-3">
-    <!-- <div class="p-2 bd-highlight">
-      <button type="button" class="btn btn-primary"><a class=" <?= $pageName == 'request_add' ? 'active' : '' ?>" href="class-add.php" style="Text-decoration:none; color:white">新增主題 <i class="fa-solid fa-circle-plus"></i></a></button>
-    </div> -->
->>>>>>> origin/trent3281
     <div class="p-2 bd-highlight">
       <nav aria-label="Page navigation example">
         <ul class="pagination">
@@ -78,12 +70,12 @@ echo json_encode([
               <i class="fa-solid fa-angle-left"></i>
             </a>
           </li>
-          <?php for ($i = $page - 5; $i <= $page + 5; $i++):
-            if ($i >= 1 and $i <= $totalPages): ?>
+          <?php for ($i = $page - 5; $i <= $page + 5; $i++) :
+            if ($i >= 1 and $i <= $totalPages) : ?>
               <li class="page-item <?= $page == $i ? 'active' : '' ?>">
                 <a class="page-link" href="?page=<?= $i ?>"><?= $i ?></a>
               </li>
-            <?php endif;
+          <?php endif;
           endfor; ?>
           <li class="page-item ">
             <a class="page-link" href="?page=<?= $page + 1 ?>">
@@ -100,8 +92,7 @@ echo json_encode([
     </div>
 
     <div class="p-2 bd-highlight" style="display: flex; ">
-      <a style="display: flex;  align-items:center;padding:0 0 14px 0" href="article.php">所有文章<i
-          class="fa-solid fa-angles-right"></i></a>
+      <a style="display: flex;  align-items:center;padding:0 0 14px 0" href="article.php">所有文章<i class="fa-solid fa-angles-right"></i></a>
     </div>
   </div>
 
@@ -114,11 +105,10 @@ echo json_encode([
             <th scope="col">主題ID</th>
             <th scope="col">主題名稱</th>
             <th scope="col">員工ID</th>
-            <th colspan="2"></th>
           </tr>
         </thead>
         <tbody>
-          <?php foreach ($rows as $r): ?>
+          <?php foreach ($rows as $r) : ?>
 
             <tr>
               <td></td>
@@ -141,9 +131,7 @@ echo json_encode([
             <tr>
 
               <td colspan="6">
-                <button class="btn btn-primary" type="button" data-bs-toggle="collapse"
-                  data-bs-target="#collapseExample<?= $r['class_id'] ?>" aria-expanded="false"
-                  aria-controls="collapseExample<?= $r['class_id'] ?>">
+                <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample<?= $r['class_id'] ?>" aria-expanded="false" aria-controls="collapseExample<?= $r['class_id'] ?>">
                   <i class="fa-solid fa-chevron-down"></i>
                 </button>
                 <div class="collapse" id="collapseExample<?= $r['class_id'] ?>">
@@ -151,7 +139,7 @@ echo json_encode([
                     <table class="table table-bordered">
                       <?php
                       $class_id = $r['class_id']; // 從迴圈中獲取類別ID
-                    
+
                       // 查詢與特定 class_id 相關聯的文章資訊
                       $stmt = $pdo->prepare("SELECT article_id, article_date, article_name, article_content, article_img, fk_class_id, fk_b2c_id
                             FROM article
@@ -162,7 +150,7 @@ echo json_encode([
                       // 檢查是否有文章
                       $hasArticles = !empty($articles);
                       ?>
-                      <?php if ($hasArticles): ?>
+                      <?php if ($hasArticles) : ?>
                         <thead>
                           <tr>
                             <th>文章ID</th>

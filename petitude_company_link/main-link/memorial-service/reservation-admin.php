@@ -35,7 +35,7 @@ if ($totalRows) {
 <?php include __DIR__ . '/../parts/navbar.php' ?>
 
 <div id="content">
-    <h1>線上預約參觀-有權限</h1>
+    <h2>線上預約參觀-有權限</h2>
 </div>
 <div class="container">
     <div class="d-flex flex-row bd-highlight mb-3">
@@ -73,85 +73,50 @@ if ($totalRows) {
             </nav>
         </div>
     </div>
-    <div class="p-2 bd-highlight">
-        <nav aria-label="Page navigation example">
-            <ul class="pagination">
-                <li class="page-item">
-                    <a class="page-link" href="#">
-                        <i class="fa-solid fa-angles-left"></i>
-                    </a>
-                </li>
 
-                <li class="page-item">
-                    <a class="page-link" href="#">
-                        <i class="fa-solid fa-angle-left"></i>
-                    </a>
-                </li>
 
-                <?php for ($i = $page - 5; $i <= $page + 5; $i++) : ?>
-                    <?php if ($i >= 1 and $i <= $totalPages) : ?>
-                        <li class="page-item <?= $page == $i ? 'active' : '' ?>">
-                            <a class="page-link" href="?page=<?= $i ?>"><?= $i ?></a>
-                        </li>
-                    <?php endif ?>
-                <?php endfor ?>
-                <li class="page-item">
-                    <a class="page-link" href="#">
-                        <i class="fa-solid fa-angle-right"></i>
-                    </a>
-                </li>
-                <li class="page-item">
-                    <a class="page-link" href="#">
-                        <i class="fa-solid fa-angles-right"></i>
-                    </a>
-                </li>
-            </ul>
-        </nav>
-    </div>
-</div>
-
-<div class="row">
-    <div class="col">
-        <form id="form1" name="form1" onsubmit="sendMultiDel(event)">
-            <table class="table table-bordered table-striped">
-                <thead>
-                    <tr style="text-align: center; vertical-align: middle;">
-                        <th>預約參觀號碼</th>
-                        <th>會員編號</th>
-                        <th>寵物編號</th>
-                        <th>預約日期</th>
-                        <th>備註</th>
-                        <th>修改資料</th>
-                        <th>刪除資料</th>
-                    </tr>
-                </thead>
-                <!-- table欄位 -->
-                <!-- 欄位值 -->
-                <tbody>
-                    <?php foreach ($rows as $r) : ?>
-                        <tr style="vertical-align: middle;">
-                            <td style="text-align: center"><?= $r['reservation_id'] ?></td>
-                            <td style="text-align: center"><?= $r['fk_b2c_id'] ?></td>
-                            <td style="text-align: center"><?= $r['fk_pet_id'] ?></td>
-                            <td style="text-align: center"><?= $r['reservation_date'] ?></td>
-                            <td><?= $r['note'] ?></td>
-                            <td style="text-align: center">
-                                <a href="edit-reservation.php?reservation_id=<?= $r['reservation_id'] ?>">
-                                    <i class="fa-solid fa-pen-to-square btn btn-warning"></i>
-                                </a>
-                            </td>
-                            <td style="text-align: center">
-                                <a href="javascript: deleteOne(<?= $r['reservation_id'] ?>)">
-                                    <i class="fa-solid fa-trash-can btn btn-danger"></i>
-                                </a>
-                            </td>
+    <div class="row">
+        <div class="col">
+            <form id="form1" name="form1" onsubmit="sendMultiDel(event)">
+                <table class="table table-bordered table-striped">
+                    <thead>
+                        <tr style="text-align: center; vertical-align: middle;">
+                            <th>預約參觀號碼</th>
+                            <th>會員編號</th>
+                            <th>寵物編號</th>
+                            <th>預約日期</th>
+                            <th>備註</th>
+                            <th>修改資料</th>
+                            <th>刪除資料</th>
                         </tr>
-                    <?php endforeach ?>
-                </tbody>
-            </table>
-        </form>
+                    </thead>
+                    <!-- table欄位 -->
+                    <!-- 欄位值 -->
+                    <tbody>
+                        <?php foreach ($rows as $r) : ?>
+                            <tr style="vertical-align: middle;">
+                                <td style="text-align: center"><?= $r['reservation_id'] ?></td>
+                                <td style="text-align: center"><?= $r['fk_b2c_id'] ?></td>
+                                <td style="text-align: center"><?= $r['fk_pet_id'] ?></td>
+                                <td style="text-align: center"><?= $r['reservation_date'] ?></td>
+                                <td><?= $r['note'] ?></td>
+                                <td style="text-align: center">
+                                    <a href="edit-reservation.php?reservation_id=<?= $r['reservation_id'] ?>">
+                                        <i class="fa-solid fa-pen-to-square btn btn-warning"></i>
+                                    </a>
+                                </td>
+                                <td style="text-align: center">
+                                    <a href="javascript: deleteOne(<?= $r['reservation_id'] ?>)">
+                                        <i class="fa-solid fa-trash-can btn btn-danger"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                        <?php endforeach ?>
+                    </tbody>
+                </table>
+            </form>
+        </div>
     </div>
-</div>
 </div>
 <?php include __DIR__ . '/../parts/scripts.php' ?>
 <script>
