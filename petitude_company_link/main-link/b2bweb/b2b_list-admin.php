@@ -104,12 +104,21 @@ if ($endPage > $totalPages) {
     <!-- 分頁功能Start -->
     <div class="d-flex flex-row bd-highlight mb-3">
         <div class="p-2 bd-highlight">
+<<<<<<< HEAD
 
             <button type="button" class="btn btn-primary"><a class=" <?= $pageName == 'b2b_add' ? 'active' : '' ?>" href="b2b-add.php" style="Text-decoration:none; color:white">新增員工 <i class="fa-solid fa-circle-plus"></i></a></button>
+=======
+            <button type="button" class="btn btn-primary">
+                <a class=" <?= $pageName == 'b2b_add' ? 'active' : '' ?>"href="b2b-add.php" style="Text-decoration:none; color:white">
+                    新增員工 <i class="fa-solid fa-circle-plus"></i>
+                </a>
+            </button>
+>>>>>>> origin/s6538142
         </div>
         <div class="p-2 bd-highlight">
             <nav aria-label="Page navigation example">
                 <ul class="pagination">
+<<<<<<< HEAD
                     <!-- 前頁按鈕的功能 -->
                     <li class="page-item">
                         <a class="page-link" href="?page=1">
@@ -117,10 +126,22 @@ if ($endPage > $totalPages) {
                     </li>
                     <li class="page-item">
                         <a class="page-link" href="?page=<?= $page >= 1 ? $page - 1 : '' ?>"><i class="fa-solid fa-angle-left"></i></a>
+=======
+                    <li class="page-item ">
+                        <a class="page-link" href="?page=<?= 1 ?>">
+                            <i class="fa-solid fa-angles-left"></i>
+                        </a>
+                    </li>
+                    <li class="page-item ">
+                        <a class="page-link" href="?page=<?= $currentPage - 1 ?>">
+                            <i class="fa-solid fa-angle-left"></i>
+                        </a>
+>>>>>>> origin/s6538142
                     </li>
                     <!-- 前頁按鈕的功能 -->
                     <?php for ($i = $page - 5; $i <= $page + 5; $i++) :
                         if ($i >= 1 and $i <= $totalPages) : ?>
+<<<<<<< HEAD
                             <li class="page-item <?= $page == $i ? 'active' : '' ?>">
                                 <a class="page-link" href="?page=<?= $i ?>"><?= $i ?></a>
                             </li>
@@ -132,13 +153,28 @@ if ($endPage > $totalPages) {
                     </li>
                     <li class="page-item">
                         <a class="page-link" href="?page=<?= $totalPages ?>"><i class="fa-solid fa-angles-right"></i></a>
+=======
+                    <li class="page-item <?= $page == $i ? 'active' : '' ?>">
+                        <a class="page-link" href="?page=<?= $i ?>"><?= $i ?></a>
+                    </li>
+                    <?php endif;
+                    endfor; ?>
+                    <li class="page-item ">
+                        <a class="page-link" href="?page=<?= $currentPage + 1 ?>">
+                            <i class="fa-solid fa-angle-right"></i>
+                        </a>
+                    </li>
+                    <li class="page-item ">
+                        <a class="page-link"  href="?page=<?= $totalPages ?>">
+                            <i class="fa-solid fa-angles-right"></i>
+                        </a>
+>>>>>>> origin/s6538142
                     </li>
                     <!-- 後頁按鈕的功能 -->
                 </ul>
             </nav>
         </div>
-
-
+    </div>
         <!-- 分頁功能End -->
 
         <!-- 搜尋功能Start -->
