@@ -37,7 +37,7 @@ $pageName = 'login';
             </div>
             <button type="submit" class="btn btn-primary">登入</button>
           </form>
-        </div>
+        </div>       
       </div>
     </div>
   </div>
