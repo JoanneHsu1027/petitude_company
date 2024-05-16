@@ -1,8 +1,16 @@
-<?php 
-    session_start();
+<?php
+session_start();
 
-    if(isset($_SESSION['admin'])) {
-        include __DIR__. '/product-admin.php';
+if (isset($_SESSION['admin'])) {
+    $fk_b2b_job_id = $_SESSION['admin']['fk_b2b_job_id'];
+    if ($fk_b2b_job_id == 1 || $fk_b2b_job_id == 2) {
+        header("Location: ./product-admin.php");
+        exit();
     } else {
-        include __DIR__. '/product-no-admin.php';
+        header("Location: ./product-no-admin.php");
+        exit();
     }
+} else {
+    // 處理未登入的情況
+    echo "You are not logged in.";
+}

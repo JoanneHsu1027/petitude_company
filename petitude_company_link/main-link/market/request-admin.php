@@ -90,17 +90,16 @@ if ($endPage > $totalPages) {
         </div>
         <div class="p-2 bd-highlight">
             <nav aria-label="Page navigation example">
-                <ul class="pagination mx-0">
-                    <li class="page-item ">
-                        <a class="page-link" href="#">
-                            <i class="fa-solid fa-angles-left"></i>
-                        </a>
+                <ul class="pagination">
+                    <!-- 前頁按鈕的功能 -->
+                    <li class="page-item">
+                        <a class="page-link" href="?page=1">
+                            <i class="fa-solid fa-angles-left"></i></a>
                     </li>
-                    <li class="page-item ">
-                        <a class="page-link" href="#">
-                            <i class="fa-solid fa-angle-left"></i>
-                        </a>
+                    <li class="page-item">
+                        <a class="page-link" href="?page=<?= $page >= 1 ? $page - 1 : '' ?>"><i class="fa-solid fa-angle-left"></i></a>
                     </li>
+                    <!-- 前頁按鈕的功能 -->
                     <?php for ($i = $page - 5; $i <= $page + 5; $i++) :
                         if ($i >= 1 and $i <= $totalPages) : ?>
                             <li class="page-item <?= $page == $i ? 'active' : '' ?>">
@@ -108,16 +107,14 @@ if ($endPage > $totalPages) {
                             </li>
                     <?php endif;
                     endfor; ?>
-                    <li class="page-item ">
-                        <a class="page-link" href="#">
-                            <i class="fa-solid fa-angle-right"></i>
-                        </a>
+                    <!-- 後頁按鈕的功能 -->
+                    <li class="page-item">
+                        <a class="page-link" href="?page=<?= $page <= $totalPages ? $page + 1 : '' ?>"><i class="fa-solid fa-angle-right"></i></a>
                     </li>
-                    <li class="page-item ">
-                        <a class="page-link" href="#">
-                            <i class="fa-solid fa-angles-right"></i>
-                        </a>
+                    <li class="page-item">
+                        <a class="page-link" href="?page=<?= $totalPages ?>"><i class="fa-solid fa-angles-right"></i></a>
                     </li>
+                    <!-- 後頁按鈕的功能 -->
                 </ul>
             </nav>
         </div>

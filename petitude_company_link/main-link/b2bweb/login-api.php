@@ -44,7 +44,7 @@ if (password_verify($_POST['b2b_password'], $row['b2b_password'])) {
     'b2b_id' => $row['b2b_id'],
     'b2b_name' => $row['b2b_name'],
     'b2b_account' => $row['b2b_account'],
-    'b2b_password' => $row['b2b_password'],
+    'fk_b2b_job_id' => $row['fk_b2b_job_id'],
   ];
 } else {
   # 密碼是錯的

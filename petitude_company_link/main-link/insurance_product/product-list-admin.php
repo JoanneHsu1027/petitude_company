@@ -67,17 +67,6 @@ if ($totalRows) {
     <div class="p-2 bd-highlight">
       <nav aria-label="Page navigation example">
         <ul class="pagination">
-<<<<<<< HEAD
-          <li class="page-item ">
-            <a class="page-link" href="?page=1">
-              <i class="fa-solid fa-angles-left"></i>
-            </a>
-          </li>
-          <li class="page-item ">
-            <a class="page-link" href="?page=<?= $page >= 1 ? $page - 1 : '' ?>">
-              <i class="fa-solid fa-angle-left"></i>
-            </a>
-=======
           <!-- 前頁按鈕的功能 -->
           <li class="page-item">
             <a class="page-link" href="?page=1">
@@ -85,7 +74,6 @@ if ($totalRows) {
           </li>
           <li class="page-item">
             <a class="page-link" href="?page=<?= $page >= 1 ? $page - 1 : '' ?>"><i class="fa-solid fa-angle-left"></i></a>
->>>>>>> origin/Joanne
           </li>
           <!-- 前頁按鈕的功能 -->
           <?php for ($i = $page - 5; $i <= $page + 5; $i++) :
@@ -95,24 +83,12 @@ if ($totalRows) {
               </li>
           <?php endif;
           endfor; ?>
-<<<<<<< HEAD
-          <li class="page-item ">
-            <a class="page-link" href="?page=<?= $page <= $totalPages ? $page + 1 : '' ?>">
-              <i class="fa-solid fa-angle-right"></i>
-            </a>
-          </li>
-          <li class="page-item ">
-            <a class="page-link" href="?page=<?= $totalPages ?>">
-              <i class="fa-solid fa-angles-right"></i>
-            </a>
-=======
           <!-- 後頁按鈕的功能 -->
           <li class="page-item">
             <a class="page-link" href="?page=<?= $page <= $totalPages ? $page + 1 : '' ?>"><i class="fa-solid fa-angle-right"></i></a>
           </li>
           <li class="page-item">
             <a class="page-link" href="?page=<?= $totalPages ?>"><i class="fa-solid fa-angles-right"></i></a>
->>>>>>> origin/Joanne
           </li>
           <!-- 後頁按鈕的功能 -->
         </ul>

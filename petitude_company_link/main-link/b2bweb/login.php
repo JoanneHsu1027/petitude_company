@@ -37,7 +37,7 @@ $pageName = 'login';
             </div>
             <button type="submit" class="btn btn-primary">登入</button>
           </form>
-        </div>       
+        </div>
       </div>
     </div>
   </div>
@@ -62,7 +62,7 @@ $pageName = 'login';
   </div>
 </div>
 
-<?php include __DIR__ . '/../parts/scripts.php' ?>
+<?php include __DIR__ . '/../parts/scripts.php'; ?>
 <script>
   const emailField = document.form1.email;
 
@@ -95,4 +95,4 @@ $pageName = 'login';
 
   const myModal = new bootstrap.Modal('#staticBackdrop')
 </script>
-<?php include __DIR__ . '/../parts/html-foot.php' ?>
+<?php include __DIR__ . '/../parts/foot.php'; ?>
