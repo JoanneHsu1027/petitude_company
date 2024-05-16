@@ -56,23 +56,22 @@ echo json_encode([
 <!-- 標題 end -->
 
 <div class="container" style="max-width: 1600px">
-  <div class="d-flex flex-row bd-highlight mb-3">
+  <div class="d-flex flex-row bd-highlight mb-3 ">
     <div class="p-2 bd-highlight">
       <button type="button" class="btn btn-primary"><a class=" <?= $pageName == 'request_add' ? 'active' : '' ?>" href="class-add.php" style="Text-decoration:none; color:white">新增主題 <i class="fa-solid fa-circle-plus"></i></a></button>
     </div>
     <div class="p-2 bd-highlight">
       <nav aria-label="Page navigation example">
         <ul class="pagination">
-          <li class="page-item ">
+          <!-- 前頁按鈕的功能 -->
+          <li class="page-item">
             <a class="page-link" href="?page=1">
-              <i class="fa-solid fa-angles-left"></i>
-            </a>
+              <i class="fa-solid fa-angles-left"></i></a>
           </li>
-          <li class="page-item ">
-            <a class="page-link" href="?page=<?= $page - 1 ?>">
-              <i class="fa-solid fa-angle-left"></i>
-            </a>
+          <li class="page-item">
+            <a class="page-link" href="?page=<?= $page >= 1 ? $page - 1 : '' ?>"><i class="fa-solid fa-angle-left"></i></a>
           </li>
+          <!-- 前頁按鈕的功能 -->
           <?php for ($i = $page - 5; $i <= $page + 5; $i++) :
             if ($i >= 1 and $i <= $totalPages) : ?>
               <li class="page-item <?= $page == $i ? 'active' : '' ?>">
@@ -80,26 +79,27 @@ echo json_encode([
               </li>
           <?php endif;
           endfor; ?>
-          <li class="page-item ">
-            <a class="page-link" href="?page=<?= $page + 1 ?>">
-              <i class="fa-solid fa-angle-right"></i>
-            </a>
+          <!-- 後頁按鈕的功能 -->
+          <li class="page-item">
+            <a class="page-link" href="?page=<?= $page <= $totalPages ? $page + 1 : '' ?>"><i class="fa-solid fa-angle-right"></i></a>
           </li>
-          <li class="page-item ">
-            <a class="page-link" href="?page=<?= $totalPages ?>">
-              <i class="fa-solid fa-angles-right"></i>
-            </a>
+          <li class="page-item">
+            <a class="page-link" href="?page=<?= $totalPages ?>"><i class="fa-solid fa-angles-right"></i></a>
           </li>
+          <!-- 後頁按鈕的功能 -->
         </ul>
       </nav>
     </div>
-  </div>
-
-  <div class="d-flex flex-row-reverse bd-highlight">
-    <div class="p-2 bd-highlight">
+    <div class="p-2 bd-highlight align-items-center">
       <a href="article.php">所有文章<i class="fa-solid fa-angles-right"></i></a>
     </div>
   </div>
+
+  <!-- <div class="d-flex flex-row-reverse bd-highlight">
+    <div class="p-2 bd-highlight">
+      <a href="article.php">所有文章<i class="fa-solid fa-angles-right"></i></a>
+    </div>
+  </div> -->
 
   <div class="row">
     <div class="col">

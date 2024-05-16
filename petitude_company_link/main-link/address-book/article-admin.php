@@ -49,21 +49,26 @@ echo json_encode([
 <?php include __DIR__ . '/../parts/head.php' ?>
 <?php include __DIR__ . '/../parts/navbar.php' ?>
 
+<div id="content">
+  <h2>文章列表</h2>
+</div>
+<!-- 標題 end -->
+
+
 <div class="container">
-  <div class="row">
-    <div class="col">
+  <div class="d-flex flex-row bd-highlight mb-3">
+    <div class="p-2 bd-highlight">
       <nav aria-label="Page navigation example">
         <ul class="pagination">
-          <li class="page-item ">
+          <!-- 前頁按鈕的功能 -->
+          <li class="page-item">
             <a class="page-link" href="?page=1">
-              <i class="fa-solid fa-angles-left"></i>
-            </a>
+              <i class="fa-solid fa-angles-left"></i></a>
           </li>
-          <li class="page-item ">
-            <a class="page-link" href="?page=<?= $page - 1 ?>">
-              <i class="fa-solid fa-angle-left"></i>
-            </a>
+          <li class="page-item">
+            <a class="page-link" href="?page=<?= $page >= 1 ? $page - 1 : '' ?>"><i class="fa-solid fa-angle-left"></i></a>
           </li>
+          <!-- 前頁按鈕的功能 -->
           <?php for ($i = $page - 5; $i <= $page + 5; $i++) :
             if ($i >= 1 and $i <= $totalPages) : ?>
               <li class="page-item <?= $page == $i ? 'active' : '' ?>">
@@ -71,16 +76,14 @@ echo json_encode([
               </li>
           <?php endif;
           endfor; ?>
-          <li class="page-item ">
-            <a class="page-link" href="?page=<?= $page + 1 ?>">
-              <i class="fa-solid fa-angle-right"></i>
-            </a>
+          <!-- 後頁按鈕的功能 -->
+          <li class="page-item">
+            <a class="page-link" href="?page=<?= $page <= $totalPages ? $page + 1 : '' ?>"><i class="fa-solid fa-angle-right"></i></a>
           </li>
-          <li class="page-item ">
-            <a class="page-link" href="?page=<?= $totalPages ?>">
-              <i class="fa-solid fa-angles-right"></i>
-            </a>
+          <li class="page-item">
+            <a class="page-link" href="?page=<?= $totalPages ?>"><i class="fa-solid fa-angles-right"></i></a>
           </li>
+          <!-- 後頁按鈕的功能 -->
         </ul>
       </nav>
     </div>

@@ -112,40 +112,35 @@ if ($endPage > $totalPages) {
     <!-- 分頁功能Start -->
     <div class="d-flex flex-row bd-highlight mb-1">
         <div class="p-2 bd-highlight">
-            <button type="button" class="btn btn-primary"><a class=" <?= $pageName == 'b2c_add' ? 'active' : '' ?>"
-                    href="b2c-add.php" style="Text-decoration:none; color:white">新增會員 <i
-                        class="fa-solid fa-circle-plus"></i></a></button>
+            <button type="button" class="btn btn-primary"><a class=" <?= $pageName == 'b2c_add' ? 'active' : '' ?>" href="b2c-add.php" style="Text-decoration:none; color:white">新增會員 <i class="fa-solid fa-circle-plus"></i></a></button>
         </div>
         <div class="p-2 bd-highlight">
             <nav aria-label="Page navigation example">
                 <ul class="pagination">
-                    <li class="page-item ">
-                        <a class="page-link" href="#">
-                            <i class="fa-solid fa-angles-left"></i>
-                        </a>
+                    <!-- 前頁按鈕的功能 -->
+                    <li class="page-item">
+                        <a class="page-link" href="?page=1">
+                            <i class="fa-solid fa-angles-left"></i></a>
                     </li>
-                    <li class="page-item ">
-                        <a class="page-link" href="#">
-                            <i class="fa-solid fa-angle-left"></i>
-                        </a>
+                    <li class="page-item">
+                        <a class="page-link" href="?page=<?= $page >= 1 ? $page - 1 : '' ?>"><i class="fa-solid fa-angle-left"></i></a>
                     </li>
+                    <!-- 前頁按鈕的功能 -->
                     <?php for ($i = $page - 5; $i <= $page + 5; $i++) :
                         if ($i >= 1 and $i <= $totalPages) : ?>
-                    <li class="page-item <?= $page == $i ? 'active' : '' ?>">
-                        <a class="page-link" href="?page=<?= $i ?>"><?= $i ?></a>
-                    </li>
+                            <li class="page-item <?= $page == $i ? 'active' : '' ?>">
+                                <a class="page-link" href="?page=<?= $i ?>"><?= $i ?></a>
+                            </li>
                     <?php endif;
                     endfor; ?>
-                    <li class="page-item ">
-                        <a class="page-link" href="#">
-                            <i class="fa-solid fa-angle-right"></i>
-                        </a>
+                    <!-- 後頁按鈕的功能 -->
+                    <li class="page-item">
+                        <a class="page-link" href="?page=<?= $page <= $totalPages ? $page + 1 : '' ?>"><i class="fa-solid fa-angle-right"></i></a>
                     </li>
-                    <li class="page-item ">
-                        <a class="page-link" href="#">
-                            <i class="fa-solid fa-angles-right"></i>
-                        </a>
+                    <li class="page-item">
+                        <a class="page-link" href="?page=<?= $totalPages ?>"><i class="fa-solid fa-angles-right"></i></a>
                     </li>
+                    <!-- 後頁按鈕的功能 -->
                 </ul>
             </nav>
         </div>
@@ -156,29 +151,21 @@ if ($endPage > $totalPages) {
     <div class="p-2 bd-highlight">
         <form method="get" action="" class="form-horizontal">
             <div class="form-group row mb-0 align-items-center">
-                <label for="b2c_id" class="col-sm-1 col-form-label px-0 text-center"
-                    style="color: #0c5a67;">會員編號</label>
+                <label for="b2c_id" class="col-sm-1 col-form-label px-0 text-center" style="color: #0c5a67;">會員編號</label>
                 <div class="col-sm-1 px-0">
-                    <input type="text" class="form-control mr-2" id="b2c_id" name="b2c_id"
-                        value="<?= htmlentities($_GET['b2c_id'] ?? '') ?>">
+                    <input type="text" class="form-control mr-2" id="b2c_id" name="b2c_id" value="<?= htmlentities($_GET['b2c_id'] ?? '') ?>">
                 </div>
-                <label for="b2c_name" class="col-sm-1 col-form-label px-0 text-center"
-                    style="color: #0c5a67;">姓名</label>
+                <label for="b2c_name" class="col-sm-1 col-form-label px-0 text-center" style="color: #0c5a67;">姓名</label>
                 <div class="col-sm-1 px-0">
-                    <input type="text" class="form-control mr-2" id="b2c_name" name="b2c_name"
-                        value="<?= htmlentities($_GET['b2c_name'] ?? '') ?>">
+                    <input type="text" class="form-control mr-2" id="b2c_name" name="b2c_name" value="<?= htmlentities($_GET['b2c_name'] ?? '') ?>">
                 </div>
-                <label for="b2c_email" class="col-sm-1 col-form-label px-0 text-center"
-                    style="color: #0c5a67;">Email</label>
+                <label for="b2c_email" class="col-sm-1 col-form-label px-0 text-center" style="color: #0c5a67;">Email</label>
                 <div class="col-sm-1 px-0">
-                    <input type="text" class="form-control mr-2" id="b2c_email" name="b2c_email"
-                        value="<?= htmlentities($_GET['b2c_email'] ?? '') ?>">
+                    <input type="text" class="form-control mr-2" id="b2c_email" name="b2c_email" value="<?= htmlentities($_GET['b2c_email'] ?? '') ?>">
                 </div>
-                <label for="b2c_mobile" class="col-sm-1 col-form-label px-0 text-center"
-                    style="color: #0c5a67;">手機</label>
+                <label for="b2c_mobile" class="col-sm-1 col-form-label px-0 text-center" style="color: #0c5a67;">手機</label>
                 <div class="col-sm-1 px-0">
-                    <input type="text" class="form-control mr-2" id="b2c_mobile" name="b2c_mobile"
-                        value="<?= htmlentities($_GET['b2c_mobile'] ?? '') ?>">
+                    <input type="text" class="form-control mr-2" id="b2c_mobile" name="b2c_mobile" value="<?= htmlentities($_GET['b2c_mobile'] ?? '') ?>">
                 </div>
                 <div class="col-sm-3">
                     <button type="submit" class="btn btn-primary">搜尋</button>
@@ -195,28 +182,22 @@ if ($endPage > $totalPages) {
                     <tr style="vertical-align: middle; text-align: center">
                         <th scope="col">
                             會員編號
-                            <a href="?sort=b2c_id&order=desc&page=<?= $currentPage ?>"><i
-                                    class="fa-solid fa-sort-down"></i></a>
-                            <a href="?sort=b2c_id&order=asc&page=<?= $currentPage ?>"><i
-                                    class="fa-solid fa-sort-up"></i></a>
+                            <a href="?sort=b2c_id&order=desc&page=<?= $currentPage ?>"><i class="fa-solid fa-sort-down"></i></a>
+                            <a href="?sort=b2c_id&order=asc&page=<?= $currentPage ?>"><i class="fa-solid fa-sort-up"></i></a>
                         </th>
                         <th scope="col">
                             姓名
                         </th>
                         <th scope="col">
                             Email
-                            <a href="?sort=b2c_email&order=desc&page=<?= $currentPage ?>"><i
-                                    class="fa-solid fa-sort-down"></i></a>
-                            <a href="?sort=b2c_email&order=asc&page=<?= $currentPage ?>"><i
-                                    class="fa-solid fa-sort-up"></i></a>
+                            <a href="?sort=b2c_email&order=desc&page=<?= $currentPage ?>"><i class="fa-solid fa-sort-down"></i></a>
+                            <a href="?sort=b2c_email&order=asc&page=<?= $currentPage ?>"><i class="fa-solid fa-sort-up"></i></a>
                         </th>
                         <th scope="col">手機</th>
                         <th scope="col">
                             生日
-                            <a href="?sort=b2c_birth&order=desc&page=<?= $currentPage ?>"><i
-                                    class="fa-solid fa-sort-down"></i></a>
-                            <a href="?sort=b2c_birth&order=asc&page=<?= $currentPage ?>"><i
-                                    class="fa-solid fa-sort-up"></i></a>
+                            <a href="?sort=b2c_birth&order=desc&page=<?= $currentPage ?>"><i class="fa-solid fa-sort-down"></i></a>
+                            <a href="?sort=b2c_birth&order=asc&page=<?= $currentPage ?>"><i class="fa-solid fa-sort-up"></i></a>
                         </th>
 
                         <th scope="col">地址</th>
@@ -226,25 +207,25 @@ if ($endPage > $totalPages) {
                 </thead>
                 <tbody>
                     <?php foreach ($rows as $r) : ?>
-                    <tr style="vertical-align: middle;">
+                        <tr style="vertical-align: middle;">
 
-                        <td style="text-align: center"><?= $r['b2c_id'] ?></td>
-                        <td style="text-align: center"><?= $r['b2c_name'] ?></td>
-                        <td style="text-align: center"><?= $r['b2c_email'] ?></td>
-                        <td style="text-align: center"><?= $r['b2c_mobile'] ?></td>
-                        <td style="text-align: center"><?= $r['b2c_birth'] ?></td>
-                        <td><?= htmlentities($r['county_name'] . $r['city_name'] . $r['b2c_address']) ?></td>
-                        <td style="text-align: center">
-                            <a href="b2c-edit.php?b2c_id=<?= $r['b2c_id'] ?>">
-                                <button type="button" class="btn btn-warning fa-solid fa-pen-to-square"></button>
-                            </a>
-                        </td>
-                        <td style="text-align: center">
-                            <a href="javascript: deleteOne(<?= $r['b2c_id'] ?>)">
-                                <button type="button" class="btn btn-danger fa-solid fa-trash-can"></button>
-                            </a>
-                        </td>
-                    </tr>
+                            <td style="text-align: center"><?= $r['b2c_id'] ?></td>
+                            <td style="text-align: center"><?= $r['b2c_name'] ?></td>
+                            <td style="text-align: center"><?= $r['b2c_email'] ?></td>
+                            <td style="text-align: center"><?= $r['b2c_mobile'] ?></td>
+                            <td style="text-align: center"><?= $r['b2c_birth'] ?></td>
+                            <td><?= htmlentities($r['county_name'] . $r['city_name'] . $r['b2c_address']) ?></td>
+                            <td style="text-align: center">
+                                <a href="b2c-edit.php?b2c_id=<?= $r['b2c_id'] ?>">
+                                    <button type="button" class="btn btn-warning fa-solid fa-pen-to-square"></button>
+                                </a>
+                            </td>
+                            <td style="text-align: center">
+                                <a href="javascript: deleteOne(<?= $r['b2c_id'] ?>)">
+                                    <button type="button" class="btn btn-danger fa-solid fa-trash-can"></button>
+                                </a>
+                            </td>
+                        </tr>
                     <?php endforeach; ?>
                 </tbody>
             </table>
@@ -255,10 +236,10 @@ if ($endPage > $totalPages) {
 
 <?php include __DIR__ . '/../parts/scripts.php' ?>
 <script>
-const deleteOne = (b2c_id) => {
-    if (confirm(`是否要刪除編號為 ${b2c_id} 的資料?`)) {
-        location.href = `b2c-delete.php?b2c_id=${b2c_id}`;
+    const deleteOne = (b2c_id) => {
+        if (confirm(`是否要刪除編號為 ${b2c_id} 的資料?`)) {
+            location.href = `b2c-delete.php?b2c_id=${b2c_id}`;
+        }
     }
-}
 </script>
 <?php include __DIR__ . '/../parts/foot.php' ?>
