@@ -90,33 +90,33 @@ if ($endPage > $totalPages) {
 
 <div class="container">
     <div class="d-flex flex-row bd-highlight mb-3">
-        <div class="p-2 bd-highlight">
+    <div class="p-2 bd-highlight">
             <nav aria-label="Page navigation example">
                 <ul class="pagination">
                     <li class="page-item ">
-                        <a class="page-link" href="#">
+                        <a class="page-link" href="?page=<?= 1 ?>">
                             <i class="fa-solid fa-angles-left"></i>
                         </a>
                     </li>
                     <li class="page-item ">
-                        <a class="page-link" href="#">
+                        <a class="page-link" href="?page=<?= $currentPage - 1 ?>">
                             <i class="fa-solid fa-angle-left"></i>
                         </a>
                     </li>
                     <?php for ($i = $page - 5; $i <= $page + 5; $i++) :
-            if ($i >= 1 and $i <= $totalPages) : ?>
+                        if ($i >= 1 and $i <= $totalPages) : ?>
                     <li class="page-item <?= $page == $i ? 'active' : '' ?>">
                         <a class="page-link" href="?page=<?= $i ?>"><?= $i ?></a>
                     </li>
                     <?php endif;
-          endfor; ?>
+                    endfor; ?>
                     <li class="page-item ">
-                        <a class="page-link" href="#">
+                        <a class="page-link" href="?page=<?= $currentPage + 1 ?>">
                             <i class="fa-solid fa-angle-right"></i>
                         </a>
                     </li>
                     <li class="page-item ">
-                        <a class="page-link" href="#">
+                        <a class="page-link"  href="?page=<?= $totalPages ?>">
                             <i class="fa-solid fa-angles-right"></i>
                         </a>
                     </li>
@@ -124,6 +124,10 @@ if ($endPage > $totalPages) {
             </nav>
         </div>
     </div>
+
+
+
+    
 
     <div class="row">
         <div class="col">

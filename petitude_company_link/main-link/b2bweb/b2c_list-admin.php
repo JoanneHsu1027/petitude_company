@@ -120,12 +120,12 @@ if ($endPage > $totalPages) {
             <nav aria-label="Page navigation example">
                 <ul class="pagination">
                     <li class="page-item ">
-                        <a class="page-link" href="#">
+                        <a class="page-link" href="?page=<?= 1 ?>">
                             <i class="fa-solid fa-angles-left"></i>
                         </a>
                     </li>
                     <li class="page-item ">
-                        <a class="page-link" href="#">
+                        <a class="page-link" href="?page=<?= $currentPage - 1 ?>">
                             <i class="fa-solid fa-angle-left"></i>
                         </a>
                     </li>
@@ -137,12 +137,12 @@ if ($endPage > $totalPages) {
                     <?php endif;
                     endfor; ?>
                     <li class="page-item ">
-                        <a class="page-link" href="#">
+                        <a class="page-link" href="?page=<?= $currentPage + 1 ?>">
                             <i class="fa-solid fa-angle-right"></i>
                         </a>
                     </li>
                     <li class="page-item ">
-                        <a class="page-link" href="#">
+                        <a class="page-link"  href="?page=<?= $totalPages ?>">
                             <i class="fa-solid fa-angles-right"></i>
                         </a>
                     </li>
@@ -150,7 +150,6 @@ if ($endPage > $totalPages) {
             </nav>
         </div>
     </div>
-    <!-- 分頁功能End -->
 
     <!-- 搜尋功能Start -->
     <div class="p-2 bd-highlight">
