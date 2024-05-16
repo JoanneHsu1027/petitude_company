@@ -11,7 +11,7 @@ if ($page < 1) {
     exit;
 }
 
-$perPage = 25; # 每頁有幾筆
+$perPage = 20; # 每頁有幾筆
 # 算總筆數 $totalRows
 $t_sql = "SELECT COUNT(1) FROM reservation";
 $totalRows = $pdo->query($t_sql)->fetch(PDO::FETCH_NUM)[0];
