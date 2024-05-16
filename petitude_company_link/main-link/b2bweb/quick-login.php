@@ -8,4 +8,4 @@ $_SESSION['admin'] = [
   'b2b_name' => '王大明',
 ];
 
-header('Location: index_.php');
+header('Location: b2b_list.php');
