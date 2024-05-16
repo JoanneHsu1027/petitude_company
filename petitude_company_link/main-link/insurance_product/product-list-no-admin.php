@@ -46,41 +46,32 @@ if ($totalRows) {
 <?php include __DIR__ . '/../page/html-header.php'; ?>
 <?php include __DIR__ . '/../page/html-navbar.php';  ?>
 
+<!-- 標題 start -->
+<div id="content">
+  <h2>保險產品表</h2>
+</div>
+<!-- 標題 end -->
 
 
-<div class="">
-  <div class="container">
-    <div class="row">
-      <h2 class="c-dark pagenation">保險產品表</h2>
-    </div>
-  </div>
-
-  <div class="container pagenation mb-3">
-    <div class="row">
-      <div>
-        <a href="add.php">
-          <button class="btn btn-primary">新增產品 <i class="fa-solid fa-circle-plus"></i></button>
-        </a>
+<div class="container" style="max-width: 1800px">
+  <div class="d-flex flex-row bd-highlight mb-3">
+    <div class="d-flex flex-row bd-highlight mb-3">
+      <div class="p-2 bd-highlight">
+        <button type="button" class="btn btn-primary"><a class=" <?= $pageName == 'add' ? 'active' : '' ?>" href="add.php" style="Text-decoration:none; color:white">新增商品 <i class="fa-solid fa-circle-plus"></i></a></button>
       </div>
-    </div>
-  </div>
-
-
-  <!-- pagenation -->
-  <div class="container pagenation">
-    <div class="row">
-      <div class="col">
+      <div class="p-2 bd-highlight">
         <nav aria-label="Page navigation example">
           <ul class="pagination">
-            <!-- 前頁按鈕的功能 -->
-            <li class="page-item">
-              <a class="page-link" href="?page=1">
-                <i class="fa-solid fa-angles-left"></i></a>
+            <li class="page-item ">
+              <a class="page-link" href="#">
+                <i class="fa-solid fa-angles-left"></i>
+              </a>
             </li>
-            <li class="page-item">
-              <a class="page-link" href="?page=<?= $page >= 1 ? $page - 1 : '' ?>"><i class="fa-solid fa-angle-left"></i></a>
+            <li class="page-item ">
+              <a class="page-link" href="#">
+                <i class="fa-solid fa-angle-left"></i>
+              </a>
             </li>
-            <!-- 前頁按鈕的功能 -->
             <?php for ($i = $page - 5; $i <= $page + 5; $i++) :
               if ($i >= 1 and $i <= $totalPages) : ?>
                 <li class="page-item <?= $page == $i ? 'active' : '' ?>">
@@ -88,24 +79,26 @@ if ($totalRows) {
                 </li>
             <?php endif;
             endfor; ?>
-            <!-- 後頁按鈕的功能 -->
-            <li class="page-item">
-              <a class="page-link" href="?page=<?= $page <= $totalPages ? $page + 1 : '' ?>"><i class="fa-solid fa-angle-right"></i></a>
+            <li class="page-item ">
+              <a class="page-link" href="#">
+                <i class="fa-solid fa-angle-right"></i>
+              </a>
             </li>
-            <li class="page-item">
-              <a class="page-link" href="?page=<?= $totalPages ?>"><i class="fa-solid fa-angles-right"></i></a>
+            <li class="page-item ">
+              <a class="page-link" href="#">
+                <i class="fa-solid fa-angles-right"></i>
+              </a>
             </li>
-            <!-- 後頁按鈕的功能 -->
           </ul>
         </nav>
       </div>
     </div>
-  </div>
-  <!-- pagenation -->
 
-  <div class="container-fluid pagenation">
+    <!-- pagenation -->
+
+    >
     <div class="row">
-      <div class="">
+      <div class="col-12">
         <table class="table table-bordered table-striped ">
           <thead>
             <tr>
