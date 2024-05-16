@@ -46,14 +46,14 @@ if (!isset($_SESSION)) {
   }
 
   .eb-garamond span:nth-child(4) {
-    left: 50px;
+    left: 0px;
     bottom: -300px;
     opacity: 0.7;
     font-size: 250px;
   }
 
   .eb-garamond span:nth-child(5) {
-    left: 1300px;
+    left: 1100px;
     bottom: -300px;
 
   }
