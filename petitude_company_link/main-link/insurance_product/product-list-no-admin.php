@@ -43,8 +43,8 @@ if ($totalRows) {
 ?>
 
 
-<?php include __DIR__ . '/../page/html-header.php'; ?>
-<?php include __DIR__ . '/../page/html-navbar.php';  ?>
+<?php include __DIR__ . '/../parts/head.php' ?>
+<?php include __DIR__ . '/../parts/navbar.php' ?>
 
 <!-- 標題 start -->
 <div id="content">
@@ -63,12 +63,12 @@ if ($totalRows) {
         <nav aria-label="Page navigation example">
           <ul class="pagination">
             <li class="page-item ">
-              <a class="page-link" href="#">
+              <a class="page-link" href="?page=1">
                 <i class="fa-solid fa-angles-left"></i>
               </a>
             </li>
             <li class="page-item ">
-              <a class="page-link" href="#">
+              <a class="page-link" href="?page=<?= $page >= 1 ? $page - 1 : '' ?>">
                 <i class="fa-solid fa-angle-left"></i>
               </a>
             </li>
@@ -80,12 +80,12 @@ if ($totalRows) {
             <?php endif;
             endfor; ?>
             <li class="page-item ">
-              <a class="page-link" href="#">
+              <a class="page-link" href="?page=<?= $page <= $totalPages ? $page + 1 : '' ?>">
                 <i class="fa-solid fa-angle-right"></i>
               </a>
             </li>
             <li class="page-item ">
-              <a class="page-link" href="#">
+              <a class="page-link" href="?page=<?= $totalPages ?>">
                 <i class="fa-solid fa-angles-right"></i>
               </a>
             </li>
